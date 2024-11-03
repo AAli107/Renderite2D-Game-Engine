@@ -64,27 +64,6 @@ namespace Renderite2D_Project.EngineCode
             base.OnRenderFrame(args);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            // Draws a pixel
-            //if (!(x < 0 || y < 0))
-            //{
-            //    // Set the ucolor in the shader
-            //    GL.Uniform4(GL.GetUniformLocation(shader.shaderHandle, "uColor"), Color4.White);
-            //
-            //    // Set the texture uniform in the shader
-            //    GL.Uniform1(GL.GetUniformLocation(shader.shaderHandle, "uTexture"), 0);
-            //
-            //    tex.Bind();
-            //    // Specify the vertex data for pixel
-            //    float[] position = { (float)x / (ClientSize.X * 0.5f) - 1f, (float)-y / (ClientSize.Y * 0.5f) + 1f, 0, 0 };
-            //    GL.BindBuffer(BufferTarget.ArrayBuffer, shader.vertBufferObj);
-            //    GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * position.Length, position, BufferUsageHint.DynamicDraw);
-            //
-            //    // Draws the pixel
-            //    GL.DrawArrays(PrimitiveType.Points, 0, 1);
-            //
-            //    Texture.Unbind();
-            //}
-
             gfx.DrawRectangle(new Vector2d(x, y), new Vector2d(100, 100), Color4.Aqua, false);
             gfx.DrawQuad(new Vector2d(x, y), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Red, nTex, false);
             gfx.DrawLine(new Vector2d(x, y), new Vector2d(200, 200), Color4.Yellow, (float)Math.Sin(timeSinceStart) * 100f, false);
