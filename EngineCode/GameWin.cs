@@ -27,7 +27,7 @@ namespace Renderite2D_Project.EngineCode
             ClientSize = new Vector2i(1280, 720);
             AspectRatio = (16, 9);
             CenterWindow();
-            WindowBorder = WindowBorder.Resizable;
+            WindowBorder = WindowBorder.Fixed;
             Title = "Renderite2D Game";
 
             shader = new("Assets/Engine Assets/vertexShader.vert", "Assets/Engine Assets/fragmentShader.frag");
