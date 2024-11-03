@@ -10,7 +10,7 @@ namespace Renderite2D_Project.EngineCode
     public class GameWin : GameWindow
     {
         public double FPS { get { return 1 / UpdateTime; } }
-        public double timeSinceStart { get; private set; }
+        public double TimeSinceStart { get; private set; }
 
         Shader shader = null;
         Shapes gfx = null;
@@ -55,7 +55,7 @@ namespace Renderite2D_Project.EngineCode
             if (IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.S)) { y++; }
             if (IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.D)) { x++; }
             Console.WriteLine(Math.Round(FPS) + " FPS");
-            timeSinceStart += UpdateTime;
+            TimeSinceStart += UpdateTime;
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
@@ -66,10 +66,10 @@ namespace Renderite2D_Project.EngineCode
 
             gfx.DrawRectangle(new Vector2d(x, y), new Vector2d(100, 100), Color4.Aqua, false);
             gfx.DrawQuad(new Vector2d(x, y), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Red, nTex, false);
-            gfx.DrawLine(new Vector2d(x, y), new Vector2d(200, 200), Color4.Yellow, (float)Math.Sin(timeSinceStart) * 100f, false);
+            gfx.DrawLine(new Vector2d(x, y), new Vector2d(200, 200), Color4.Yellow, (float)Math.Sin(TimeSinceStart) * 100f, false);
             gfx.DrawTriangle(new Vector2d(x, y), new Vector2d(300, 200), new Vector2d(200, 300), Color4.Magenta, false);
             gfx.DrawPixel(new Vector2i((int)x + 320, (int)y + 240), Color4.Lime);
-            gfx.DrawPoint(new Vector2i((int)x + 350, (int)y + 240), Color4.Lime, (float)Math.Sin(timeSinceStart) * 10f);
+            gfx.DrawPoint(new Vector2i((int)x + 350, (int)y + 240), Color4.Lime, (float)Math.Sin(TimeSinceStart) * 10f);
 
             // Post-Rendering Clear and swap buffer with background color
             GL.ClearColor(bgColor);
