@@ -9,7 +9,7 @@
     <UseWindowsForms>True</UseWindowsForms>
     <UseWPF>False</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <StartupObject>Renderite2D_Project.EngineCode.Program</StartupObject>
+    <StartupObject>Renderite2D_Project.Renderite2D.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

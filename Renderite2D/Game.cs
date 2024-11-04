@@ -7,19 +7,15 @@ using Renderite2D_Project.Renderite2D.Graphics;
 
 namespace Renderite2D_Project.Renderite2D
 {
-    public class GameWin : GameWindow
+    public class Game : GameWindow
     {
-        public double FPS { get { return 1 / UpdateTime; } }
-        public double TimeSinceStart { get; private set; }
 
         Shader shader = null;
         Shapes gfx = null;
-        Color bgColor = Color.Black;
+        Level currentLevel = new SampleLevel();
+        double timeSinceStart = 0;
 
-        float x = 100;
-        float y = 100;
-        Texture nTex;
-        public GameWin(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
+        public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
         protected override void OnLoad()
         {
@@ -33,8 +29,6 @@ namespace Renderite2D_Project.Renderite2D
             shader = new("Assets/Engine Assets/vertexShader.vert", "Assets/Engine Assets/fragmentShader.frag");
             gfx = new();
 
-            nTex = new("Assets/Game Assets/neutral.png");
-
             GL.UseProgram(shader.shaderHandle);
             GL.BindVertexArray(shader.vertArrayObj);
             GL.EnableVertexAttribArray(0);
@@ -45,17 +39,17 @@ namespace Renderite2D_Project.Renderite2D
             // Adds support for transparency for textures
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+            currentLevel?.Begin();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
-            if (IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.W)) { y--; }
-            if (IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.A)) { x--; }
-            if (IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.S)) { y++; }
-            if (IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.D)) { x++; }
-            Console.WriteLine(Math.Round(FPS) + " FPS");
-            TimeSinceStart += UpdateTime;
+
+            currentLevel?.Update();
+
+            timeSinceStart += UpdateTime;
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
@@ -64,15 +58,10 @@ namespace Renderite2D_Project.Renderite2D
             base.OnRenderFrame(args);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            gfx.DrawRectangle(new Vector2d(x, y), new Vector2d(100, 100), Color4.Aqua, false);
-            gfx.DrawQuad(new Vector2d(x, y), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Red, nTex, false);
-            gfx.DrawLine(new Vector2d(x, y), new Vector2d(200, 200), Color4.Yellow, (float)Math.Sin(TimeSinceStart) * 100f, false);
-            gfx.DrawTriangle(new Vector2d(x, y), new Vector2d(300, 200), new Vector2d(200, 300), Color4.Magenta, false);
-            gfx.DrawPixel(new Vector2i((int)x + 320, (int)y + 240), Color4.Lime);
-            gfx.DrawPoint(new Vector2i((int)x + 350, (int)y + 240), Color4.Lime, (float)Math.Sin(TimeSinceStart) * 10f);
+            currentLevel?.Draw(gfx);
 
             // Post-Rendering Clear and swap buffer with background color
-            GL.ClearColor(bgColor);
+            GL.ClearColor(currentLevel != null ? currentLevel.BackgroundColor : Color.Black);
             SwapBuffers();
         }
 
@@ -92,9 +81,18 @@ namespace Renderite2D_Project.Renderite2D
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
         }
 
-        private class Shapes
+        public class Time
         {
-            private readonly GameWin win = Program.GameWindow;
+            private static readonly Game win = Program.GameWindow;
+
+            public static double DeltaTime { get { return win.UpdateTime; } }
+            public static double FPS { get { return 1 / win.UpdateTime; } }
+            public static double TimeSinceStart { get { return win.timeSinceStart; } }
+        }
+
+        public class Shapes
+        {
+            private readonly Game win = Program.GameWindow;
 
             public void DrawRectangle(Vector2d position, Vector2d dimension, Color4 color, Texture texture, bool isStatic = false)
             {

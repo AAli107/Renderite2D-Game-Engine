@@ -5,31 +5,36 @@
         /// <summary>
         /// The game's main window
         /// </summary>
-        protected readonly GameWin win = Program.GameWindow;
+        protected readonly Game win = Program.GameWindow;
+
+        /// <summary>
+        /// The Background color of the level
+        /// </summary>
+        public Color BackgroundColor { get; set; }
 
         /// <summary>
         /// Gets executed when the Level starts
         /// </summary>
-        protected virtual void Begin() { }
+        public virtual void Begin() { }
 
         /// <summary>
         /// Gets executed every frame while the level is loaded
         /// </summary>
-        protected virtual void Update() { }
+        public virtual void Update() { }
 
         /// <summary>
         /// Gets executed a fixed amount of times per second while the level is loaded
         /// </summary>
-        protected virtual void FixedUpdate() { }
+        public virtual void FixedUpdate() { }
 
         /// <summary>
         /// All rendering functions must be placed here
         /// </summary>
-        protected virtual void Draw() { }
+        public virtual void Draw(Game.Shapes gfx) { }
 
         /// <summary>
         /// Gets executed when the level ends or unloaded
         /// </summary>
-        protected virtual void End() { }
+        public virtual void End() { }
     }
 }
