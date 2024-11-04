@@ -3,9 +3,9 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
-using Renderite2D_Project.EngineCode.Graphics;
+using Renderite2D_Project.Renderite2D.Graphics;
 
-namespace Renderite2D_Project.EngineCode
+namespace Renderite2D_Project.Renderite2D
 {
     public class GameWin : GameWindow
     {

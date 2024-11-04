@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-namespace Renderite2D_Project.EngineCode.Graphics
+namespace Renderite2D_Project.Renderite2D.Graphics
 {
     public class Shader : IDisposable
     {

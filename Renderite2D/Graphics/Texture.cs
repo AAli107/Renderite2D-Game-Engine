@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using System.Runtime.InteropServices;
 
-namespace Renderite2D_Project.EngineCode.Graphics
+namespace Renderite2D_Project.Renderite2D.Graphics
 {
     public class Texture
     {

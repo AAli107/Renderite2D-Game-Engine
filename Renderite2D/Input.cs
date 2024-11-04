@@ -1,11 +1,4 @@
-﻿using Renderite2D_Project.EngineCode;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Renderite2D_Project.EngineCode
+﻿namespace Renderite2D_Project.Renderite2D
 {
     public static class Input
     {

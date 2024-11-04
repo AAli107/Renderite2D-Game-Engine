@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.Desktop;
 
-namespace Renderite2D_Project.EngineCode
+namespace Renderite2D_Project.Renderite2D
 {
     public static class Program
     {
