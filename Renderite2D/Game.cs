@@ -16,7 +16,8 @@ namespace Renderite2D_Project.Renderite2D
 
         Shader shader = null;
         Shapes gfx = null;
-        Level currentLevel = new SampleLevel();
+        Level currentLevel;
+        RunningLevel runningLevel;
         double timeSinceStart = 0;
         Graphics.Font currentFont = new();
         double timeScale = 1.0;
@@ -27,6 +28,16 @@ namespace Renderite2D_Project.Renderite2D
             base(gameWindowSettings, nativeWindowSettings)
         {
             FixedUpdateFrequency = 60;
+        }
+
+        public static void LoadLevel(Level level)
+        {
+            if (level == null) return;
+
+            Program.GameWindow.currentLevel?.End(); // Executes the End() method of the current level
+            Program.GameWindow.runningLevel = new(); // Running Level is cleared
+            Program.GameWindow.currentLevel = level; // The given level is set
+            Program.GameWindow.currentLevel?.Begin(); // Executes the Begin() method in the newly loaded level
         }
 
         protected override void OnLoad()
@@ -52,7 +63,7 @@ namespace Renderite2D_Project.Renderite2D
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            currentLevel?.Begin();
+            LoadLevel(new SampleLevel());
         }
 
         protected override void OnUpdateFrame(FrameEventArgs args)
@@ -64,6 +75,7 @@ namespace Renderite2D_Project.Renderite2D
                 fixedUpdateAccumulatedTime += UpdateTime;
                 while (fixedUpdateAccumulatedTime >= targetFrametime / timeScale)
                 {
+                    runningLevel.UpdateRunningLevel();
                     currentLevel?.FixedUpdate();
                     fixedUpdateAccumulatedTime -= targetFrametime / timeScale;
                 }
@@ -89,6 +101,7 @@ namespace Renderite2D_Project.Renderite2D
 
         protected override void OnUnload()
         {
+            currentLevel?.End();
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1);
             shader.Dispose(); // Will dispose shader data
@@ -103,13 +116,30 @@ namespace Renderite2D_Project.Renderite2D
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
         }
 
+        public struct RunningLevel
+        {
+            public double TimeSinceLevelStart { get; private set; }
+
+            public RunningLevel() 
+            {
+                TimeSinceLevelStart = 0.0;
+            }
+
+            public void UpdateRunningLevel()
+            {
+                TimeSinceLevelStart += Time.FixedDeltaTime * Time.TimeScale;
+            }
+        }
+
         public class Time
         {
             private static readonly Game win = Program.GameWindow;
 
             public static double DeltaTime { get { return win.UpdateTime; } }
+            public static double FixedDeltaTime { get { return win.targetFrametime; } }
             public static double FPS { get { return 1 / win.UpdateTime; } }
             public static double TimeSinceStart { get { return win.timeSinceStart; } }
+            public static double TimeSinceLevelStart { get { return win.runningLevel.TimeSinceLevelStart; } }
             public static double TimeScale { get { return win.timeScale; } set { win.timeScale = value < 0 ? 0 : value; } }
         }
 
