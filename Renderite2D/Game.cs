@@ -4,19 +4,30 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
 using Renderite2D_Project.Renderite2D.Graphics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Renderite2D_Project.Renderite2D
 {
     public class Game : GameWindow
     {
+        /// <summary>
+        /// Fixed frequency of updates the game will run at
+        /// </summary>
+        public double FixedUpdateFrequency { get { return 1 / targetFrametime; } set { targetFrametime = 1 / (value < 0 ? 0 : value); } }
+
         Shader shader = null;
         Shapes gfx = null;
         Level currentLevel = new SampleLevel();
         double timeSinceStart = 0;
         Graphics.Font currentFont = new();
+        double timeScale = 1.0;
+        double fixedUpdateAccumulatedTime = 0.0;
+        double targetFrametime;
 
-        public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
+        public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) :
+            base(gameWindowSettings, nativeWindowSettings)
+        {
+            FixedUpdateFrequency = 60;
+        }
 
         protected override void OnLoad()
         {
@@ -47,6 +58,16 @@ namespace Renderite2D_Project.Renderite2D
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+
+            if (timeScale > 0)
+            {
+                fixedUpdateAccumulatedTime += UpdateTime;
+                while (fixedUpdateAccumulatedTime >= targetFrametime / timeScale)
+                {
+                    currentLevel?.FixedUpdate();
+                    fixedUpdateAccumulatedTime -= targetFrametime / timeScale;
+                }
+            }
 
             currentLevel?.Update();
 
@@ -89,6 +110,7 @@ namespace Renderite2D_Project.Renderite2D
             public static double DeltaTime { get { return win.UpdateTime; } }
             public static double FPS { get { return 1 / win.UpdateTime; } }
             public static double TimeSinceStart { get { return win.timeSinceStart; } }
+            public static double TimeScale { get { return win.timeScale; } set { win.timeScale = value < 0 ? 0 : value; } }
         }
 
         public class Shapes

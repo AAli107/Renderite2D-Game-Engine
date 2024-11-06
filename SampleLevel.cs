@@ -17,6 +17,12 @@ namespace Renderite2D_Project
 
         public override void Update()
         {
+            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Up)) { Game.Time.TimeScale += Game.Time.DeltaTime; }
+            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Down)) { Game.Time.TimeScale -= Game.Time.DeltaTime; }
+        }
+
+        public override void FixedUpdate()
+        {
             BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceStart) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceStart * 0.67) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceStart * 0.33) + 1) * 128));
 
             if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.W)) { y--; }
@@ -34,6 +40,7 @@ namespace Renderite2D_Project
             gfx.DrawPixel(new Vector2i((int)x + 320, (int)y + 240), Color4.Lime);
             gfx.DrawPoint(new Vector2i((int)x + 350, (int)y + 240), Color4.Lime, (float)Math.Sin(Game.Time.TimeSinceStart) * 10f);
             gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
+            gfx.DrawText(Vector2d.UnitY * 28, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);
         }
     }
 }
