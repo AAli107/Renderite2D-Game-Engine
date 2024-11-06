@@ -1,4 +1,6 @@
-﻿namespace Renderite2D_Project.Renderite2D
+﻿using System.Collections.Generic;
+
+namespace Renderite2D_Project.Renderite2D
 {
     public class GameObject
     {

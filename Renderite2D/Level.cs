@@ -1,4 +1,6 @@
-﻿namespace Renderite2D_Project.Renderite2D
+﻿using System.Drawing;
+
+namespace Renderite2D_Project.Renderite2D
 {
     public abstract class Level
     {

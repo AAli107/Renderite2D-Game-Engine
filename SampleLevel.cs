@@ -1,6 +1,9 @@
 ﻿using OpenTK.Mathematics;
 using Renderite2D_Project.Renderite2D;
 using Renderite2D_Project.Renderite2D.Graphics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Drawing;
+using System;
 
 namespace Renderite2D_Project
 {
@@ -17,20 +20,20 @@ namespace Renderite2D_Project
 
         public override void Update()
         {
-            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Up)) { Game.Time.TimeScale += Game.Time.DeltaTime; }
-            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Down)) { Game.Time.TimeScale -= Game.Time.DeltaTime; }
+            if (Input.IsKeyDown(Keys.Up)) { Game.Time.TimeScale += Game.Time.DeltaTime; }
+            if (Input.IsKeyDown(Keys.Down)) { Game.Time.TimeScale -= Game.Time.DeltaTime; }
 
-            if (Input.IsKeyPressed(OpenTK.Windowing.GraphicsLibraryFramework.Keys.P)) Game.LoadLevel(new SampleLevel());
+            if (Input.IsKeyPressed(Keys.P)) Game.LoadLevel(new SampleLevel());
         }
 
         public override void FixedUpdate()
         {
-            BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128));
+            BackgroundColor = Color.FromArgb((int)((System.Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128));
 
-            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.W)) { y--; }
-            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.A)) { x--; }
-            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.S)) { y++; }
-            if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.D)) { x++; }
+            if (Input.IsKeyDown(Keys.W)) { y--; }
+            if (Input.IsKeyDown(Keys.A)) { x--; }
+            if (Input.IsKeyDown(Keys.S)) { y++; }
+            if (Input.IsKeyDown(Keys.D)) { x++; }
         }
 
         public override void Draw(Game.Shapes gfx)

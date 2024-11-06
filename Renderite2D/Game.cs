@@ -4,6 +4,8 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
 using Renderite2D_Project.Renderite2D.Graphics;
+using System.Drawing;
+using System;
 
 namespace Renderite2D_Project.Renderite2D
 {

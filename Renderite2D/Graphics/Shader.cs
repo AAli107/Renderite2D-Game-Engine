@@ -1,4 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL4;
+using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Renderite2D_Project.Renderite2D.Graphics
 {
