@@ -28,7 +28,7 @@ namespace Renderite2D_Project
 
         public override void FixedUpdate()
         {
-            BackgroundColor = Color.FromArgb((int)((System.Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128));
+            BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128));
 
             if (Input.IsKeyDown(Keys.W)) { y--; }
             if (Input.IsKeyDown(Keys.A)) { x--; }
