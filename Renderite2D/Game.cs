@@ -14,7 +14,6 @@ namespace Renderite2D_Project.Renderite2D
         /// <summary>
         /// Fixed frequency of updates the game will run at
         /// </summary>
-        public double FixedUpdateFrequency { get { return 1 / targetFrametime; } set { targetFrametime = 1 / (value < 0 ? 0 : value); } }
 
         Shader shader = null;
         Shapes gfx = null;
@@ -27,10 +26,7 @@ namespace Renderite2D_Project.Renderite2D
         double targetFrametime;
 
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) :
-            base(gameWindowSettings, nativeWindowSettings)
-        {
-            FixedUpdateFrequency = 60;
-        }
+            base(gameWindowSettings, nativeWindowSettings) { }
 
         public static void LoadLevel(Level level)
         {
@@ -44,6 +40,8 @@ namespace Renderite2D_Project.Renderite2D
 
         protected override void OnLoad()
         {
+            Time.FixedUpdateFrequency = 60;
+
             base.OnLoad();
             ClientSize = new Vector2i(1280, 720);
             AspectRatio = (16, 9);
@@ -143,6 +141,7 @@ namespace Renderite2D_Project.Renderite2D
             public static double TimeSinceStart { get { return win.timeSinceStart; } }
             public static double TimeSinceLevelStart { get { return win.runningLevel.TimeSinceLevelStart; } }
             public static double TimeScale { get { return win.timeScale; } set { win.timeScale = value < 0 ? 0 : value; } }
+            public static double FixedUpdateFrequency { get { return 1 / win.targetFrametime; } set { win.targetFrametime = 1 / (value < 0 ? 0 : value); } }
         }
 
         public class Shapes
