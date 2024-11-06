@@ -4,16 +4,17 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
 using Renderite2D_Project.Renderite2D.Graphics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Renderite2D_Project.Renderite2D
 {
     public class Game : GameWindow
     {
-
         Shader shader = null;
         Shapes gfx = null;
         Level currentLevel = new SampleLevel();
         double timeSinceStart = 0;
+        Graphics.Font currentFont = new();
 
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings) { }
 
@@ -93,6 +94,7 @@ namespace Renderite2D_Project.Renderite2D
         public class Shapes
         {
             private readonly Game win = Program.GameWindow;
+            private readonly Texture fontTexture = new (Program.GameWindow.currentFont.fontPath);
 
             public void DrawRectangle(Vector2d position, Vector2d dimension, Color4 color, Texture texture, bool isStatic = false)
             {
@@ -245,9 +247,63 @@ namespace Renderite2D_Project.Renderite2D
                 DrawTriangle(a, b, c, color, Texture.White, isStatic);
             }
 
-            public void DrawText(Vector2d position, object str, Color4 color, float scale = 1f, bool isStatic = false)
+            public void DrawText(Vector2d position, object obj, Color4 color, float scale = 1f, bool isStatic = true)
             {
-                // TODO : Unimplemented function
+                // Sends the shape color into the GPU-side and store it in uColor variable
+                GL.Uniform4(GL.GetUniformLocation(win.shader.shaderHandle, "uColor"), color);
+
+                // Set the texture uniform in the shader
+                GL.Uniform1(GL.GetUniformLocation(win.shader.shaderHandle, "uTexture"), 0);
+
+                fontTexture.Bind(); // will make use of the font's texture by binding it
+
+                string str = obj?.ToString(); // Converts whatever is passed into a string
+
+                // Loop through the string characters to draw text
+                for (int i = 0; i < str.Length; i++)
+                {
+                    if (str[i].Equals('\n') && i + 1 < str.Length)
+                    {
+                        // If it encounter a '\n' it will break to a new line
+                        DrawText(position + new Vector2d(0, win.currentFont.charSize.Y * scale), str[(i + 1)..], color, scale, isStatic);
+                        return;
+                    }
+                    // Draw an individual character on the screen from the given string
+                    BufferCharacter(position + new Vector2d(win.currentFont.charSize.X * i * scale, 0), str[i], scale, isStatic);
+                }
+
+                Texture.Unbind(); // Unbinds the currently bound texture
+            }
+
+            private void BufferCharacter(Vector2d position, char character, float scale = 1, bool isStatic = true)
+            {
+                Vector2d charVec = win.currentFont.charSize * scale; // This will multiply the size of the font with the scale to get different sized character
+
+                int charCount = Graphics.Font.characterSheet.Length; // How many characters in the character sheet char array
+                int charIndex = Array.IndexOf(Graphics.Font.characterSheet, character);
+
+                // Specify the vertex data for the quad of the triangle
+                // The UV of the quad is also calculated to choose between the character within the texture to draw
+                float[] vertices = {
+                    (float)position.X / 960 - 1f, (float)-position.Y / 540 + 1f,
+                    (1.0f / charCount) * charIndex, 0.0f,
+
+                    (float)(position.X + charVec.X) / 960 - 1f, (float)-position.Y / 540 + 1f,
+                    (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
+
+                    (float)position.X / 960 - 1f, (float)-(position.Y + charVec.Y) / 540 + 1f,
+                    (1.0f / charCount) * charIndex, 1.0f,
+
+                    (float)(position.X + charVec.X) / 960 - 1f, (float)-(position.Y + charVec.Y ) / 540 + 1f,
+                    (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
+                };
+
+                // Bind the vertices array
+                GL.BindBuffer(BufferTarget.ArrayBuffer, win.shader.vertBufferObj);
+                GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+                // Draw the character quad
+                GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
             }
 
             public void DrawPixel(Vector2i position, Color4 color)

@@ -23,7 +23,6 @@ namespace Renderite2D_Project
             if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.A)) { x--; }
             if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.S)) { y++; }
             if (Input.IsKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.D)) { x++; }
-            Console.WriteLine(Math.Round(Game.Time.FPS) + " FPS");
         }
 
         public override void Draw(Game.Shapes gfx)
@@ -34,6 +33,7 @@ namespace Renderite2D_Project
             gfx.DrawTriangle(new Vector2d(x, y), new Vector2d(300, 200), new Vector2d(200, 300), Color4.Magenta, false);
             gfx.DrawPixel(new Vector2i((int)x + 320, (int)y + 240), Color4.Lime);
             gfx.DrawPoint(new Vector2i((int)x + 350, (int)y + 240), Color4.Lime, (float)Math.Sin(Game.Time.TimeSinceStart) * 10f);
+            gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
         }
     }
 }
