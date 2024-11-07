@@ -1,11 +1,11 @@
-﻿using OpenTK;
-using OpenTK.Windowing.Desktop;
+﻿using OpenTK.Windowing.Desktop;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL4;
 using Renderite2D_Project.Renderite2D.Graphics;
 using System.Drawing;
 using System;
+using System.Collections.Generic;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -116,9 +116,87 @@ namespace Renderite2D_Project.Renderite2D
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
         }
 
+        public class World
+        {
+            private static readonly Game win = Program.GameWindow;
+
+            public static string Instantiate(GameObject gameObject)
+            {
+                string guid = Guid.NewGuid().ToString();
+                win.runningLevel.gameObjects.Add(guid, gameObject);
+                return guid;
+            }
+
+            public static void Destroy(string guid)
+            {
+                if (win.runningLevel.gameObjects.ContainsKey(guid))
+                    win.runningLevel.gameObjects.Remove(guid);
+            }
+
+            public static void Destroy(GameObject gameObject)
+            {
+                if (win.runningLevel.gameObjects.ContainsValue(gameObject))
+                {
+                    var keys = new string[win.runningLevel.gameObjects.Count];
+                    win.runningLevel.gameObjects.Keys.CopyTo(keys, 0);
+
+                    var values = new GameObject[win.runningLevel.gameObjects.Count];
+                    win.runningLevel.gameObjects.Values.CopyTo(values, 0);
+
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        if (values[i] == gameObject)
+                        {
+                            win.runningLevel.gameObjects.Remove(keys[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            public static GameObject GetGameObjectByGuid(string guid)
+            {
+                if (win.runningLevel.gameObjects.ContainsKey(guid))
+                    return win.runningLevel.gameObjects[guid];
+                return null;
+            }
+
+            public static string GetGuidOfGameObject(GameObject gameObject)
+            {
+                if (win.runningLevel.gameObjects.ContainsValue(gameObject))
+                {
+                    var keys = new string[win.runningLevel.gameObjects.Count];
+                    win.runningLevel.gameObjects.Keys.CopyTo(keys, 0);
+
+                    var values = new GameObject[win.runningLevel.gameObjects.Count];
+                    win.runningLevel.gameObjects.Values.CopyTo(values, 0);
+
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        if (values[i] == gameObject)
+                            return keys[i];
+                    }
+                }
+                return null;
+            }
+
+            public static int GetGameObjectCount()
+            {
+                return win.runningLevel.gameObjects.Count;
+            }
+
+            public static GameObject[] GetAllGameObjects()
+            {
+                var gameObjects = new GameObject[win.runningLevel.gameObjects.Count];
+                win.runningLevel.gameObjects.Values.CopyTo(gameObjects, 0);
+                return gameObjects;
+            }
+        }
+
         public struct RunningLevel
         {
             public double TimeSinceLevelStart { get; private set; }
+            public Dictionary<string, GameObject> gameObjects = new();
 
             public RunningLevel() 
             {
