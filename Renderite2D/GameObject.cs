@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -25,23 +27,31 @@ namespace Renderite2D_Project.Renderite2D
             return components.ToArray();
         }
 
-        public Component GetComponent<T>() where T : Component
+        public T AddComponent<T>() where T : Component
+        {
+            ConstructorInfo constructor = typeof(T).GetConstructor(new Type[] { typeof(GameObject) });
+            Component component = (T)constructor.Invoke(new object[] { this });
+            components.Add(component);
+            return component as T;
+        }
+
+        public T GetComponent<T>() where T : Component
         {
             for (int i = 0; i < components.Count; i++)
             {
                 if (components[i] is T)
-                    return components[i];
+                    return components[i] as T;
             }
             return null;
         }
 
-        public Component[] GetComponents<T>() where T : Component
+        public T[] GetComponents<T>() where T : Component
         {
-            List<Component> foundComponents = new();
+            List<T> foundComponents = new();
             for (int i = 0; i < components.Count; i++)
             {
-                if (components[i] is T)
-                    foundComponents.Add(components[i]);
+                if (components[i] is T t)
+                    foundComponents.Add(t);
             }
             return foundComponents.ToArray();
         }
