@@ -32,7 +32,7 @@ namespace Renderite2D_Project.Renderite2D
             ConstructorInfo constructor = typeof(T).GetConstructor(new Type[] { typeof(GameObject) });
             T component = (T)constructor.Invoke(new object[] { this });
             components.Add(component);
-            return component as T;
+            return component;
         }
 
         public T GetComponent<T>() where T : Component
