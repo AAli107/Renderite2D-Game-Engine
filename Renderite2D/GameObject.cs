@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -12,6 +13,11 @@ namespace Renderite2D_Project.Renderite2D
         
         bool isEnabled = true;
         readonly List<Component> components = new();
+
+        public GameObject() { }
+        public GameObject(Transform2D transform) => this.transform = transform;
+        public GameObject(Vector2d position) => transform.position = position;
+
 
         public void Update()
         {
