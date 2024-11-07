@@ -10,17 +10,23 @@ namespace Renderite2D_Project
 {
     public class SampleLevel : Level
     {
-        float x = 100;
-        float y = 100;
         Texture nTex;
         GameObject gameObjectTest;
+        GameObject gameObjectTest2;
+        PhysicsComponent pc;
+        ColliderComponent cc;
 
         public override void Begin()
         {
             nTex = new("Assets/Game Assets/neutral.png");
             gameObjectTest = new(new Vector2d(500, 0));
-            gameObjectTest.AddComponent<PhysicsComponent>();
+            pc = gameObjectTest.AddComponent<PhysicsComponent>();
+            cc = gameObjectTest.AddComponent<ColliderComponent>();
+            gameObjectTest2 = new(new Vector2d(500, 600));
+            var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
+            cc2.transform.scale = new Vector2d(5, 1);
             Game.World.Instantiate(gameObjectTest);
+            Game.World.Instantiate(gameObjectTest2);
         }
 
         public override void Update()
@@ -29,26 +35,30 @@ namespace Renderite2D_Project
             if (Input.IsKeyDown(Keys.Down)) { Game.Time.TimeScale -= Game.Time.DeltaTime; }
 
             if (Input.IsKeyPressed(Keys.P)) Game.LoadLevel(new SampleLevel());
+
+            if (Input.IsKeyPressed(Keys.Space)) { pc.Velocity = new Vector2d(pc.Velocity.X, -20); }
         }
 
         public override void FixedUpdate()
         {
-            BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128), (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128));
+            BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128) / 2, (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128) / 2, (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128) / 2);
 
-            if (Input.IsKeyDown(Keys.W)) { y--; }
-            if (Input.IsKeyDown(Keys.A)) { x--; }
-            if (Input.IsKeyDown(Keys.S)) { y++; }
-            if (Input.IsKeyDown(Keys.D)) { x++; }
+            if (Input.IsKeyDown(Keys.W)) { pc.AddVelocity(-Vector2d.UnitY); }
+            if (Input.IsKeyDown(Keys.A)) { pc.AddVelocity(-Vector2d.UnitX); }
+            if (Input.IsKeyDown(Keys.S)) { pc.AddVelocity(Vector2d.UnitY); }
+            if (Input.IsKeyDown(Keys.D)) { pc.AddVelocity(Vector2d.UnitX); }
+
         }
 
         public override void Draw(Game.Shapes gfx)
         {
-            gfx.DrawRectangle(new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y), new Vector2d(100, 100), Color4.Aqua, false);
-            gfx.DrawQuad(new Vector2d(x, y), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Red, nTex, false);
-            gfx.DrawLine(new Vector2d(x, y), new Vector2d(200, 200), Color4.Yellow, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 100f, false);
-            gfx.DrawTriangle(new Vector2d(x, y), new Vector2d(300, 200), new Vector2d(200, 300), Color4.Magenta, false);
-            gfx.DrawPixel(new Vector2i((int)x + 320, (int)y + 240), Color4.Lime);
-            gfx.DrawPoint(new Vector2i((int)x + 350, (int)y + 240), Color4.Lime, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 10f);
+            var v = new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y);
+            gfx.DrawRectangle(v - cc.GetHalfSize(), new Vector2d(100, 100), Color4.White, nTex);
+            gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow);
+            gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);
+            gfx.DrawTriangle(new Vector2d(800, 200), new Vector2d(700, 200), new Vector2d(600, 300), Color4.Magenta);
+            gfx.DrawPixel(new Vector2i(320, 240), Color4.Red);
+            gfx.DrawPoint(new Vector2i(350, 240), Color4.Lime, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 10f);
             gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 28, "Time Since Level start = " + Game.Time.TimeSinceLevelStart, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 56, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);

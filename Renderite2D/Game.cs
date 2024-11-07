@@ -6,6 +6,8 @@ using Renderite2D_Project.Renderite2D.Graphics;
 using System.Drawing;
 using System;
 using System.Collections.Generic;
+using Renderite2D_Project.Renderite2D.Components;
+using static Renderite2D_Project.Renderite2D.Game;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -93,6 +95,21 @@ namespace Renderite2D_Project.Renderite2D
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             currentLevel?.Draw(gfx);
+
+           GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
+           runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
+           foreach (GameObject obj in _gameObjects)
+           {
+                if (!obj.IsEnabled) continue;
+
+                foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                {
+                    if (!cc.IsEnabled) continue;
+
+                    var hb = cc.GetHitbox();
+                    gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
+                }
+           }
 
             // Post-Rendering Clear and swap buffer with background color
             GL.ClearColor(currentLevel != null ? currentLevel.BackgroundColor : Color.Black);
@@ -466,6 +483,36 @@ namespace Renderite2D_Project.Renderite2D
                 if (size == 0) return;
                 Vector2d vSize = Vector2d.One * size;
                 DrawRectangle(position - Vector2d.UnitX - vSize, vSize * 2, color, isStatic);
+            }
+
+            public void DrawRectOutline(Vector2d position, Vector2d dimension, Color4 color, bool isStatic = false)
+            {
+                // Sends the shape color into the GPU-side and store it in uColor variable
+                GL.Uniform4(GL.GetUniformLocation(win.shader.shaderHandle, "uColor"), color);
+
+                // Set the texture uniform in the shader
+                GL.Uniform1(GL.GetUniformLocation(win.shader.shaderHandle, "uTexture"), 0);
+
+                Texture.White.Bind(); // will add a white texture so that color will show properly
+
+                Vector2 v = new((float)position.X / (win.ClientSize.X * 0.5f) - 1f, (float)-position.Y / (win.ClientSize.Y * 0.5f) + 1f);
+                Vector2 v2 = new((float)(position.X + dimension.X) / (win.ClientSize.X * 0.5f) - 1f, ((float)-(position.Y + dimension.Y)) / (win.ClientSize.Y * 0.5f) + 1f);
+
+                // Specify the vertex data for quad
+                float[] vertices = {
+                    v.X, v.Y, 1.0f, 1.0f,
+                    v2.X, v.Y, 0.0f, 1.0f,
+                    v2.X, v2.Y, 0.0f, 0.0f,
+                    v.X, v2.Y, 1.0f, 0.0f,
+                };
+
+                // Binds the data
+                GL.BindBuffer(BufferTarget.ArrayBuffer, win.shader.vertBufferObj);
+                GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+                GL.DrawArrays(PrimitiveType.LineLoop, 0, 4); // Draws shape on screen based on data currently bound
+
+                Texture.Unbind(); // Unbinds the currently bound texture
             }
         }
     }
