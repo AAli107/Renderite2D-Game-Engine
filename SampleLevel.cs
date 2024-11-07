@@ -1,9 +1,10 @@
 ﻿using OpenTK.Mathematics;
-using Renderite2D_Project.Renderite2D;
-using Renderite2D_Project.Renderite2D.Graphics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using System.Drawing;
+using Renderite2D_Project.Renderite2D;
+using Renderite2D_Project.Renderite2D.Components;
+using Renderite2D_Project.Renderite2D.Graphics;
 using System;
+using System.Drawing;
 
 namespace Renderite2D_Project
 {
@@ -12,10 +13,14 @@ namespace Renderite2D_Project
         float x = 100;
         float y = 100;
         Texture nTex;
+        GameObject gameObjectTest;
 
         public override void Begin()
         {
             nTex = new("Assets/Game Assets/neutral.png");
+            gameObjectTest = new(new Vector2d(500, 0));
+            gameObjectTest.AddComponent<PhysicsComponent>();
+            Game.World.Instantiate(gameObjectTest);
         }
 
         public override void Update()
@@ -38,7 +43,7 @@ namespace Renderite2D_Project
 
         public override void Draw(Game.Shapes gfx)
         {
-            gfx.DrawRectangle(new Vector2d(x, y), new Vector2d(100, 100), Color4.Aqua, false);
+            gfx.DrawRectangle(new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y), new Vector2d(100, 100), Color4.Aqua, false);
             gfx.DrawQuad(new Vector2d(x, y), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Red, nTex, false);
             gfx.DrawLine(new Vector2d(x, y), new Vector2d(200, 200), Color4.Yellow, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 100f, false);
             gfx.DrawTriangle(new Vector2d(x, y), new Vector2d(300, 200), new Vector2d(200, 300), Color4.Magenta, false);
