@@ -205,6 +205,8 @@ namespace Renderite2D_Project.Renderite2D
 
             public void UpdateRunningLevel()
             {
+                foreach (var gameObject in gameObjects.Values)
+                    gameObject?.Update();
                 TimeSinceLevelStart += Time.FixedDeltaTime * Time.TimeScale;
             }
         }
