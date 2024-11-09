@@ -13,9 +13,7 @@ namespace Renderite2D_Project.Renderite2D
 {
     public class Game : GameWindow
     {
-        /// <summary>
-        /// Fixed frequency of updates the game will run at
-        /// </summary>
+
 
         Shader shader = null;
         Shapes gfx = null;
