@@ -39,16 +39,13 @@ namespace Renderite2D_Project
 
             if (Input.IsKeyPressed(Keys.P)) Game.LoadLevel(new SampleLevel());
 
-            if (Input.IsKeyPressed(Keys.Space)) { pc.Velocity = new Vector2d(pc.Velocity.X, -20); }
-
-
-            if (Input.IsKeyPressed(Keys.Enter))
+            if (Input.IsKeyPressed(Keys.Space)) 
             {
-                //Game.AudioPlayer.PlaySound("Assets/Game Assets/pick.wav");
-                ac.Play(true);
+                pc.Velocity = new Vector2d(pc.Velocity.X, -20);
+                ac.Play();
             }
-            if (Input.IsKeyPressed(Keys.Slash))
-                ac.StopLooping();
+
+            Game.MainCamera.Transform = gameObjectTest.transform;
         }
 
         public override void FixedUpdate()
@@ -69,6 +66,7 @@ namespace Renderite2D_Project
             gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);
             gfx.DrawTriangle(new Vector2d(800, 200), new Vector2d(700, 200), new Vector2d(600, 300), Color4.Magenta);
             gfx.DrawPixel(new Vector2i(320, 240), Color4.Red);
+            gfx.DrawText(new Vector2d(600, 600), "Hello World!", Color4.Red, 1, false);
             gfx.DrawPoint(new Vector2i(350, 240), Color4.Lime, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 10f);
             gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 28, "Time Since Level start = " + Game.Time.TimeSinceLevelStart, Color4.Red, 1);
