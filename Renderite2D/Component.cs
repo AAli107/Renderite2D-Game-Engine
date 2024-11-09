@@ -13,6 +13,6 @@
             Parent = parent;
         }
 
-        public abstract void Update();
+        public abstract void FixedUpdate();
     }
 }

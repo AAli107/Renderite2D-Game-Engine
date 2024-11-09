@@ -30,7 +30,7 @@ namespace Renderite2D_Project.Renderite2D.Components
 
         public AudioComponent(GameObject parent) : base(parent) { }
 
-        public override void Update() 
+        public override void FixedUpdate() 
         {
             if (looping)
             {

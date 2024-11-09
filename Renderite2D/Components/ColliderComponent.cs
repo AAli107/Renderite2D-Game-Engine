@@ -24,7 +24,7 @@ namespace Renderite2D_Project.Renderite2D.Components
 
         public ColliderComponent(GameObject parent) : base(parent) { }
         
-        public override void Update()
+        public override void FixedUpdate()
         {
             // Will not collide with anything if the collider component is disabled
             if (!IsEnabled) return;

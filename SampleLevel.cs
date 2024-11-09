@@ -17,7 +17,6 @@ namespace Renderite2D_Project
         PhysicsComponent pc;
         ColliderComponent cc;
         AudioComponent ac;
-        Random rng = new();
 
         public override void Begin()
         {
@@ -44,7 +43,6 @@ namespace Renderite2D_Project
             if (Input.IsKeyPressed(Keys.Space)) 
             {
                 pc.Velocity = new Vector2d(pc.Velocity.X, -20);
-                ac.Volume = rng.NextSingle();
                 ac.Play();
             }
             if (Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))

@@ -35,7 +35,7 @@ namespace Renderite2D_Project.Renderite2D.Components
 
         public PhysicsComponent(GameObject parent) : base(parent) { }
 
-        public override void Update()
+        public override void FixedUpdate()
         {
             // Will not apply physics if the physics component is disabled
             if (!IsEnabled) return;

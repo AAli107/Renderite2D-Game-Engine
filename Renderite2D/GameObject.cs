@@ -25,7 +25,7 @@ namespace Renderite2D_Project.Renderite2D
 
             for (int i = 0; i < components.Count; i++)
                 if (components[i] != null && components[i].IsEnabled)
-                    components[i]?.Update();
+                    components[i]?.FixedUpdate();
         }
 
         public Component[] GetAllComponents()
