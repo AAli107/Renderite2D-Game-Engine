@@ -228,10 +228,10 @@ namespace Renderite2D_Project.Renderite2D
             {
                 foreach (var gameObject in gameObjects.Values)
                 {
-                    var scriptComponents = gameObject.GetAllComponents();
-                    for (int i = 0; i < scriptComponents.Length; i++)
+                    var components = gameObject.GetAllComponents();
+                    for (int i = 0; i < components.Length; i++)
                     {
-                        scriptComponents[i].Update();
+                        components[i].Update();
                     }
                 }
             }
