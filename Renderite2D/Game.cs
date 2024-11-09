@@ -1,13 +1,14 @@
-﻿using OpenTK.Windowing.Desktop;
+﻿using NAudio.Wave;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Windowing.Desktop;
+using Renderite2D_Project.Renderite2D.Components;
 using Renderite2D_Project.Renderite2D.Graphics;
-using System.Drawing;
 using System;
 using System.Collections.Generic;
-using Renderite2D_Project.Renderite2D.Components;
-using NAudio.Wave;
+using System.Drawing;
+using Windows.Foundation.Collections;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -332,10 +333,10 @@ namespace Renderite2D_Project.Renderite2D
 
                 // Specify the vertex data for quad
                 float[] vertices = {
-                    v.X, v.Y, 1.0f, 1.0f,
-                    v2.X, v.Y, 0.0f, 1.0f,
-                    v.X, v2.Y, 1.0f, 0.0f,
-                    v2.X, v2.Y, 0.0f, 0.0f,
+                    v.X, v.Y,   0f, 0f,
+                    v2.X, v.Y,  1f, 0f,
+                    v.X, v2.Y,  0f, 1f,
+                    v2.X, v2.Y, 1f, 1f,
                 };
 
                 // Binds the data
@@ -376,10 +377,58 @@ namespace Renderite2D_Project.Renderite2D
 
                 // Specify the vertex data for quad
                 float[] vertices = {
-                    va.X, va.Y, 1.0f, 1.0f,
-                    vb.X, vb.Y, 0.0f, 1.0f,
-                    vc.X, vc.Y, 1.0f, 0.0f,
-                    vd.X, vd.Y, 0.0f, 0.0f,
+                    va.X, va.Y, 0f, 0f,
+                    vb.X, vb.Y, 1f, 0f,
+                    vc.X, vc.Y, 0f, 1f,
+                    vd.X, vd.Y, 1f, 1f,
+                };
+
+                // Binds the data
+                GL.BindBuffer(BufferTarget.ArrayBuffer, win.shader.vertBufferObj);
+                GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+                GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4); // Draws shape on screen based on data currently bound
+
+                Texture.Unbind(); // Unbinds the currently bound texture
+            }
+
+            public void DrawQuadSpriteSheet(Vector2d a, Vector2d b, Vector2d c, Vector2d d, Color4 color, Texture spriteSheet, int index, int divisions, bool isStatic = false)
+            {
+                if (divisions <= 0 || divisions <= 0) return;
+
+                Vector2 normalizedUv = (Vector2.One / divisions);
+
+                float uvY = index / divisions;
+                float uvX = (index - (uvY * divisions)) * normalizedUv.X;
+
+                uvY = 1f - (uvY * normalizedUv.Y) - normalizedUv.Y;
+
+                // Sends the shape color into the GPU-side and store it in uColor variable
+                GL.Uniform4(GL.GetUniformLocation(win.shader.shaderHandle, "uColor"), color);
+
+                // Set the texture uniform in the shader
+                GL.Uniform1(GL.GetUniformLocation(win.shader.shaderHandle, "uTexture"), 0);
+
+                spriteSheet.Bind(); // will make use of this texture by binding it
+
+                if (!isStatic)
+                {
+                    a -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    b -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    c -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    d -= MainCamera.Transform.position - new Vector2d(960, 540);
+                }
+                Vector2 va = new((float)a.X / 960 - 1f, (float)-a.Y / 540 + 1f);
+                Vector2 vb = new((float)b.X / 960 - 1f, (float)-b.Y / 540 + 1f);
+                Vector2 vc = new((float)c.X / 960 - 1f, (float)-c.Y / 540 + 1f);
+                Vector2 vd = new((float)d.X / 960 - 1f, (float)-d.Y / 540 + 1f);
+
+                // Specify the vertex data for quad
+                float[] vertices = {
+                    va.X, va.Y, uvX + (normalizedUv.X * 0f), uvY - (normalizedUv.Y * 1f),
+                    vb.X, vb.Y, uvX + (normalizedUv.X * 1f), uvY - (normalizedUv.Y * 1f),
+                    vc.X, vc.Y, uvX + (normalizedUv.X * 0f), uvY - (normalizedUv.Y * 0f),
+                    vd.X, vd.Y, uvX + (normalizedUv.X * 1f), uvY - (normalizedUv.Y * 0f),
                 };
 
                 // Binds the data
@@ -518,7 +567,6 @@ namespace Renderite2D_Project.Renderite2D
 
             private void BufferCharacter(Vector2d position, char character, float scale = 1, bool isStatic = true)
             {
-
                 if (!isStatic)
                     position -= MainCamera.Transform.position - new Vector2d(960, 540);
 

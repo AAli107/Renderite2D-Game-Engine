@@ -12,15 +12,19 @@ namespace Renderite2D_Project
     public class SampleLevel : Level
     {
         Texture nTex;
+        Texture spriteSheetTex;
         GameObject gameObjectTest;
         GameObject gameObjectTest2;
         PhysicsComponent pc;
         ColliderComponent cc;
         AudioComponent ac;
+        int animationIndex = 0;
+        int animTime = 0;
 
         public override void Begin()
         {
             nTex = new("Assets/Game Assets/neutral.png");
+            spriteSheetTex = new("Assets/Game Assets/spritesheet.png");
             gameObjectTest = new(new Vector2d(500, 0));
             pc = gameObjectTest.AddComponent<PhysicsComponent>();
             cc = gameObjectTest.AddComponent<ColliderComponent>();
@@ -62,11 +66,20 @@ namespace Renderite2D_Project
             if (Input.IsKeyDown(Keys.A)) { pc.AddVelocity(-Vector2d.UnitX); }
             if (Input.IsKeyDown(Keys.S)) { pc.AddVelocity(Vector2d.UnitY); }
             if (Input.IsKeyDown(Keys.D)) { pc.AddVelocity(Vector2d.UnitX); }
+
+            if (animTime >= 10)
+            {
+                animTime = 0;
+                animationIndex = animationIndex >= 5 ? 0 : animationIndex + 1;
+            }
+            else animTime++;
         }
 
         public override void Draw(Game.Shapes gfx)
         {
             var v = new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y);
+            gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
+            gfx.DrawQuadSpriteSheet(new Vector2d(500, 100), new Vector2d(700, 100), new Vector2d(500, 300), new Vector2d(700, 300), Color4.White, spriteSheetTex, animationIndex, 3);
             gfx.DrawRectangle(v - cc.GetHalfSize(), new Vector2d(100, 100), Color4.White, nTex);
             gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow);
             gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);
@@ -79,6 +92,7 @@ namespace Renderite2D_Project
             gfx.DrawText(Vector2d.UnitY * 56, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 84, "MouseScreenPos = " + Input.MouseScreenPos, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 112, "MouseWorldPos = " + Input.MouseWorldPos, Color4.Red, 1);
+            gfx.DrawText(Vector2d.UnitY * 140, "animationIndex = " + animationIndex, Color4.Red, 1);
         }
     }
 }
