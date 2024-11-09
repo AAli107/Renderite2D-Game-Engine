@@ -85,7 +85,7 @@ namespace Renderite2D_Project.Renderite2D
                     fixedUpdateAccumulatedTime -= targetFrametime / timeScale;
                 }
             }
-
+            runningLevel.PerFrameUpdate();
             currentLevel?.Update();
 
             timeSinceStart += UpdateTime;
@@ -222,6 +222,18 @@ namespace Renderite2D_Project.Renderite2D
             {
                 AudioPlayer.StopAllSounds();
                 TimeSinceLevelStart = 0.0;
+            }
+
+            public void PerFrameUpdate()
+            {
+                foreach (var gameObject in gameObjects.Values)
+                {
+                    var scriptComponents = gameObject.GetComponents<ScriptComponent>();
+                    for (int i = 0; i < scriptComponents.Length; i++)
+                    {
+                        scriptComponents[i].Update();
+                    }
+                }
             }
 
             public void UpdateRunningLevel()
