@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using NAudio.Wave;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using Renderite2D_Project.Renderite2D;
 using Renderite2D_Project.Renderite2D.Components;
@@ -16,6 +17,7 @@ namespace Renderite2D_Project
         PhysicsComponent pc;
         ColliderComponent cc;
         AudioComponent ac;
+        Random rng = new();
 
         public override void Begin()
         {
@@ -42,6 +44,7 @@ namespace Renderite2D_Project
             if (Input.IsKeyPressed(Keys.Space)) 
             {
                 pc.Velocity = new Vector2d(pc.Velocity.X, -20);
+                ac.Volume = rng.NextSingle();
                 ac.Play();
             }
             if (Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
@@ -76,6 +79,8 @@ namespace Renderite2D_Project
             gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 28, "Time Since Level start = " + Game.Time.TimeSinceLevelStart, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 56, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);
+            gfx.DrawText(Vector2d.UnitY * 84, "MouseScreenPos = " + Input.MouseScreenPos, Color4.Red, 1);
+            gfx.DrawText(Vector2d.UnitY * 112, "MouseWorldPos = " + Input.MouseWorldPos, Color4.Red, 1);
         }
     }
 }

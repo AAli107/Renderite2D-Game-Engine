@@ -1,9 +1,20 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Renderite2D_Project.Renderite2D
 {
     public static class Input
     {
+        /// <summary>
+        /// The position of the mouse in the window
+        /// </summary>
+        public static Vector2d MouseScreenPos { get { return Program.GameWindow.MousePosition / (Program.GameWindow.ClientSize / new Vector2d(1920, 1080)); } }
+        
+        /// <summary>
+        /// The position of the mouse within the world
+        /// </summary>
+        public static Vector2d MouseWorldPos { get { return (Program.GameWindow.MousePosition / (Program.GameWindow.ClientSize / new Vector2d(1920, 1080))) + new Vector2d(Game.MainCamera.Transform.position.X - 960, Game.MainCamera.Transform.position.Y - 540); } }
+
         /// <summary>
         /// Returns a bool value that will indicate whether a key is being held down.
         /// </summary>
