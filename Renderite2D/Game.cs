@@ -236,6 +236,21 @@ namespace Renderite2D_Project.Renderite2D
         {
             private static readonly List<WaveOutEvent> waveOutEvents = new();
 
+            public static double PreloadSound(string filePath)
+            {
+                if (!System.IO.File.Exists(filePath)) return -1.0;
+
+                var output = new WaveOutEvent();
+                var audioReader = new AudioFileReader(filePath);
+                try
+                {
+                    output.Init(audioReader);
+                }
+                catch (Exception) { return -1.0; }
+                waveOutEvents.Add(output);
+                return audioReader.TotalTime.TotalSeconds;
+            }
+
             public static double PlaySound(string filePath, float volume = 1.0f)
             {
                 if (!System.IO.File.Exists(filePath)) return -1.0;

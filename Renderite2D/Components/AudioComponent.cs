@@ -9,10 +9,17 @@ namespace Renderite2D_Project.Renderite2D.Components
 {
     public class AudioComponent : Component
     {
-        public string FilePath 
-        { 
-            get { return filePath; } 
-            set { if (File.Exists(value)) filePath = value; } 
+        public string FilePath
+        {
+            get { return filePath; }
+            set
+            {
+                if (File.Exists(value))
+                { 
+                    filePath = value;
+                    Game.AudioPlayer.PreloadSound(filePath);
+                }
+            }
         }
         public float Volume 
         { 
