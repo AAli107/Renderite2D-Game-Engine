@@ -44,6 +44,11 @@ namespace Renderite2D_Project
                 pc.Velocity = new Vector2d(pc.Velocity.X, -20);
                 ac.Play();
             }
+            if (Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
+            {
+                Program.GameWindow.WindowState = Program.GameWindow.WindowState == OpenTK.Windowing.Common.WindowState.Fullscreen ?
+                    OpenTK.Windowing.Common.WindowState.Normal : OpenTK.Windowing.Common.WindowState.Fullscreen;
+            }
 
             Game.MainCamera.Transform = gameObjectTest.transform;
         }

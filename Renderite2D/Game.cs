@@ -294,10 +294,10 @@ namespace Renderite2D_Project.Renderite2D
                 texture.Bind(); // will make use of this texture by binding it
 
                 if (!isStatic)
-                    position -= MainCamera.Transform.position - new Vector2d(640, 360);
+                    position -= MainCamera.Transform.position - new Vector2d(960, 540);
 
-                Vector2 v = new((float)position.X / (win.ClientSize.X * 0.5f) - 1f, (float)-position.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 v2 = new((float)(position.X + dimension.X) / (win.ClientSize.X * 0.5f) - 1f, ((float)-(position.Y + dimension.Y)) / (win.ClientSize.Y * 0.5f) + 1f);
+                Vector2 v = new((float)position.X / 960 - 1f, (float)-position.Y / 540 + 1f);
+                Vector2 v2 = new((float)(position.X + dimension.X) / 960 - 1f, ((float)-(position.Y + dimension.Y)) / 540 + 1f);
 
                 // Specify the vertex data for quad
                 float[] vertices = {
@@ -333,15 +333,15 @@ namespace Renderite2D_Project.Renderite2D
 
                 if (!isStatic)
                 {
-                    a -= MainCamera.Transform.position - new Vector2d(640, 360);
-                    b -= MainCamera.Transform.position - new Vector2d(640, 360);
-                    c -= MainCamera.Transform.position - new Vector2d(640, 360);
-                    d -= MainCamera.Transform.position - new Vector2d(640, 360);
+                    a -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    b -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    c -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    d -= MainCamera.Transform.position - new Vector2d(960, 540);
                 }
-                Vector2 va = new((float)a.X / (win.ClientSize.X * 0.5f) - 1f, (float)-a.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 vb = new((float)b.X / (win.ClientSize.X * 0.5f) - 1f, (float)-b.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 vc = new((float)c.X / (win.ClientSize.X * 0.5f) - 1f, (float)-c.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 vd = new((float)d.X / (win.ClientSize.X * 0.5f) - 1f, (float)-d.Y / (win.ClientSize.Y * 0.5f) + 1f);
+                Vector2 va = new((float)a.X / 960 - 1f, (float)-a.Y / 540 + 1f);
+                Vector2 vb = new((float)b.X / 960 - 1f, (float)-b.Y / 540 + 1f);
+                Vector2 vc = new((float)c.X / 960 - 1f, (float)-c.Y / 540 + 1f);
+                Vector2 vd = new((float)d.X / 960 - 1f, (float)-d.Y / 540 + 1f);
 
                 // Specify the vertex data for quad
                 float[] vertices = {
@@ -382,14 +382,14 @@ namespace Renderite2D_Project.Renderite2D
 
                     if (!isStatic)
                     {
-                        a -= MainCamera.Transform.position - new Vector2d(640, 360);
-                        b -= MainCamera.Transform.position - new Vector2d(640, 360);
+                        a -= MainCamera.Transform.position - new Vector2d(960, 540);
+                        b -= MainCamera.Transform.position - new Vector2d(960, 540);
                     }
 
                     // Specify the vertex data for quad
                     float[] vertices = {
-                        (float)a.X / (win.ClientSize.X * 0.5f) - 1f, (float)-a.Y / (win.ClientSize.Y * 0.5f) + 1f, 1.0f, 1.0f,
-                        (float)b.X / (win.ClientSize.X * 0.5f) - 1f, (float)-b.Y / (win.ClientSize.Y * 0.5f) + 1f, 0.0f, 1.0f,
+                        (float)a.X / 960 - 1f, (float)-a.Y / 540 + 1f, 1.0f, 1.0f,
+                        (float)b.X / 960 - 1f, (float)-b.Y / 540 + 1f, 0.0f, 1.0f,
                     };
 
                     // Binds the data
@@ -427,14 +427,14 @@ namespace Renderite2D_Project.Renderite2D
 
                 if (!isStatic)
                 {
-                    a -= MainCamera.Transform.position - new Vector2d(640, 360);
-                    b -= MainCamera.Transform.position - new Vector2d(640, 360);
-                    c -= MainCamera.Transform.position - new Vector2d(640, 360);
+                    a -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    b -= MainCamera.Transform.position - new Vector2d(960, 540);
+                    c -= MainCamera.Transform.position - new Vector2d(960, 540);
                 }
 
-                Vector2 va = new((float)a.X / (win.ClientSize.X * 0.5f) - 1f, (float)-a.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 vb = new((float)b.X / (win.ClientSize.X * 0.5f) - 1f, (float)-b.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 vc = new((float)c.X / (win.ClientSize.X * 0.5f) - 1f, (float)-c.Y / (win.ClientSize.Y * 0.5f) + 1f);
+                Vector2 va = new((float)a.X / 960 - 1f, (float)-a.Y / 540 + 1f);
+                Vector2 vb = new((float)b.X / 960 - 1f, (float)-b.Y / 540 + 1f);
+                Vector2 vc = new((float)c.X / 960 - 1f, (float)-c.Y / 540 + 1f);
 
                 // Specify the vertex data for quad
                 float[] vertices = {
@@ -489,7 +489,7 @@ namespace Renderite2D_Project.Renderite2D
             {
 
                 if (!isStatic)
-                    position -= MainCamera.Transform.position - new Vector2d(640, 360);
+                    position -= MainCamera.Transform.position - new Vector2d(960, 540);
 
                 Vector2d charVec = win.currentFont.charSize * scale; // This will multiply the size of the font with the scale to get different sized character
 
@@ -499,16 +499,16 @@ namespace Renderite2D_Project.Renderite2D
                 // Specify the vertex data for the quad of the triangle
                 // The UV of the quad is also calculated to choose between the character within the texture to draw
                 float[] vertices = {
-                    (float)position.X / (win.ClientSize.X * 0.5f) - 1f, (float)-position.Y / (win.ClientSize.Y * 0.5f) + 1f,
+                    (float)position.X / 960 - 1f, (float)-position.Y / 540 + 1f,
                     (1.0f / charCount) * charIndex, 0.0f,
 
-                    (float)(position.X + charVec.X) / (win.ClientSize.X * 0.5f) - 1f, (float)-position.Y / (win.ClientSize.Y * 0.5f) + 1f,
+                    (float)(position.X + charVec.X) / 960 - 1f, (float)-position.Y / 540 + 1f,
                     (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
 
-                    (float)position.X / (win.ClientSize.X * 0.5f) - 1f, (float)-(position.Y + charVec.Y) / (win.ClientSize.Y * 0.5f) + 1f,
+                    (float)position.X / 960 - 1f, (float)-(position.Y + charVec.Y) / 540 + 1f,
                     (1.0f / charCount) * charIndex, 1.0f,
 
-                    (float)(position.X + charVec.X) / (win.ClientSize.X * 0.5f) - 1f, (float)-(position.Y + charVec.Y ) / (win.ClientSize.Y * 0.5f) + 1f,
+                    (float)(position.X + charVec.X) / 960 - 1f, (float)-(position.Y + charVec.Y ) / 540 + 1f,
                     (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
                 };
 
@@ -560,10 +560,10 @@ namespace Renderite2D_Project.Renderite2D
                 Texture.White.Bind(); // will add a white texture so that color will show properly
 
                 if (!isStatic)
-                    position -= MainCamera.Transform.position - new Vector2d(640, 360);
+                    position -= MainCamera.Transform.position - new Vector2d(960, 540);
 
-                Vector2 v = new((float)position.X / (win.ClientSize.X * 0.5f) - 1f, (float)-position.Y / (win.ClientSize.Y * 0.5f) + 1f);
-                Vector2 v2 = new((float)(position.X + dimension.X) / (win.ClientSize.X * 0.5f) - 1f, ((float)-(position.Y + dimension.Y)) / (win.ClientSize.Y * 0.5f) + 1f);
+                Vector2 v = new((float)position.X / 960 - 1f, (float)-position.Y / 540 + 1f);
+                Vector2 v2 = new((float)(position.X + dimension.X) / 960 - 1f, ((float)-(position.Y + dimension.Y)) / 540 + 1f);
 
                 // Specify the vertex data for quad
                 float[] vertices = {
