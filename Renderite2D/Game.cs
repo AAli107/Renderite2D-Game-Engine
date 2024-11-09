@@ -50,6 +50,10 @@ namespace Renderite2D_Project.Renderite2D
             WindowBorder = WindowBorder.Fixed;
             Title = "Renderite2D Game";
 
+            // Clears window before it starts
+            GL.ClearColor(Color.Black);
+            SwapBuffers();
+
             shader = new("Assets/Engine Assets/vertexShader.vert", "Assets/Engine Assets/fragmentShader.frag");
             gfx = new();
 
