@@ -79,7 +79,7 @@ namespace Renderite2D_Project
         {
             var v = new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y);
             gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
-            gfx.DrawQuadSpriteSheet(new Vector2d(500, 100), new Vector2d(700, 100), new Vector2d(500, 300), new Vector2d(700, 300), Color4.White, spriteSheetTex, animationIndex, 3);
+            gfx.DrawRectangleSpriteSheet(new Vector2d(600, 0), new Vector2d(200, 200), Color4.White, spriteSheetTex, animationIndex, 3, false);
             gfx.DrawRectangle(v - cc.GetHalfSize(), new Vector2d(100, 100), Color4.White, nTex);
             gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow);
             gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);

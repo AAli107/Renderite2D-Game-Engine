@@ -392,16 +392,14 @@ namespace Renderite2D_Project.Renderite2D
                 Texture.Unbind(); // Unbinds the currently bound texture
             }
 
+            public void DrawRectangleSpriteSheet(Vector2d position, Vector2d dimension, Color4 color, Texture spriteSheet, int index, int divisions, bool isStatic = false)
+            {
+                DrawQuadSpriteSheet(position, position + (Vector2d.UnitX * dimension), position + (Vector2d.UnitY * dimension), position + dimension, color, spriteSheet, index, divisions, isStatic);
+            }
+
             public void DrawQuadSpriteSheet(Vector2d a, Vector2d b, Vector2d c, Vector2d d, Color4 color, Texture spriteSheet, int index, int divisions, bool isStatic = false)
             {
                 if (divisions <= 0 || divisions <= 0) return;
-
-                Vector2 normalizedUv = (Vector2.One / divisions);
-
-                float uvY = index / divisions;
-                float uvX = (index - (uvY * divisions)) * normalizedUv.X;
-
-                uvY = 1f - (uvY * normalizedUv.Y) - normalizedUv.Y;
 
                 // Sends the shape color into the GPU-side and store it in uColor variable
                 GL.Uniform4(GL.GetUniformLocation(win.shader.shaderHandle, "uColor"), color);
@@ -423,12 +421,19 @@ namespace Renderite2D_Project.Renderite2D
                 Vector2 vc = new((float)c.X / 960 - 1f, (float)-c.Y / 540 + 1f);
                 Vector2 vd = new((float)d.X / 960 - 1f, (float)-d.Y / 540 + 1f);
 
+                float normalizedUv = 1f / divisions; // calculates the normalized size of the texture atlas
+
+                // Calculates the UV x and y of the texture based on the index
+                float uvY = index / divisions;
+                float uvX = (index - (uvY * divisions)) * normalizedUv;
+                uvY = 1f - (1f - (uvY * normalizedUv) - normalizedUv);
+
                 // Specify the vertex data for quad
                 float[] vertices = {
-                    va.X, va.Y, uvX + (normalizedUv.X * 0f), uvY - (normalizedUv.Y * 1f),
-                    vb.X, vb.Y, uvX + (normalizedUv.X * 1f), uvY - (normalizedUv.Y * 1f),
-                    vc.X, vc.Y, uvX + (normalizedUv.X * 0f), uvY - (normalizedUv.Y * 0f),
-                    vd.X, vd.Y, uvX + (normalizedUv.X * 1f), uvY - (normalizedUv.Y * 0f),
+                    va.X, va.Y, uvX + (normalizedUv * 0f), uvY - (normalizedUv * 1f),
+                    vb.X, vb.Y, uvX + (normalizedUv * 1f), uvY - (normalizedUv * 1f),
+                    vc.X, vc.Y, uvX + (normalizedUv * 0f), uvY - (normalizedUv * 0f),
+                    vd.X, vd.Y, uvX + (normalizedUv * 1f), uvY - (normalizedUv * 0f),
                 };
 
                 // Binds the data
