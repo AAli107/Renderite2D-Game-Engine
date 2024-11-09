@@ -15,6 +15,7 @@ namespace Renderite2D_Project
         GameObject gameObjectTest2;
         PhysicsComponent pc;
         ColliderComponent cc;
+        AudioComponent ac;
 
         public override void Begin()
         {
@@ -22,6 +23,8 @@ namespace Renderite2D_Project
             gameObjectTest = new(new Vector2d(500, 0));
             pc = gameObjectTest.AddComponent<PhysicsComponent>();
             cc = gameObjectTest.AddComponent<ColliderComponent>();
+            ac = gameObjectTest.AddComponent<AudioComponent>();
+            ac.FilePath = "Assets/Game Assets/pick.wav";
             gameObjectTest2 = new(new Vector2d(500, 600));
             var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
             cc2.transform.scale = new Vector2d(5, 1);
@@ -37,6 +40,15 @@ namespace Renderite2D_Project
             if (Input.IsKeyPressed(Keys.P)) Game.LoadLevel(new SampleLevel());
 
             if (Input.IsKeyPressed(Keys.Space)) { pc.Velocity = new Vector2d(pc.Velocity.X, -20); }
+
+
+            if (Input.IsKeyPressed(Keys.Enter))
+            {
+                //Game.AudioPlayer.PlaySound("Assets/Game Assets/pick.wav");
+                ac.Play(true);
+            }
+            if (Input.IsKeyPressed(Keys.Slash))
+                ac.StopLooping();
         }
 
         public override void FixedUpdate()
@@ -47,7 +59,6 @@ namespace Renderite2D_Project
             if (Input.IsKeyDown(Keys.A)) { pc.AddVelocity(-Vector2d.UnitX); }
             if (Input.IsKeyDown(Keys.S)) { pc.AddVelocity(Vector2d.UnitY); }
             if (Input.IsKeyDown(Keys.D)) { pc.AddVelocity(Vector2d.UnitX); }
-
         }
 
         public override void Draw(Game.Shapes gfx)

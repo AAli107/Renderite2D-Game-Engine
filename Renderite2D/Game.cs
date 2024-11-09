@@ -7,7 +7,7 @@ using System.Drawing;
 using System;
 using System.Collections.Generic;
 using Renderite2D_Project.Renderite2D.Components;
-using static Renderite2D_Project.Renderite2D.Game;
+using NAudio.Wave;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -210,6 +210,41 @@ namespace Renderite2D_Project.Renderite2D
             }
         }
 
+        public static class AudioPlayer
+        {
+            private static readonly List<WaveOutEvent> waveOutEvents = new();
+
+            public static double PlaySound(string filePath, float volume = 1.0f)
+            {
+                if (!System.IO.File.Exists(filePath)) return -1.0;
+
+                var output = new WaveOutEvent();
+                var audioReader = new AudioFileReader(filePath);
+                try {
+                    output.Init(audioReader);
+                } catch (Exception) { return -1.0; }
+                output.Volume = volume;
+                output.Play();
+                waveOutEvents.Add(output);
+                return audioReader.TotalTime.TotalSeconds;
+            }
+
+            public static void StopAllSounds()
+            {
+                foreach (var output in waveOutEvents)
+                {
+                    output.Stop();
+                    output.Dispose();
+                }
+                waveOutEvents.Clear();
+            }
+
+            public static int AudioCount()
+            {
+                return waveOutEvents.Count;
+            }
+        }
+
         public struct RunningLevel
         {
             public double TimeSinceLevelStart { get; private set; }
@@ -217,6 +252,7 @@ namespace Renderite2D_Project.Renderite2D
 
             public RunningLevel() 
             {
+                AudioPlayer.StopAllSounds();
                 TimeSinceLevelStart = 0.0;
             }
 
