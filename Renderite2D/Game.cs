@@ -8,7 +8,6 @@ using Renderite2D_Project.Renderite2D.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Windows.Foundation.Collections;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -25,6 +24,7 @@ namespace Renderite2D_Project.Renderite2D
         double timeScale = 1.0;
         double fixedUpdateAccumulatedTime = 0.0;
         double targetFrametime;
+        readonly List<DrawInstance>[] drawLayers = new List<DrawInstance>[256];
 
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) :
             base(gameWindowSettings, nativeWindowSettings) { }
@@ -50,6 +50,9 @@ namespace Renderite2D_Project.Renderite2D
             CenterWindow();
             WindowBorder = WindowBorder.Fixed;
             Title = "Renderite2D Game";
+
+            for (int i = 0; i < drawLayers.Length; i++)
+                drawLayers[i] = new();
 
             // Clears window before it starts
             GL.ClearColor(Color.Black);
@@ -100,20 +103,27 @@ namespace Renderite2D_Project.Renderite2D
 
             currentLevel?.Draw(gfx);
 
-           GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
-           runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
-           foreach (GameObject obj in _gameObjects)
-           {
-                if (!obj.IsEnabled) continue;
+            for (int i = 0; i < drawLayers.Length; i++)
+            {
+                for (int j = 0; j < drawLayers[i].Count; j++)
+                    drawLayers[i][j].Draw();
+                drawLayers[i].Clear();
+            }
 
-                foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
-                {
-                    if (!cc.IsEnabled) continue;
-
-                    var hb = cc.GetHitbox();
-                    gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
-                }
-           }
+            GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
+            runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
+            foreach (GameObject obj in _gameObjects)
+            {
+                 if (!obj.IsEnabled) continue;
+            
+                 foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                 {
+                     if (!cc.IsEnabled) continue;
+            
+                     var hb = cc.GetHitbox();
+                     gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
+                 }
+            }
 
             // Post-Rendering Clear and swap buffer with background color
             GL.ClearColor(currentLevel != null ? currentLevel.BackgroundColor : Color.Black);
@@ -135,6 +145,90 @@ namespace Renderite2D_Project.Renderite2D
 
             // Will fix the game's viewport whenever the window resizes
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+        }
+
+        private void DrawShape_(DrawType drawType, object[] parameters, byte layer = 0)
+        {
+            drawLayers[layer].Add(new DrawInstance(drawType, parameters));
+        }
+
+        public static void DrawShape(DrawType drawType, object[] parameters, byte layer = 0)
+        {
+            Program.GameWindow.DrawShape_(drawType, parameters, layer);
+        }
+
+        public class DrawInstance
+        {
+            private static readonly Shapes gfx = Program.GameWindow.gfx;
+
+            public DrawType drawType;
+            public object[] parameters;
+
+            public DrawInstance(DrawType drawType, object[] parameters)
+            {
+                this.drawType = drawType;
+                this.parameters = parameters;
+            }
+
+            public void Draw()
+            {
+                switch (drawType)
+                {
+                    case DrawType.Rectangle:
+                        gfx.DrawRectangle((Vector2d)parameters[0], (Vector2d)parameters[1],
+                            (Color4)parameters[2], (Texture)parameters[3], (bool)parameters[4]);
+                        break;
+                    case DrawType.Quad:
+                        gfx.DrawQuad((Vector2d)parameters[0], (Vector2d)parameters[1], (Vector2d)parameters[2], (Vector2d)parameters[3], 
+                            (Color4)parameters[4], (Texture)parameters[5], (bool)parameters[6]);
+                        break;
+                    case DrawType.Rectangle_Spritesheet:
+                        gfx.DrawRectangleSpriteSheet((Vector2d)parameters[0], (Vector2d)parameters[1],
+                            (Color4)parameters[2], (Texture)parameters[3], (int)parameters[4], (int)parameters[5], (bool)parameters[6]);
+                        break;
+                    case DrawType.Quad_Spritesheet:
+                        gfx.DrawQuadSpriteSheet((Vector2d)parameters[0], (Vector2d)parameters[1], (Vector2d)parameters[2], (Vector2d)parameters[3],
+                            (Color4)parameters[4], (Texture)parameters[5], (int)parameters[6], (int)parameters[7], (bool)parameters[8]);
+                        break;
+                    case DrawType.Line:
+                        gfx.DrawLine((Vector2d)parameters[0], (Vector2d)parameters[1],
+                            (Color4)parameters[2], (float)parameters[3], (bool)parameters[4]);
+                        break;
+                    case DrawType.Triangle:
+                        gfx.DrawTriangle((Vector2d)parameters[0], (Vector2d)parameters[1], (Vector2d)parameters[2],
+                            (Color4)parameters[3], (Texture)parameters[4], (bool)parameters[5]);
+                        break;
+                    case DrawType.Text:
+                        gfx.DrawText((Vector2d)parameters[0], parameters[1], (Color4)parameters[2], (float)parameters[3], (bool)parameters[4]);
+                        break;
+                    case DrawType.Pixel:
+                        gfx.DrawPixel((Vector2i)parameters[0], (Color4)parameters[1]);
+                        break;
+                    case DrawType.Point:
+                        gfx.DrawPoint((Vector2d)parameters[0], (Color4)parameters[1], (float)parameters[2], (bool)parameters[3]);
+                        break;
+                    case DrawType.Rectangle_Outline:
+                        gfx.DrawRectOutline((Vector2d)parameters[0], (Vector2d)parameters[1],
+                            (Color4)parameters[2], (bool)parameters[3]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public enum DrawType
+        {
+            Rectangle,
+            Quad,
+            Rectangle_Spritesheet,
+            Quad_Spritesheet,
+            Line,
+            Triangle,
+            Text,
+            Pixel,
+            Point,
+            Rectangle_Outline
         }
 
         public class World

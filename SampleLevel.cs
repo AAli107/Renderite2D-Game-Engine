@@ -6,6 +6,7 @@ using Renderite2D_Project.Renderite2D.Components;
 using Renderite2D_Project.Renderite2D.Graphics;
 using System;
 using System.Drawing;
+using static OpenTK.Audio.OpenAL.ALC;
 
 namespace Renderite2D_Project
 {
@@ -78,14 +79,17 @@ namespace Renderite2D_Project
         public override void Draw(Game.Shapes gfx)
         {
             var v = new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y);
+            
+            Game.DrawShape(Game.DrawType.Text, new object[] { v + new Vector2d(100, 200), "Layer 2", Color4.Orange, 4f, false}, 1);
+            Game.DrawShape(Game.DrawType.Text, new object[] { new Vector2d(200, 200), "Layered Drawing", Color4.Cyan, 4f, false}, 0);
+            Game.DrawShape(Game.DrawType.Rectangle_Spritesheet, new object[] { new Vector2d(600, 0), new Vector2d(200, 200), Color4.White, spriteSheetTex, animationIndex, 3, false }, 2);
+
             gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
-            gfx.DrawRectangleSpriteSheet(new Vector2d(600, 0), new Vector2d(200, 200), Color4.White, spriteSheetTex, animationIndex, 3, false);
             gfx.DrawRectangle(v - cc.GetHalfSize(), new Vector2d(100, 100), Color4.White, nTex);
             gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow);
             gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);
             gfx.DrawTriangle(new Vector2d(800, 200), new Vector2d(700, 200), new Vector2d(600, 300), Color4.Magenta);
             gfx.DrawPixel(new Vector2i(320, 240), Color4.Red);
-            gfx.DrawText(new Vector2d(600, 600), "Hello World!", Color4.Red, 1, false);
             gfx.DrawPoint(new Vector2i(350, 240), Color4.Lime, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 10f);
             gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 28, "Time Since Level start = " + Game.Time.TimeSinceLevelStart, Color4.Red, 1);
