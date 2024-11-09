@@ -14,5 +14,6 @@
         }
 
         public abstract void FixedUpdate();
+        public abstract void Update();
     }
 }

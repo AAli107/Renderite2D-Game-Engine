@@ -228,7 +228,7 @@ namespace Renderite2D_Project.Renderite2D
             {
                 foreach (var gameObject in gameObjects.Values)
                 {
-                    var scriptComponents = gameObject.GetComponents<ScriptComponent>();
+                    var scriptComponents = gameObject.GetAllComponents();
                     for (int i = 0; i < scriptComponents.Length; i++)
                     {
                         scriptComponents[i].Update();

@@ -60,5 +60,7 @@ namespace Renderite2D_Project.Renderite2D.Components
             if (!IsEnabled) return;
             Velocity += velocity;
         }
+
+        public override void Update() { }
     }
 }

@@ -57,5 +57,7 @@ namespace Renderite2D_Project.Renderite2D.Components
         {
             return looping;
         }
+
+        public override void Update() { }
     }
 }

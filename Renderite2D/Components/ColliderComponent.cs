@@ -150,5 +150,7 @@ namespace Renderite2D_Project.Renderite2D.Components
         /// </summary>
         /// <returns></returns>
         public Vector2d GetHalfSize() { return rect.HalfSize; }
+
+        public override void Update() { }
     }
 }
