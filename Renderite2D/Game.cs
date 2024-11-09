@@ -13,7 +13,7 @@ namespace Renderite2D_Project.Renderite2D
 {
     public class Game : GameWindow
     {
-
+        public static Camera MainCamera { get; set; }
 
         Shader shader = null;
         Shapes gfx = null;
@@ -28,11 +28,12 @@ namespace Renderite2D_Project.Renderite2D
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) :
             base(gameWindowSettings, nativeWindowSettings) { }
 
-        public static void LoadLevel(Level level)
+        public static void LoadLevel(Level level, Camera newCamera = null)
         {
             if (level == null) return;
 
             Program.GameWindow.currentLevel?.End(); // Executes the End() method of the current level
+            MainCamera = newCamera ?? new Camera(); // Sets up the camera
             Program.GameWindow.runningLevel = new(); // Running Level is cleared
             Program.GameWindow.currentLevel = level; // The given level is set
             Program.GameWindow.currentLevel?.Begin(); // Executes the Begin() method in the newly loaded level
@@ -208,6 +209,25 @@ namespace Renderite2D_Project.Renderite2D
             }
         }
 
+        protected struct RunningLevel
+        {
+            public double TimeSinceLevelStart { get; private set; }
+            public Dictionary<string, GameObject> gameObjects = new();
+
+            public RunningLevel() 
+            {
+                AudioPlayer.StopAllSounds();
+                TimeSinceLevelStart = 0.0;
+            }
+
+            public void UpdateRunningLevel()
+            {
+                foreach (var gameObject in gameObjects.Values)
+                    gameObject?.Update();
+                TimeSinceLevelStart += Time.FixedDeltaTime * Time.TimeScale;
+            }
+        }
+
         public static class AudioPlayer
         {
             private static readonly List<WaveOutEvent> waveOutEvents = new();
@@ -218,9 +238,11 @@ namespace Renderite2D_Project.Renderite2D
 
                 var output = new WaveOutEvent();
                 var audioReader = new AudioFileReader(filePath);
-                try {
+                try
+                {
                     output.Init(audioReader);
-                } catch (Exception) { return -1.0; }
+                }
+                catch (Exception) { return -1.0; }
                 output.Volume = volume;
                 output.Play();
                 waveOutEvents.Add(output);
@@ -240,25 +262,6 @@ namespace Renderite2D_Project.Renderite2D
             public static int AudioCount()
             {
                 return waveOutEvents.Count;
-            }
-        }
-
-        public struct RunningLevel
-        {
-            public double TimeSinceLevelStart { get; private set; }
-            public Dictionary<string, GameObject> gameObjects = new();
-
-            public RunningLevel() 
-            {
-                AudioPlayer.StopAllSounds();
-                TimeSinceLevelStart = 0.0;
-            }
-
-            public void UpdateRunningLevel()
-            {
-                foreach (var gameObject in gameObjects.Values)
-                    gameObject?.Update();
-                TimeSinceLevelStart += Time.FixedDeltaTime * Time.TimeScale;
             }
         }
 
