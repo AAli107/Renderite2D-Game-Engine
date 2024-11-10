@@ -42,6 +42,7 @@ namespace Renderite2D_Project
             qr2.pointA = new Vector2d(-50, -100);
             qr2.pointC = new Vector2d(-100, 50);
             qr2.pointD = new Vector2d(50, 100);
+            qr2.color = Color4.Gray;
             Game.World.Instantiate(gameObjectTest);
             Game.World.Instantiate(gameObjectTest2);
         }
