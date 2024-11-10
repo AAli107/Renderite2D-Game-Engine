@@ -31,13 +31,14 @@ namespace Renderite2D_Project.Renderite2D
 
         public static void LoadLevel(Level level, Camera newCamera = null)
         {
-            if (level == null) return;
+            if (level == null) return;                  // level will not be loaded if the specified level is null
 
-            Program.GameWindow.currentLevel?.End(); // Executes the End() method of the current level
-            MainCamera = newCamera ?? new Camera(); // Sets up the camera
-            Program.GameWindow.runningLevel = new(); // Running Level is cleared
-            Program.GameWindow.currentLevel = level; // The given level is set
-            Program.GameWindow.currentLevel?.Begin(); // Executes the Begin() method in the newly loaded level
+            Program.GameWindow.currentLevel?.End();     // Executes the End() method of the current level
+            Time.TimeScale = 1.0;                       // Resets Time Scale to 1
+            MainCamera = newCamera ?? new Camera();     // Sets up the camera
+            Program.GameWindow.runningLevel = new();    // Running Level is cleared
+            Program.GameWindow.currentLevel = level;    // The given level is set
+            Program.GameWindow.currentLevel?.Begin();   // Executes the Begin() method in the newly loaded level
         }
 
         protected override void OnLoad()
