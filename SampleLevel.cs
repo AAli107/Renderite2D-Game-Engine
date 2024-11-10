@@ -3,10 +3,10 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using Renderite2D_Project.Renderite2D;
 using Renderite2D_Project.Renderite2D.Components;
+using Renderite2D_Project.Renderite2D.Components.RenderComponents;
 using Renderite2D_Project.Renderite2D.Graphics;
 using System;
 using System.Drawing;
-using static OpenTK.Audio.OpenAL.ALC;
 
 namespace Renderite2D_Project
 {
@@ -19,6 +19,7 @@ namespace Renderite2D_Project
         PhysicsComponent pc;
         ColliderComponent cc;
         AudioComponent ac;
+        RectRenderer rr;
         int animationIndex = 0;
         int animTime = 0;
 
@@ -30,6 +31,8 @@ namespace Renderite2D_Project
             pc = gameObjectTest.AddComponent<PhysicsComponent>();
             cc = gameObjectTest.AddComponent<ColliderComponent>();
             ac = gameObjectTest.AddComponent<AudioComponent>();
+            rr = gameObjectTest.AddComponent<RectRenderer>();
+            rr.texture = nTex;
             ac.FilePath = "Assets/Game Assets/pick.wav";
             gameObjectTest2 = new(new Vector2d(500, 600));
             var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
@@ -85,7 +88,6 @@ namespace Renderite2D_Project
             Game.DrawShape(Game.DrawType.Rectangle_Spritesheet, new object[] { new Vector2d(600, 0), new Vector2d(200, 200), Color4.White, spriteSheetTex, animationIndex, 3, false }, 2);
 
             gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
-            gfx.DrawRectangle(v - cc.GetHalfSize(), new Vector2d(100, 100), Color4.White, nTex);
             gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow);
             gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);
             gfx.DrawTriangle(new Vector2d(800, 200), new Vector2d(700, 200), new Vector2d(600, 300), Color4.Magenta);
