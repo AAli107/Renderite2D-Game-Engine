@@ -42,6 +42,9 @@ namespace Renderite2D_Project
             tr2.pointA = new Vector2d(-50, -100);
             tr2.pointC = new Vector2d(-100, 50);
             tr2.color = Color4.Gray;
+            var txr = gameObjectTest2.AddComponent<TextRenderer>();
+            txr.text = "Hello World!";
+            txr.isStatic = false;
             Game.World.Instantiate(gameObjectTest);
             Game.World.Instantiate(gameObjectTest2);
         }
