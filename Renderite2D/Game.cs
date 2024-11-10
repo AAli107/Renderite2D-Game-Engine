@@ -617,9 +617,9 @@ namespace Renderite2D_Project.Renderite2D
 
                 // Specify the vertex data for quad
                 float[] vertices = {
-                    va.X, va.Y, 1.0f, 1.0f,
-                    vb.X, vb.Y, 0.0f, 1.0f,
-                    vc.X, vc.Y, 1.0f, 0.0f,
+                    va.X, va.Y, 0.0f, 0.0f,
+                    vb.X, vb.Y, 1.0f, 0.0f,
+                    vc.X, vc.Y, 0.0f, 1.0f,
                 };
 
                 // Binds the data
