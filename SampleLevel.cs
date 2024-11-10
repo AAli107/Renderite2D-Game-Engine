@@ -37,6 +37,10 @@ namespace Renderite2D_Project
             gameObjectTest2 = new(new Vector2d(500, 600));
             var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
             cc2.transform.scale = new Vector2d(5, 1);
+            var qr2 = gameObjectTest2.AddComponent<QuadRenderer>();
+            qr2.pointA = new Vector2d(-50, -100);
+            qr2.pointC = new Vector2d(-100, 50);
+            qr2.pointD = new Vector2d(50, 100);
             Game.World.Instantiate(gameObjectTest);
             Game.World.Instantiate(gameObjectTest2);
         }
