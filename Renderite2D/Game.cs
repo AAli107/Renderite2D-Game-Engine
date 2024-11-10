@@ -326,7 +326,8 @@ namespace Renderite2D_Project.Renderite2D
                     var components = gameObject.GetAllComponents();
                     for (int i = 0; i < components.Length; i++)
                     {
-                        components[i].Update();
+                        if (components[i].IsEnabled)
+                            components[i].Update();
                     }
                 }
             }

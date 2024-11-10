@@ -24,7 +24,7 @@ namespace Renderite2D_Project.Renderite2D
             if (!IsEnabled) return;
 
             for (int i = 0; i < components.Count; i++)
-                if (components[i] != null && components[i].IsEnabled)
+                if (components[i].IsEnabled)
                     components[i]?.FixedUpdate();
         }
 
