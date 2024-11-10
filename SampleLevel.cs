@@ -19,8 +19,7 @@ namespace Renderite2D_Project
         PhysicsComponent pc;
         ColliderComponent cc;
         AudioComponent ac;
-        RectRenderer rr;
-        int animationIndex = 0;
+        SpritesheetRenderer ssr;
         int animTime = 0;
 
         public override void Begin()
@@ -31,8 +30,10 @@ namespace Renderite2D_Project
             pc = gameObjectTest.AddComponent<PhysicsComponent>();
             cc = gameObjectTest.AddComponent<ColliderComponent>();
             ac = gameObjectTest.AddComponent<AudioComponent>();
-            rr = gameObjectTest.AddComponent<RectRenderer>();
-            rr.texture = nTex;
+            ssr = gameObjectTest.AddComponent<SpritesheetRenderer>();
+            ssr.texture = spriteSheetTex;
+            ssr.divisions = 3;
+            ssr.layer = 1;
             ac.FilePath = "Assets/Game Assets/pick.wav";
             gameObjectTest2 = new(new Vector2d(500, 600));
             var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
@@ -78,7 +79,7 @@ namespace Renderite2D_Project
             if (animTime >= 10)
             {
                 animTime = 0;
-                animationIndex = animationIndex >= 5 ? 0 : animationIndex + 1;
+                ssr.index = ssr.index >= 5 ? 0 : ssr.index + 1;
             }
             else animTime++;
         }
@@ -89,7 +90,6 @@ namespace Renderite2D_Project
             
             Game.DrawShape(Game.DrawType.Text, new object[] { v + new Vector2d(100, 200), "Layer 2", Color4.Orange, 4f, false}, 1);
             Game.DrawShape(Game.DrawType.Text, new object[] { new Vector2d(200, 200), "Layered Drawing", Color4.Cyan, 4f, false}, 0);
-            Game.DrawShape(Game.DrawType.Rectangle_Spritesheet, new object[] { new Vector2d(600, 0), new Vector2d(200, 200), Color4.White, spriteSheetTex, animationIndex, 3, false }, 2);
 
             gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
             gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow);
@@ -102,7 +102,7 @@ namespace Renderite2D_Project
             gfx.DrawText(Vector2d.UnitY * 56, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 84, "MouseScreenPos = " + Input.MouseScreenPos, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 112, "MouseWorldPos = " + Input.MouseWorldPos, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 140, "animationIndex = " + animationIndex, Color4.Red, 1);
+            gfx.DrawText(Vector2d.UnitY * 140, "animationIndex = " + ssr.index, Color4.Red, 1);
         }
     }
 }
