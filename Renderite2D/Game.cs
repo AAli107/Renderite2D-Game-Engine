@@ -323,11 +323,12 @@ namespace Renderite2D_Project.Renderite2D
             {
                 foreach (var gameObject in gameObjects.Values)
                 {
+                    if (gameObject == null || !gameObject.IsEnabled) continue;
                     var components = gameObject.GetAllComponents();
                     for (int i = 0; i < components.Length; i++)
                     {
-                        if (components[i].IsEnabled)
-                            components[i].Update();
+                        if (!components[i].IsEnabled) continue;
+                        components[i].Update();
                     }
                 }
             }
@@ -335,7 +336,10 @@ namespace Renderite2D_Project.Renderite2D
             public void UpdateRunningLevel()
             {
                 foreach (var gameObject in gameObjects.Values)
-                    gameObject?.Update();
+                {
+                    if (gameObject == null || !gameObject.IsEnabled) continue;
+                    gameObject.Update();
+                }
                 TimeSinceLevelStart += Time.FixedDeltaTime * Time.TimeScale;
             }
         }
