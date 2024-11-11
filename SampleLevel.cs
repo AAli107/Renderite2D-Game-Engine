@@ -14,7 +14,7 @@ namespace Renderite2D_Project
     {
         Texture nTex;
         Texture spriteSheetTex;
-        TopDownCharacter player;
+        SideScrollerCharacter player;
         GameObject gameObjectTest2;
         PhysicsComponent pc;
         AudioComponent ac;
@@ -24,7 +24,10 @@ namespace Renderite2D_Project
         {
             nTex = new("Assets/Game Assets/neutral.png");
             spriteSheetTex = new("Assets/Game Assets/spritesheet.png");
-            player = new(new Vector2d(500, 0));
+            player = new(new Vector2d(500, 0))
+            {
+                JumpCount = 2
+            };
             pc = player.GetComponent<PhysicsComponent>();
             ac = player.AddComponent<AudioComponent>();
             ac.FilePath = "Assets/Game Assets/pick.wav";
@@ -54,10 +57,11 @@ namespace Renderite2D_Project
 
             if (Input.IsKeyPressed(Keys.P)) Game.LoadLevel(new SampleLevel());
 
-            if (Input.IsKeyPressed(Keys.Space)) 
+            if (Input.IsKeyPressed(Keys.Space))
             {
-                pc.Velocity = player.Forward * 20;
-                ac.Play();
+                if (player.CanJump)
+                    ac.Play();
+                player.Jump();
             }
             if (Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
             {
@@ -82,20 +86,10 @@ namespace Renderite2D_Project
         {
             BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128) / 2, (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128) / 2, (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128) / 2);
 
-            if (Input.IsKeyDown(Keys.W)) { pc.AddVelocity(player.Forward); }
-            if (Input.IsKeyDown(Keys.S)) { pc.AddVelocity(-player.Forward); }
-            if (Input.IsKeyDown(Keys.A))
-            {
-                if (Input.IsKeyDown(Keys.LeftControl))
-                    pc.AddVelocity(-player.Right);
-                else player.LookRotation -= 3;
-            }
-            if (Input.IsKeyDown(Keys.D)) 
-            {
-                if (Input.IsKeyDown(Keys.LeftControl))
-                    pc.AddVelocity(player.Right);
-                else player.LookRotation += 3;
-            }
+            if (Input.IsKeyDown(Keys.W)) { pc.AddVelocity(-Vector2d.UnitX); }
+            if (Input.IsKeyDown(Keys.S)) { pc.AddVelocity(Vector2d.UnitX); }
+            if (Input.IsKeyDown(Keys.A)) { pc.AddVelocity(-Vector2d.UnitX); }
+            if (Input.IsKeyDown(Keys.D)) { pc.AddVelocity(Vector2d.UnitX); }
         }
 
         public override void Draw(Game.Shapes gfx)
@@ -104,12 +98,6 @@ namespace Renderite2D_Project
             
             Game.DrawShape(Game.DrawType.Text, new object[] { v + new Vector2d(100, 200), "Layer 2", Color4.Orange, 4f, false}, 1);
             Game.DrawShape(Game.DrawType.Text, new object[] { new Vector2d(200, 200), "Layered Drawing", Color4.Cyan, 4f, false}, 0);
-            Game.DrawShape(Game.DrawType.Line, new object[] 
-            { player.transform.position, player.transform.position + (player.Forward * 100),
-              Color4.Red, 1f, false}, 1);
-            Game.DrawShape(Game.DrawType.Line, new object[] 
-            { player.transform.position, player.transform.position + (player.Right * 50),
-              Color4.Blue, 1f, false}, 1);
 
             gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
             gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow, nTex);
@@ -120,7 +108,6 @@ namespace Renderite2D_Project
             gfx.DrawText(Vector2d.UnitY * 84, "MouseScreenPos = " + Input.MouseScreenPos, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 112, "MouseWorldPos = " + Input.MouseWorldPos, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 140, "Health = " + player.Health, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 168, "Forward = " + player.Forward, Color4.Red, 1);
         }
     }
 }

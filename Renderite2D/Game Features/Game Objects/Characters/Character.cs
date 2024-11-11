@@ -107,16 +107,24 @@ namespace Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters
             Health = 0;
         }
 
-        public void Move(Vector2d direction, double speed)
+        public void Move(Vector2d direction, double speed, bool overrideVelocity = false)
         {
             if (physics != null && IsAlive)
-                physics.AddVelocity(direction.Normalized() * speed);
+            {
+                if (overrideVelocity)
+                    physics.Velocity = direction.Normalized() * speed;
+                else physics.AddVelocity(direction.Normalized() * speed);
+            }
         }
 
-        public void Move(Vector2d velocity)
+        public void Move(Vector2d velocity, bool overrideVelocity = false)
         {
             if (physics != null && IsAlive)
-                physics.AddVelocity(velocity);
+            {
+                if (overrideVelocity)
+                    physics.Velocity = velocity;
+                else physics.AddVelocity(velocity);
+            }
         }
     }
 
