@@ -49,7 +49,7 @@ namespace Renderite2D_Project.Renderite2D
             ClientSize = new Vector2i(1280, 720);
             AspectRatio = (16, 9);
             CenterWindow();
-            WindowBorder = WindowBorder.Fixed;
+            WindowBorder = WindowBorder.Resizable;
             Title = "Renderite2D Game";
 
             for (int i = 0; i < drawLayers.Length; i++)
