@@ -106,6 +106,18 @@ namespace Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters
         {
             Health = 0;
         }
+
+        public void Move(Vector2d direction, double speed)
+        {
+            if (physics != null && IsAlive)
+                physics.AddVelocity(direction.Normalized() * speed);
+        }
+
+        public void Move(Vector2d velocity)
+        {
+            if (physics != null && IsAlive)
+                physics.AddVelocity(velocity);
+        }
     }
 
     public class CharacterHurtArgs
