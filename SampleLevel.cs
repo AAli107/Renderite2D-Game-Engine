@@ -63,11 +63,6 @@ namespace Renderite2D_Project
                     ac.Play();
                 player.Jump();
             }
-            if (Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
-            {
-                Program.GameWindow.WindowState = Program.GameWindow.WindowState == OpenTK.Windowing.Common.WindowState.Fullscreen ?
-                    OpenTK.Windowing.Common.WindowState.Normal : OpenTK.Windowing.Common.WindowState.Fullscreen;
-            }
 
             if (Input.IsKeyPressed(Keys.V))
             {
@@ -78,6 +73,8 @@ namespace Renderite2D_Project
                 player.Heal(1);
             }
 
+            if (Input.IsKeyPressed(Keys.F3))
+                Game.Debug.DrawColliders = !Game.Debug.DrawColliders;
 
             Game.MainCamera.Transform = player.transform;
         }

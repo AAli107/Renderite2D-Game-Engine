@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Renderite2D_Project.Renderite2D.Components;
 using Renderite2D_Project.Renderite2D.Graphics;
 using System;
@@ -14,6 +15,7 @@ namespace Renderite2D_Project.Renderite2D
     public class Game : GameWindow
     {
         public static Camera MainCamera { get; set; }
+        public static bool AllowAltEnter { get; set; }
 
         Shader shader = null;
         Shapes gfx = null;
@@ -24,6 +26,7 @@ namespace Renderite2D_Project.Renderite2D
         double timeScale = 1.0;
         double fixedUpdateAccumulatedTime = 0.0;
         double targetFrametime;
+        bool drawColliders = false;
         readonly List<DrawInstance>[] drawLayers = new List<DrawInstance>[256];
 
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) :
@@ -43,14 +46,31 @@ namespace Renderite2D_Project.Renderite2D
 
         protected override void OnLoad()
         {
-            Time.FixedUpdateFrequency = 60;
+            var config = new GameConfig()
+            {
+                clientResolution = new(1280, 720),
+                vSyncEnabled = VSyncMode.On,
+                windowBorder = WindowBorder.Resizable,
+                windowTitle = "Renderite2D Game",
+                fixedUpdateFrequency = 60,
+                windowState = WindowState.Normal,
+                startingLevel = new SampleLevel(),
+                drawColliders = false,
+                allowAltEnter = true,
+            };
+
+            targetFrametime = 1 / (config.fixedUpdateFrequency <= 0 ? double.Epsilon : config.fixedUpdateFrequency);
 
             base.OnLoad();
-            ClientSize = new Vector2i(1280, 720);
+            ClientSize = config.clientResolution;
             AspectRatio = (16, 9);
             CenterWindow();
-            WindowBorder = WindowBorder.Resizable;
-            Title = "Renderite2D Game";
+            WindowBorder = config.windowBorder;
+            WindowState = config.windowState;
+            Title = config.windowTitle;
+            VSync = config.vSyncEnabled;
+            drawColliders = config.drawColliders;
+            AllowAltEnter = config.allowAltEnter;
 
             for (int i = 0; i < drawLayers.Length; i++)
                 drawLayers[i] = new();
@@ -73,12 +93,18 @@ namespace Renderite2D_Project.Renderite2D
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            LoadLevel(new SampleLevel());
+            LoadLevel(config.startingLevel);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+
+            if (AllowAltEnter && Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
+            {
+                Program.GameWindow.WindowState = Program.GameWindow.WindowState == WindowState.Fullscreen ?
+                    WindowState.Normal : WindowState.Fullscreen;
+            }
 
             if (timeScale > 0)
             {
@@ -111,19 +137,22 @@ namespace Renderite2D_Project.Renderite2D
                 drawLayers[i].Clear();
             }
 
-            GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
-            runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
-            foreach (GameObject obj in _gameObjects)
+            if (drawColliders)
             {
-                 if (!obj.IsEnabled) continue;
-            
-                 foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
-                 {
-                     if (!cc.IsEnabled) continue;
-            
-                     var hb = cc.GetHitbox();
-                     gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
-                 }
+                GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
+                runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
+                foreach (GameObject obj in _gameObjects)
+                {
+                    if (!obj.IsEnabled) continue;
+
+                    foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                    {
+                        if (!cc.IsEnabled) continue;
+
+                        var hb = cc.GetHitbox();
+                        gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
+                    }
+                }
             }
 
             // Post-Rendering Clear and swap buffer with background color
@@ -156,6 +185,13 @@ namespace Renderite2D_Project.Renderite2D
         public static void DrawShape(DrawType drawType, object[] parameters, byte layer = 0)
         {
             Program.GameWindow.DrawShape_(drawType, parameters, layer);
+        }
+
+        public class Debug
+        {
+            private static readonly Game win = Program.GameWindow;
+
+            public static bool DrawColliders { get { return win.drawColliders; } set => win.drawColliders = value; }
         }
 
         public class DrawInstance
@@ -407,7 +443,7 @@ namespace Renderite2D_Project.Renderite2D
             public static double TimeSinceStart { get { return win.timeSinceStart; } }
             public static double TimeSinceLevelStart { get { return win.runningLevel.TimeSinceLevelStart; } }
             public static double TimeScale { get { return win.timeScale; } set { win.timeScale = value < 0 ? 0 : value; } }
-            public static double FixedUpdateFrequency { get { return 1 / win.targetFrametime; } set { win.targetFrametime = 1 / (value < 0 ? 0 : value); } }
+            public static double FixedUpdateFrequency { get { return 1 / win.targetFrametime; } }
         }
 
         public class Shapes
