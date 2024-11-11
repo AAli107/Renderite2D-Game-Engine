@@ -30,7 +30,7 @@ namespace Renderite2D_Project.Renderite2D.Components
             if (!IsEnabled) return;
 
             rect = new Box2d(new Vector2d(Parent.transform.position.X, Parent.transform.position.Y), new Vector2d(transform.position.X + Parent.transform.position.X, transform.position.Y + Parent.transform.position.Y));
-            rect.Inflate(transform.scale * 50);
+            rect.Inflate(Parent.transform.scale * transform.scale * 50);
             friction = friction < 0 ? 0 : (friction > 1 ? 1 : friction);
             if (overlappingColliders.Count > 0) overlappingColliders.Clear();
             PhysicsComponent pc = Parent.GetComponent<PhysicsComponent>();

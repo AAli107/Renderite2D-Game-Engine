@@ -37,7 +37,7 @@ namespace Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters
             if (groundCollider != null && collider != null)
             {
                 groundCollider.transform.scale = new Vector2d(collider.transform.scale.X * 0.99, 0.001);
-                groundCollider.transform.position.Y = ((collider.transform.scale.Y * 100 * 0.999) / 2d) + 1;
+                groundCollider.transform.position.Y = ((transform.scale.Y * collider.transform.scale.Y * 100 * 0.999) / 2d) + 1;
                 isGrounded = groundCollider.IsOverlapping();
             } else isGrounded = true;
 
