@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
+using Renderite2D_Project.Renderite2D.Components;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Renderite2D_Project.Renderite2D
 {
@@ -22,9 +22,21 @@ namespace Renderite2D_Project.Renderite2D
         public void Update()
         {
             for (int i = 0; i < components.Count; i++)
-                if (components[i].IsEnabled)
+                if (components[i].IsEnabled && components[i] is not PhysicsComponent && components[i] is not ColliderComponent)
                     components[i]?.FixedUpdate();
+
+            // The Two for loops below will force the Physics Components within the game objects to update before the colliders
+            for (int i = 0; i < components.Count; i++)
+                if (components[i] is PhysicsComponent)
+                    components[i]?.FixedUpdate();
+            for (int i = 0; i < components.Count; i++)
+                if (components[i] is ColliderComponent)
+                    components[i]?.FixedUpdate();
+
+            Update_();
         }
+
+        protected virtual void Update_() { }
 
         public Component[] GetAllComponents()
         {

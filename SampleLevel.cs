@@ -3,6 +3,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using Renderite2D_Project.Renderite2D;
 using Renderite2D_Project.Renderite2D.Components;
 using Renderite2D_Project.Renderite2D.Components.RenderComponents;
+using Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;
 using Renderite2D_Project.Renderite2D.Graphics;
 using System;
 using System.Drawing;
@@ -13,10 +14,9 @@ namespace Renderite2D_Project
     {
         Texture nTex;
         Texture spriteSheetTex;
-        GameObject gameObjectTest;
+        Character player;
         GameObject gameObjectTest2;
         PhysicsComponent pc;
-        ColliderComponent cc;
         AudioComponent ac;
         AnimatedSpriteRenderer asr;
 
@@ -24,16 +24,15 @@ namespace Renderite2D_Project
         {
             nTex = new("Assets/Game Assets/neutral.png");
             spriteSheetTex = new("Assets/Game Assets/spritesheet.png");
-            gameObjectTest = new(new Vector2d(500, 0));
-            pc = gameObjectTest.AddComponent<PhysicsComponent>();
-            cc = gameObjectTest.AddComponent<ColliderComponent>();
-            ac = gameObjectTest.AddComponent<AudioComponent>();
-            asr = gameObjectTest.AddComponent<AnimatedSpriteRenderer>();
+            player = new(new Vector2d(500, 0));
+            pc = player.AddComponent<PhysicsComponent>();
+            ac = player.AddComponent<AudioComponent>();
+            ac.FilePath = "Assets/Game Assets/pick.wav";
+            asr = player.AddComponent<AnimatedSpriteRenderer>();
             asr.texture = spriteSheetTex;
             asr.divisions = 3;
             asr.layer = 1;
             asr.EndFrameIndex = 5;
-            ac.FilePath = "Assets/Game Assets/pick.wav";
             gameObjectTest2 = new(new Vector2d(500, 600));
             var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
             cc2.transform.scale = new Vector2d(5, 1);
@@ -44,7 +43,7 @@ namespace Renderite2D_Project
             var txr = gameObjectTest2.AddComponent<TextRenderer>();
             txr.text = "Hello World!";
             txr.isStatic = false;
-            Game.World.Instantiate(gameObjectTest);
+            Game.World.Instantiate(player);
             Game.World.Instantiate(gameObjectTest2);
         }
 
@@ -66,7 +65,17 @@ namespace Renderite2D_Project
                     OpenTK.Windowing.Common.WindowState.Normal : OpenTK.Windowing.Common.WindowState.Fullscreen;
             }
 
-            Game.MainCamera.Transform = gameObjectTest.transform;
+            if (Input.IsKeyPressed(Keys.V))
+            {
+                player.Damage(1);
+            }
+            if (Input.IsKeyPressed(Keys.H))
+            {
+                player.Heal(1);
+            }
+
+
+            Game.MainCamera.Transform = player.transform;
         }
 
         public override void FixedUpdate()
@@ -81,7 +90,7 @@ namespace Renderite2D_Project
 
         public override void Draw(Game.Shapes gfx)
         {
-            var v = new Vector2d(gameObjectTest.transform.position.X, gameObjectTest.transform.position.Y);
+            var v = new Vector2d(player.transform.position.X, player.transform.position.Y);
             
             Game.DrawShape(Game.DrawType.Text, new object[] { v + new Vector2d(100, 200), "Layer 2", Color4.Orange, 4f, false}, 1);
             Game.DrawShape(Game.DrawType.Text, new object[] { new Vector2d(200, 200), "Layered Drawing", Color4.Cyan, 4f, false}, 0);
@@ -94,7 +103,7 @@ namespace Renderite2D_Project
             gfx.DrawText(Vector2d.UnitY * 56, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 84, "MouseScreenPos = " + Input.MouseScreenPos, Color4.Red, 1);
             gfx.DrawText(Vector2d.UnitY * 112, "MouseWorldPos = " + Input.MouseWorldPos, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 140, "animationIndex = " + asr.index, Color4.Red, 1);
+            gfx.DrawText(Vector2d.UnitY * 140, "health = " + player.Health, Color4.Red, 1);
         }
     }
 }
