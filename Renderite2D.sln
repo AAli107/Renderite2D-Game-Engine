@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renderite2D_Project", "Renderite2D_Project.csproj", "{71DAD611-6DAE-430E-92CF-E86B8E00FCA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renderite2D_Project", "Renderite2D_Project\Renderite2D_Project.csproj", "{59F9848B-B30D-46B6-BF9F-5B16195F66F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{71DAD611-6DAE-430E-92CF-E86B8E00FCA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71DAD611-6DAE-430E-92CF-E86B8E00FCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71DAD611-6DAE-430E-92CF-E86B8E00FCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71DAD611-6DAE-430E-92CF-E86B8E00FCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59F9848B-B30D-46B6-BF9F-5B16195F66F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59F9848B-B30D-46B6-BF9F-5B16195F66F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59F9848B-B30D-46B6-BF9F-5B16195F66F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59F9848B-B30D-46B6-BF9F-5B16195F66F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8F663D65-1040-4F14-8A9D-202DAFF24DCB}
+		SolutionGuid = {2D230E86-5391-432A-8A91-8383232B8ED6}
 	EndGlobalSection
 EndGlobal
