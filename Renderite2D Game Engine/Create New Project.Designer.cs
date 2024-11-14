@@ -170,6 +170,7 @@
             this.Name = "Create_New_Project";
             this.Text = "Renderite2D Game Engine - Create New Project";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Create_New_Project_FormClosed);
+            this.Load += new System.EventHandler(this.Create_New_Project_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

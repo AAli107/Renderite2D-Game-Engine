@@ -31,5 +31,11 @@ namespace Renderite2D_Game_Engine
             if (folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
             folderPath_txt.Text = folderBrowserDialog.SelectedPath;
         }
+
+        private void Create_New_Project_Load(object sender, EventArgs e)
+        {
+            folderPath_txt.Text = WinFormController.projectsFolder;
+            folderBrowserDialog.SelectedPath = WinFormController.projectsFolder;
+        }
     }
 }

@@ -27,6 +27,8 @@ namespace Renderite2D_Game_Engine
         {
             if (!Directory.Exists(WinFormController.projectsFolder))
                 Directory.CreateDirectory(WinFormController.projectsFolder);
+
+            folderBrowserDialog.SelectedPath = WinFormController.projectsFolder;
         }
 
         private void newProject_btn_Click(object sender, EventArgs e)
