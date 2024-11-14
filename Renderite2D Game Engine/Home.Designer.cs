@@ -109,6 +109,7 @@
             this.newProject_btn.TabIndex = 1;
             this.newProject_btn.Text = "New Project";
             this.newProject_btn.UseVisualStyleBackColor = false;
+            this.newProject_btn.Click += new System.EventHandler(this.newProject_btn_Click);
             // 
             // Logo
             // 

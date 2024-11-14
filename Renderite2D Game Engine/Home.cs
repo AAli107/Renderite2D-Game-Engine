@@ -26,5 +26,10 @@ namespace Renderite2D_Game_Engine
         {
 
         }
+
+        private void newProject_btn_Click(object sender, EventArgs e)
+        {
+            new Create_New_Project().Show();
+        }
     }
 }
