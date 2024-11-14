@@ -14,5 +14,6 @@ namespace Renderite2D_Game_Engine
 
         public static BaseForm previouslyOpenForm = null;
         public static BaseForm currentlyOpenForm = null;
+        public static BaseForm startingForm = null;
     }
 }

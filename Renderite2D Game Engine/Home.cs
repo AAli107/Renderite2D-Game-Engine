@@ -25,6 +25,9 @@ namespace Renderite2D_Game_Engine
 
         private void Home_Load(object sender, EventArgs e)
         {
+            if (WinFormController.startingForm == null)
+                WinFormController.startingForm = this;
+
             if (!Directory.Exists(WinFormController.projectsFolder))
                 Directory.CreateDirectory(WinFormController.projectsFolder);
 
