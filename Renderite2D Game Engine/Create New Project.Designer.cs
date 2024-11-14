@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.browse_btn = new System.Windows.Forms.Button();
             this.cancel_btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -37,7 +38,6 @@
             this.create_btn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.browse_btn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -68,15 +68,31 @@
             this.panel2.Size = new System.Drawing.Size(505, 206);
             this.panel2.TabIndex = 1;
             // 
+            // browse_btn
+            // 
+            this.browse_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.browse_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.browse_btn.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.browse_btn.FlatAppearance.BorderSize = 2;
+            this.browse_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.browse_btn.ForeColor = System.Drawing.Color.White;
+            this.browse_btn.Location = new System.Drawing.Point(345, 116);
+            this.browse_btn.Name = "browse_btn";
+            this.browse_btn.Size = new System.Drawing.Size(147, 36);
+            this.browse_btn.TabIndex = 9;
+            this.browse_btn.Text = "Browse";
+            this.browse_btn.UseVisualStyleBackColor = false;
+            this.browse_btn.Click += new System.EventHandler(this.browse_btn_Click);
+            // 
             // cancel_btn
             // 
-            this.cancel_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cancel_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancel_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.cancel_btn.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
             this.cancel_btn.FlatAppearance.BorderSize = 2;
             this.cancel_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancel_btn.ForeColor = System.Drawing.Color.White;
-            this.cancel_btn.Location = new System.Drawing.Point(8, 158);
+            this.cancel_btn.Location = new System.Drawing.Point(266, 158);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(226, 36);
             this.cancel_btn.TabIndex = 8;
@@ -120,13 +136,13 @@
             // 
             // create_btn
             // 
-            this.create_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.create_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.create_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.create_btn.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
             this.create_btn.FlatAppearance.BorderSize = 2;
             this.create_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.create_btn.ForeColor = System.Drawing.Color.White;
-            this.create_btn.Location = new System.Drawing.Point(275, 158);
+            this.create_btn.Location = new System.Drawing.Point(8, 158);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(217, 36);
             this.create_btn.TabIndex = 4;
@@ -144,31 +160,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Create New Project";
             // 
-            // browse_btn
-            // 
-            this.browse_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.browse_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.browse_btn.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.browse_btn.FlatAppearance.BorderSize = 2;
-            this.browse_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.browse_btn.ForeColor = System.Drawing.Color.White;
-            this.browse_btn.Location = new System.Drawing.Point(345, 116);
-            this.browse_btn.Name = "browse_btn";
-            this.browse_btn.Size = new System.Drawing.Size(147, 36);
-            this.browse_btn.TabIndex = 9;
-            this.browse_btn.Text = "Browse";
-            this.browse_btn.UseVisualStyleBackColor = false;
-            this.browse_btn.Click += new System.EventHandler(this.browse_btn_Click);
-            // 
             // Create_New_Project
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1280, 720);
             this.Name = "Create_New_Project";
+            this.Text = "Renderite2D Game Engine - Create New Project";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Create_New_Project_FormClosed);
-            this.Load += new System.EventHandler(this.Create_New_Project_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

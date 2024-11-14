@@ -132,10 +132,11 @@
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1280, 720);
             this.MinimumSize = new System.Drawing.Size(960, 540);
             this.Name = "Home";
-            this.Text = "Renderite2D Game Engine";
+            this.Text = "Renderite2D Game Engine - Home";
             this.Load += new System.EventHandler(this.Home_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

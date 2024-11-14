@@ -20,11 +20,6 @@ namespace Renderite2D_Game_Engine
             CloseAndGoToPreviousForm();
         }
 
-        private void Create_New_Project_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Create_New_Project_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (!IsClosingForms)
