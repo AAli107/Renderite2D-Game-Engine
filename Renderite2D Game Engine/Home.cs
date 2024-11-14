@@ -25,9 +25,8 @@ namespace Renderite2D_Game_Engine
 
         private void Home_Load(object sender, EventArgs e)
         {
-            string projectsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Renderite2D Projects";
-            if (!Directory.Exists(projectsFolder))
-                Directory.CreateDirectory(projectsFolder);
+            if (!Directory.Exists(WinFormController.projectsFolder))
+                Directory.CreateDirectory(WinFormController.projectsFolder);
         }
 
         private void newProject_btn_Click(object sender, EventArgs e)
