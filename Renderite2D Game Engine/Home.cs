@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,9 @@ namespace Renderite2D_Game_Engine
 
         private void Home_Load(object sender, EventArgs e)
         {
-
+            string projectsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Renderite2D Projects";
+            if (!Directory.Exists(projectsFolder))
+                Directory.CreateDirectory(projectsFolder);
         }
 
         private void newProject_btn_Click(object sender, EventArgs e)
