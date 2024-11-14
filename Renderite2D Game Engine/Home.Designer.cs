@@ -35,6 +35,7 @@
             this.openProject_btn = new System.Windows.Forms.Button();
             this.newProject_btn = new System.Windows.Forms.Button();
             this.Logo = new System.Windows.Forms.PictureBox();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -94,6 +95,7 @@
             this.openProject_btn.TabIndex = 2;
             this.openProject_btn.Text = "Open Project";
             this.openProject_btn.UseVisualStyleBackColor = false;
+            this.openProject_btn.Click += new System.EventHandler(this.openProject_btn_Click);
             // 
             // newProject_btn
             // 
@@ -153,6 +155,7 @@
         private System.Windows.Forms.Button newProject_btn;
         private System.Windows.Forms.Button exit_btn;
         private System.Windows.Forms.Button openProject_btn;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
     }
 }
 

@@ -31,5 +31,13 @@ namespace Renderite2D_Game_Engine
         {
             new Create_New_Project().Show();
         }
+
+        private void openProject_btn_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                // TODO : Open Project
+            }
+        }
     }
 }
