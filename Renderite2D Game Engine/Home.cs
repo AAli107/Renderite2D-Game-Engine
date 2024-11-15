@@ -44,6 +44,7 @@ namespace Renderite2D_Game_Engine
             if (folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
             {
                 // TODO : Open Project
+                new LevelEditor().Show();
             }
         }
     }
