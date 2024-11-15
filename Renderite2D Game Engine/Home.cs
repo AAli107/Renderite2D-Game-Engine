@@ -19,6 +19,7 @@ namespace Renderite2D_Game_Engine
         public Home()
         {
             InitializeComponent();
+            WinFormController.startingForm = this;
         }
 
         private void exit_btn_Click(object sender, EventArgs e)
@@ -53,15 +54,19 @@ namespace Renderite2D_Game_Engine
 
                 if (dr == DialogResult.OK)
                     new LevelEditor().Show();
-                else k = 0;
             }
         }
 
         private void Pw_UpdateEvent(ProgressWindow obj)
         {
             // TODO : Load in the project
-            if (k > 255)
+
+
+            if (k > 255) // Test code for finishing
+            {
                 obj.Finish();
+                k = 0;
+            }
             k++;
         }
     }

@@ -30,5 +30,10 @@ namespace Renderite2D_Game_Engine
             if (!IsClosingForms)
                 Application.Exit();
         }
+
+        private void closeProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseAndGoToPreviousForm();
+        }
     }
 }

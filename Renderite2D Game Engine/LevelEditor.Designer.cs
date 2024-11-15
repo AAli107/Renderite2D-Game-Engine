@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.assetDirectory_label = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -55,7 +56,6 @@
             this.buildGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.assetDirectory_label = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -123,6 +123,17 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1264, 52);
             this.panel5.TabIndex = 0;
+            // 
+            // assetDirectory_label
+            // 
+            this.assetDirectory_label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.assetDirectory_label.AutoSize = true;
+            this.assetDirectory_label.Location = new System.Drawing.Point(236, 12);
+            this.assetDirectory_label.Name = "assetDirectory_label";
+            this.assetDirectory_label.Size = new System.Drawing.Size(241, 26);
+            this.assetDirectory_label.TabIndex = 19;
+            this.assetDirectory_label.Text = "Assets / Folder / Sub Folder";
             // 
             // button9
             // 
@@ -265,6 +276,7 @@
             this.closeProjectToolStripMenuItem.Name = "closeProjectToolStripMenuItem";
             this.closeProjectToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.closeProjectToolStripMenuItem.Text = "Close Project";
+            this.closeProjectToolStripMenuItem.Click += new System.EventHandler(this.closeProjectToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -281,7 +293,7 @@
             this.levelSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
             this.levelSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.levelSettingsToolStripMenuItem.Name = "levelSettingsToolStripMenuItem";
-            this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.levelSettingsToolStripMenuItem.Text = "Level Settings";
             // 
             // projectSettingsToolStripMenuItem
@@ -289,7 +301,7 @@
             this.projectSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
             this.projectSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.projectSettingsToolStripMenuItem.Name = "projectSettingsToolStripMenuItem";
-            this.projectSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.projectSettingsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.projectSettingsToolStripMenuItem.Text = "Project Settings";
             // 
             // buildAndRunToolStripMenuItem
@@ -339,17 +351,6 @@
             this.closeProgramToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.closeProgramToolStripMenuItem.Text = "Close Program";
             this.closeProgramToolStripMenuItem.Click += new System.EventHandler(this.closeProgramToolStripMenuItem_Click);
-            // 
-            // assetDirectory_label
-            // 
-            this.assetDirectory_label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.assetDirectory_label.AutoSize = true;
-            this.assetDirectory_label.Location = new System.Drawing.Point(236, 12);
-            this.assetDirectory_label.Name = "assetDirectory_label";
-            this.assetDirectory_label.Size = new System.Drawing.Size(241, 26);
-            this.assetDirectory_label.TabIndex = 19;
-            this.assetDirectory_label.Text = "Assets / Folder / Sub Folder";
             // 
             // LevelEditor
             // 

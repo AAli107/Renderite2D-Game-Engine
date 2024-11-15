@@ -37,6 +37,15 @@ namespace Renderite2D_Game_Engine
             }
         }
 
+        public void CloseAndGoHome()
+        {
+            if (WinFormController.startingForm != null)
+            {
+                WinFormController.currentlyOpenForm?.Close();
+                WinFormController.startingForm.Show();
+            }
+        }
+
         public void LoadForm()
         {
             if (replaceForm)
