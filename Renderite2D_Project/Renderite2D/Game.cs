@@ -46,18 +46,7 @@ namespace Renderite2D_Project.Renderite2D
 
         protected override void OnLoad()
         {
-            var config = new GameConfig()
-            {
-                clientResolution = new(1280, 720),
-                vSyncEnabled = VSyncMode.On,
-                windowBorder = WindowBorder.Resizable,
-                windowTitle = "Renderite2D Game",
-                fixedUpdateFrequency = 60,
-                windowState = WindowState.Normal,
-                startingLevel = new SampleLevel(),
-                drawColliders = false,
-                allowAltEnter = true,
-            };
+            var config = new GameConfig();
 
             targetFrametime = 1 / (config.fixedUpdateFrequency <= 0 ? double.Epsilon : config.fixedUpdateFrequency);
 
