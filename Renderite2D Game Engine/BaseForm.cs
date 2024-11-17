@@ -23,6 +23,8 @@ namespace Renderite2D_Game_Engine
         private void BaseForm_Load(object sender, EventArgs e)
         {
             LoadForm();
+            if (this is not Home)
+                WinFormController.startingForm.Hide();
         }
 
         public void CloseAndGoToPreviousForm()

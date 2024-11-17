@@ -35,5 +35,10 @@ namespace Renderite2D_Game_Engine
         {
             CloseAndGoHome();
         }
+
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Create_New_Project().Show(this);
+        }
     }
 }
