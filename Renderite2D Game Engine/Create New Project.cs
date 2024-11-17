@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -36,6 +38,60 @@ namespace Renderite2D_Game_Engine
         {
             folderPath_txt.Text = WinFormController.projectsFolder;
             folderBrowserDialog.SelectedPath = WinFormController.projectsFolder;
+        }
+
+        private void projectName_txt_TextChanged(object sender, EventArgs e)
+        {
+            UpdateCreateButton();
+        }
+
+        bool DoesStringContainInvalidChars(string str)
+        {
+            foreach (char c in str.ToCharArray())
+                if (new string(Path.GetInvalidFileNameChars()).Contains(c)) return true;
+            return false;
+        }
+
+        bool IsStringOnlyComposedOfChar(string str, char c)
+        {
+            foreach (char chr in str.ToCharArray())
+                if (chr != c) return false;
+            return true;
+        }
+
+        bool DoesProjectExist(string projectName)
+        {
+            if (!Directory.Exists(folderPath_txt.Text)) return false;
+
+            foreach (string project in Directory.GetDirectories(folderPath_txt.Text))
+            {
+                var p = project.Replace('\\', '/').Split('/').LastOrDefault();
+                if (p == projectName)
+                    foreach (var files in Directory.GetFiles(project))
+                        if (files.EndsWith(p + ".rdrt")) return true;
+            }
+            return false;
+        }
+
+        void UpdateCreateButton()
+        {
+            create_btn.Enabled =
+                !string.IsNullOrEmpty(projectName_txt.Text) &&
+                !string.IsNullOrWhiteSpace(projectName_txt.Text) &&
+                !DoesStringContainInvalidChars(projectName_txt.Text) &&
+                !IsStringOnlyComposedOfChar(projectName_txt.Text.Replace(" ", ""), '.') &&
+                !DoesProjectExist(projectName_txt.Text) &&
+                 Directory.Exists(folderPath_txt.Text);
+        }
+
+        private void Create_New_Project_Shown(object sender, EventArgs e)
+        {
+            UpdateCreateButton();
+        }
+
+        private void folderPath_txt_TextChanged(object sender, EventArgs e)
+        {
+            UpdateCreateButton();
         }
     }
 }

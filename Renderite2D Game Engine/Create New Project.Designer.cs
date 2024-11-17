@@ -33,7 +33,7 @@
             this.browse_btn = new System.Windows.Forms.Button();
             this.cancel_btn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.projectName_txt = new System.Windows.Forms.TextBox();
             this.folderPath_txt = new System.Windows.Forms.TextBox();
             this.create_btn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -60,7 +60,7 @@
             this.panel2.Controls.Add(this.browse_btn);
             this.panel2.Controls.Add(this.cancel_btn);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.projectName_txt);
             this.panel2.Controls.Add(this.folderPath_txt);
             this.panel2.Controls.Add(this.create_btn);
             this.panel2.Location = new System.Drawing.Point(357, 250);
@@ -109,17 +109,18 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Project Name :";
             // 
-            // textBox1
+            // projectName_txt
             // 
-            this.textBox1.AllowDrop = true;
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.projectName_txt.AllowDrop = true;
+            this.projectName_txt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(148, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(344, 33);
-            this.textBox1.TabIndex = 5;
+            this.projectName_txt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.projectName_txt.ForeColor = System.Drawing.Color.White;
+            this.projectName_txt.Location = new System.Drawing.Point(148, 25);
+            this.projectName_txt.Name = "projectName_txt";
+            this.projectName_txt.Size = new System.Drawing.Size(344, 33);
+            this.projectName_txt.TabIndex = 5;
+            this.projectName_txt.TextChanged += new System.EventHandler(this.projectName_txt_TextChanged);
             // 
             // folderPath_txt
             // 
@@ -133,6 +134,7 @@
             this.folderPath_txt.Size = new System.Drawing.Size(331, 33);
             this.folderPath_txt.TabIndex = 6;
             this.folderPath_txt.Text = "C:\\Users\\User123\\Documents\\Renderite2DProjects\\ProjectName";
+            this.folderPath_txt.TextChanged += new System.EventHandler(this.folderPath_txt_TextChanged);
             // 
             // create_btn
             // 
@@ -172,6 +174,7 @@
             this.Text = "Renderite2D Game Engine - Create New Project";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Create_New_Project_FormClosed);
             this.Load += new System.EventHandler(this.Create_New_Project_Load);
+            this.Shown += new System.EventHandler(this.Create_New_Project_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -189,7 +192,7 @@
         private System.Windows.Forms.Button create_btn;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox projectName_txt;
         private System.Windows.Forms.Button cancel_btn;
         private System.Windows.Forms.Button browse_btn;
     }
