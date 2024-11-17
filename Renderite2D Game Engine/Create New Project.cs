@@ -104,6 +104,26 @@ namespace Renderite2D_Game_Engine
         private void Create_New_Project_Shown(object sender, EventArgs e)
         {
             UpdateCreateButton();
+
+            int newProjectIndex = 0;
+            string newProjectStr = "New Project";
+
+            if (!Directory.Exists(folderPath_txt.Text + "/" + newProjectStr))
+                projectName_txt.Text = newProjectStr;
+            else newProjectIndex++;
+
+            if (newProjectIndex > 0)
+            {
+                while (true)
+                {
+                    if (!Directory.Exists(folderPath_txt.Text + "/" + newProjectStr + " (" + newProjectIndex + ")"))
+                    {
+                        projectName_txt.Text = newProjectStr + " (" + newProjectIndex + ")";
+                        break;
+                    }
+                    else newProjectIndex++;
+                }
+            }
         }
 
         private void folderPath_txt_TextChanged(object sender, EventArgs e)
