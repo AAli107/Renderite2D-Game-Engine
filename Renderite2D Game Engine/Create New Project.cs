@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renderite2D_Game_Engine.Scripts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,16 @@ namespace Renderite2D_Game_Engine
 {
     public partial class Create_New_Project : Renderite2D_Game_Engine.BaseForm
     {
+        int projectCodeIndex = 0;
+        public readonly string[] createProjectCode =
+        { 
+            "CreateDir \"project_name\"",
+            "CreateDir \"project_name/Assets\"",
+            "CreateDir \"project_name/Build\"",
+            "CreateProject \"project_name/project_name\"",
+            "CreateLevel \"project_name/Assets/SampleLevel\"",
+        };
+
         public Create_New_Project()
         {
             InitializeComponent();
@@ -86,6 +97,7 @@ namespace Renderite2D_Game_Engine
                 !DoesStringContainInvalidChars(projectName_txt.Text) &&
                 !IsStringOnlyComposedOfChar(projectName_txt.Text.Replace(" ", ""), '.') &&
                 !DoesProjectExist(projectName_txt.Text) &&
+                !Directory.Exists(folderPath_txt.Text + "/" + projectName_txt.Text) &&
                  Directory.Exists(folderPath_txt.Text);
         }
 
@@ -103,9 +115,29 @@ namespace Renderite2D_Game_Engine
         {
             if (CreateClickCondition())
             {
+                ProgressWindow pw = new ProgressWindow();
+                pw.UpdateEvent += Pw_UpdateEvent;
+                DialogResult dr = pw.ShowDialog(this);
+                pw.UpdateEvent -= Pw_UpdateEvent;
 
+                if (dr == DialogResult.OK)
+                    new LevelEditor().Show();
             }
             else UpdateCreateButton();
+        }
+
+        private void Pw_UpdateEvent(ProgressWindow obj)
+        {
+            if (projectCodeIndex < createProjectCode.Length)
+            {
+                RenderiteEngineScript.ExecuteLine(createProjectCode[projectCodeIndex], projectName_txt.Text, folderPath_txt.Text);
+                projectCodeIndex++;
+            }
+            else
+            {
+                projectCodeIndex = 0;
+                obj.Finish();
+            }
         }
     }
 }
