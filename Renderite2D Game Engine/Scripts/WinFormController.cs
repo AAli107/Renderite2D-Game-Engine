@@ -10,7 +10,7 @@ namespace Renderite2D_Game_Engine
     public static class WinFormController
     {
         public static readonly string projectsFolder = 
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace('\\', '/') + "/Renderite2D Projects";
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace('\\', '/') + "/Renderite2D Projects/";
 
         public static BaseForm previouslyOpenForm = null;
         public static BaseForm currentlyOpenForm = null;

@@ -5,16 +5,30 @@ namespace Renderite2D_Game_Engine.Scripts.Data
     [Serializable]
     public struct Project
     {
-        public int resolutionX = 1280;
-        public int resolutionY = 720;
-        public bool vSyncEnabled = true;
-        public bool isWindowResizeable = true;
-        public string windowTitle = "Renderite2D Game";
-        public double fixedUpdateFrequency = 60;
-        public int windowState = 0;
-        public string startingLevel = "SampleLevel";
-        public bool drawColliders = false;
-        public bool allowAltEnter = true;
+        public int resolutionX;
+        public int resolutionY;
+        public bool vSyncEnabled;
+        public bool isWindowResizeable;
+        public string windowTitle;
+        public double fixedUpdateFrequency;
+        public int windowState;
+        public string startingLevel;
+        public bool drawColliders;
+        public bool allowAltEnter;
+
+        public Project()
+        {
+            resolutionX = 1280;
+            resolutionY = 720;
+            vSyncEnabled = true;
+            isWindowResizeable = true;
+            windowTitle = "Renderite2D Game";
+            fixedUpdateFrequency = 60;
+            windowState = 0;
+            startingLevel = "SampleLevel";
+            drawColliders = false;
+            allowAltEnter = true;
+        }
 
         public Project(int resolutionX, int resolutionY, bool vSyncEnabled, bool isWindowResizeable, 
             string windowTitle, double fixedUpdateFrequency, int windowState, string startingLevel, 
