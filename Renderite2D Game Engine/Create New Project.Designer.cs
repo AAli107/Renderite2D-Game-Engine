@@ -138,6 +138,7 @@
             // 
             this.create_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.create_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.create_btn.Enabled = false;
             this.create_btn.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
             this.create_btn.FlatAppearance.BorderSize = 2;
             this.create_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
