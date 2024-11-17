@@ -41,7 +41,9 @@ namespace Renderite2D_Game_Engine
         {
             if (WinFormController.startingForm != null)
             {
+                IsClosingForms = true;
                 WinFormController.currentlyOpenForm?.Close();
+                IsClosingForms = false;
                 WinFormController.startingForm.Show();
             }
         }

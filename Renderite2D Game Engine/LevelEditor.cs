@@ -33,7 +33,7 @@ namespace Renderite2D_Game_Engine
 
         private void closeProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CloseAndGoToPreviousForm();
+            CloseAndGoHome();
         }
     }
 }
