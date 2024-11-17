@@ -16,11 +16,11 @@ namespace Renderite2D_Game_Engine
         int projectCodeIndex = 0;
         public readonly string[] createProjectCode =
         { 
-            "CreateDir \"project_name\"",
-            "CreateDir \"project_name/Assets\"",
-            "CreateDir \"project_name/Build\"",
-            "CreateProject \"project_name/project_name\"",
-            "CreateLevel \"project_name/Assets/SampleLevel\"",
+            $$""" CreateDir "project_name"                        """,
+            $$""" CreateDir "project_name/Assets"                 """,
+            $$""" CreateDir "project_name/Build"                  """,
+            $$""" CreateProject "project_name/project_name"       """,
+            $$""" CreateLevel "project_name/Assets/SampleLevel"   """,
         };
 
         public Create_New_Project()
