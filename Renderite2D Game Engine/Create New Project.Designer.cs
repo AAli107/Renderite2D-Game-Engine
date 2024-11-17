@@ -119,7 +119,7 @@
             this.textBox1.Location = new System.Drawing.Point(148, 25);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(344, 33);
-            this.textBox1.TabIndex = 6;
+            this.textBox1.TabIndex = 5;
             // 
             // folderPath_txt
             // 
@@ -131,7 +131,7 @@
             this.folderPath_txt.Location = new System.Drawing.Point(8, 119);
             this.folderPath_txt.Name = "folderPath_txt";
             this.folderPath_txt.Size = new System.Drawing.Size(331, 33);
-            this.folderPath_txt.TabIndex = 5;
+            this.folderPath_txt.TabIndex = 6;
             this.folderPath_txt.Text = "C:\\Users\\User123\\Documents\\Renderite2DProjects\\ProjectName";
             // 
             // create_btn
