@@ -98,5 +98,14 @@ namespace Renderite2D_Game_Engine
         {
             UpdateCreateButton();
         }
+
+        private void create_btn_Click(object sender, EventArgs e)
+        {
+            if (CreateClickCondition())
+            {
+
+            }
+            else UpdateCreateButton();
+        }
     }
 }

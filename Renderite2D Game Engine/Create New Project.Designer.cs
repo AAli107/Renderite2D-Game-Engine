@@ -151,6 +151,7 @@
             this.create_btn.TabIndex = 4;
             this.create_btn.Text = "Create";
             this.create_btn.UseVisualStyleBackColor = false;
+            this.create_btn.Click += new System.EventHandler(this.create_btn_Click);
             // 
             // label1
             // 
