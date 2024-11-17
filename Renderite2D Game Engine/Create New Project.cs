@@ -75,7 +75,12 @@ namespace Renderite2D_Game_Engine
 
         void UpdateCreateButton()
         {
-            create_btn.Enabled =
+            create_btn.Enabled = CreateClickCondition();
+        }
+
+        bool CreateClickCondition()
+        {
+            return 
                 !string.IsNullOrEmpty(projectName_txt.Text) &&
                 !string.IsNullOrWhiteSpace(projectName_txt.Text) &&
                 !DoesStringContainInvalidChars(projectName_txt.Text) &&
