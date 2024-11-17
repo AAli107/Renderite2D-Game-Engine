@@ -27,7 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<LangVersion>10</LangVersion>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -100,6 +100,7 @@
     <Compile Include="Scripts\Data\Level.cs" />
     <Compile Include="Scripts\Data\LevelComponent.cs" />
     <Compile Include="Scripts\Data\LevelObject.cs" />
+    <Compile Include="Scripts\Data\Project.cs" />
     <Compile Include="Scripts\WinFormController.cs" />
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
