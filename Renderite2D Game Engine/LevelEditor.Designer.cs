@@ -95,6 +95,7 @@
             this.addObject_btn.TabIndex = 0;
             this.addObject_btn.Text = "Add";
             this.addObject_btn.UseVisualStyleBackColor = false;
+            this.addObject_btn.Click += new System.EventHandler(this.addObject_btn_Click);
             // 
             // panel1
             // 
@@ -399,6 +400,9 @@
             // 
             // gameObject_listBox
             // 
+            this.gameObject_listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gameObject_listBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.gameObject_listBox.ForeColor = System.Drawing.Color.White;
             this.gameObject_listBox.FormattingEnabled = true;

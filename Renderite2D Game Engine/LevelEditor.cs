@@ -31,23 +31,23 @@ namespace Renderite2D_Game_Engine
         {
             InitializeComponent();
             levelData = new();
-            AddGameObject("Game Object 1", new LevelObject());
-            AddGameObject("Game Object 2", new LevelObject("GameObject", 100, 100, 2, 1, new()));
+            AddGameObject("Game Object", new LevelObject());
+            AddGameObject("Game Object_1", new LevelObject("GameObject", 100, 100, 2, 1, new()));
             UpdateViewport();
         }
 
         public bool AddGameObject(string name, LevelObject gameObject)
         {
-            if (levelData.gameObjects.ContainsKey(name)) return false;
-            levelData.gameObjects.Add(name, gameObject);
+            if (levelData.gameObjects.ContainsKey(name.Trim())) return false;
+            levelData.gameObjects.Add(name.Trim(), gameObject);
             UpdateGameObjectList();
             return true;
         }
 
         public bool RemoveGameObject(string name)
         {
-            if (levelData.gameObjects.ContainsKey(name)) return false;
-            levelData.gameObjects.Remove(name); 
+            if (levelData.gameObjects.ContainsKey(name.Trim())) return false;
+            levelData.gameObjects.Remove(name.Trim()); 
             UpdateGameObjectList();
             return true;
         }
@@ -106,6 +106,7 @@ namespace Renderite2D_Game_Engine
                         (int)obj.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
                     ),
                     BorderStyle = BorderStyle.Fixed3D,
+                    BackColor = Color.Transparent
                 });
             }
             viewportCoords_label.Text = "Looking at " + new Vector2((float)viewportPos.x, (float)viewportPos.y).ToString();
@@ -144,6 +145,22 @@ namespace Renderite2D_Game_Engine
                 ViewportPos = new(ViewportPos.x + deltaDir.x, ViewportPos.y + deltaDir.y);
             }
             currentMousePos = new(e.Location.X, e.Location.Y);
+        }
+
+        private void addObject_btn_Click(object sender, EventArgs e)
+        {
+            string gameObjectBaseName = "Game Object";
+            int index = 0;
+            string gameObjectName;
+
+            gameObjectName = gameObjectBaseName;
+            while (levelData.gameObjects.ContainsKey(gameObjectName))
+            {
+                index++;
+                gameObjectName = gameObjectBaseName + "_" + index;
+            }
+            AddGameObject(gameObjectName, new LevelObject("GameObject", ViewportPos.x, ViewportPos.y, 1, 1, new()));
+            UpdateViewport();
         }
     }
 
