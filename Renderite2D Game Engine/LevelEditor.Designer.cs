@@ -56,6 +56,8 @@
             this.buildGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addObject_btn = new System.Windows.Forms.Button();
+            this.levelViewport_panel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -69,6 +71,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.levelViewport_panel.AutoScroll = true;
             this.levelViewport_panel.BackColor = System.Drawing.Color.Black;
+            this.levelViewport_panel.Controls.Add(this.addObject_btn);
             this.levelViewport_panel.Location = new System.Drawing.Point(265, 24);
             this.levelViewport_panel.Margin = new System.Windows.Forms.Padding(0);
             this.levelViewport_panel.Name = "levelViewport_panel";
@@ -353,6 +356,16 @@
             this.closeProgramToolStripMenuItem.Text = "Close Program";
             this.closeProgramToolStripMenuItem.Click += new System.EventHandler(this.closeProgramToolStripMenuItem_Click);
             // 
+            // addObject_btn
+            // 
+            this.addObject_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.addObject_btn.Location = new System.Drawing.Point(4, 6);
+            this.addObject_btn.Name = "addObject_btn";
+            this.addObject_btn.Size = new System.Drawing.Size(60, 39);
+            this.addObject_btn.TabIndex = 0;
+            this.addObject_btn.Text = "Add";
+            this.addObject_btn.UseVisualStyleBackColor = false;
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
@@ -366,6 +379,7 @@
             this.Name = "LevelEditor";
             this.Text = "Renderite2D Game Engine - Project";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelEditor_FormClosed);
+            this.levelViewport_panel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -408,5 +422,6 @@
         private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeProgramToolStripMenuItem;
         private System.Windows.Forms.Label assetDirectory_label;
+        private System.Windows.Forms.Button addObject_btn;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renderite2D_Game_Engine.Scripts.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,9 +11,12 @@ namespace Renderite2D_Game_Engine
 {
     public partial class LevelEditor : Renderite2D_Game_Engine.BaseForm
     {
+        public Level levelData;
+
         public LevelEditor()
         {
             InitializeComponent();
+
         }
 
         private void closeProgramToolStripMenuItem_Click(object sender, EventArgs e)
@@ -34,6 +38,11 @@ namespace Renderite2D_Game_Engine
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Create_New_Project().Show(this);
+        }
+
+        public void UpdateViewport()
+        {
+            //levelViewport_panel.Controls;
         }
     }
 }
