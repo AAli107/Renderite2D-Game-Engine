@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Renderite2D_Game_Engine.Scripts;
+using Renderite2D_Game_Engine.Scripts.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,8 +32,7 @@ namespace Renderite2D_Game_Engine
 
         private void Home_Load(object sender, EventArgs e)
         {
-            if (WinFormController.startingForm == null)
-                WinFormController.startingForm = this;
+            WinFormController.startingForm ??= this;
 
             if (!Directory.Exists(WinFormController.projectsFolder))
                 Directory.CreateDirectory(WinFormController.projectsFolder);
@@ -49,13 +51,27 @@ namespace Renderite2D_Game_Engine
         {
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                ProgressWindow pw = new ProgressWindow();
-                pw.UpdateEvent += Pw_UpdateEvent;
-                DialogResult dr = pw.ShowDialog(this);
-                pw.UpdateEvent -= Pw_UpdateEvent;
+                try
+                {
+                    var settings = new JsonSerializerSettings()
+                    {
+                        MissingMemberHandling = MissingMemberHandling.Error,
+                    };
+                    var p = JsonConvert.DeserializeObject<Project>(File.ReadAllText(openFileDialog.FileName), settings);
 
-                if (dr == DialogResult.OK)
-                    new LevelEditor().Show();
+                    ProgressWindow pw = new();
+                    pw.UpdateEvent += Pw_UpdateEvent;
+                    DialogResult dr = pw.ShowDialog(this);
+                    pw.UpdateEvent -= Pw_UpdateEvent;
+
+                    if (dr == DialogResult.OK)
+                        new LevelEditor().Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid or Corrupt Project File...\n" +
+                        ex.Message, "Project Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } 
             }
         }
 
