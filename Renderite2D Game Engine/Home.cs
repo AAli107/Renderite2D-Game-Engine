@@ -35,7 +35,9 @@ namespace Renderite2D_Game_Engine
             if (!Directory.Exists(WinFormController.projectsFolder))
                 Directory.CreateDirectory(WinFormController.projectsFolder);
 
-            folderBrowserDialog.SelectedPath = WinFormController.projectsFolder;
+            openFileDialog.Title = "Open Renderite2D Project";
+            openFileDialog.Filter = "Renderite2D Project file (*.rdrt)|*.rdrt";
+            openFileDialog.InitialDirectory = WinFormController.projectsFolder.Replace('/', '\\');
         }
 
         private void newProject_btn_Click(object sender, EventArgs e)
@@ -45,7 +47,7 @@ namespace Renderite2D_Game_Engine
 
         private void openProject_btn_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog.ShowDialog(this) == DialogResult.OK)
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 ProgressWindow pw = new ProgressWindow();
                 pw.UpdateEvent += Pw_UpdateEvent;
