@@ -57,11 +57,15 @@
             this.buildGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewportGUI_panel = new System.Windows.Forms.Panel();
+            this.viewportCoords_label = new System.Windows.Forms.Label();
+            this.gameObject_listBox = new System.Windows.Forms.ListBox();
             this.levelViewport_panel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.viewportGUI_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // levelViewport_panel
@@ -69,22 +73,25 @@
             this.levelViewport_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.levelViewport_panel.AutoScroll = true;
             this.levelViewport_panel.BackColor = System.Drawing.Color.Black;
-            this.levelViewport_panel.Controls.Add(this.addObject_btn);
+            this.levelViewport_panel.Controls.Add(this.viewportGUI_panel);
             this.levelViewport_panel.Location = new System.Drawing.Point(265, 24);
             this.levelViewport_panel.Margin = new System.Windows.Forms.Padding(0);
             this.levelViewport_panel.Name = "levelViewport_panel";
             this.levelViewport_panel.Size = new System.Drawing.Size(729, 389);
             this.levelViewport_panel.TabIndex = 0;
+            this.levelViewport_panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.levelViewport_panel_MouseDown);
+            this.levelViewport_panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.levelViewport_panel_MouseMove);
+            this.levelViewport_panel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.levelViewport_panel_MouseUp);
             this.levelViewport_panel.Resize += new System.EventHandler(this.levelViewport_panel_Resize);
             // 
             // addObject_btn
             // 
             this.addObject_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.addObject_btn.Location = new System.Drawing.Point(4, 6);
+            this.addObject_btn.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addObject_btn.Location = new System.Drawing.Point(3, 3);
             this.addObject_btn.Name = "addObject_btn";
-            this.addObject_btn.Size = new System.Drawing.Size(60, 39);
+            this.addObject_btn.Size = new System.Drawing.Size(46, 30);
             this.addObject_btn.TabIndex = 0;
             this.addObject_btn.Text = "Add";
             this.addObject_btn.UseVisualStyleBackColor = false;
@@ -95,6 +102,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.panel1.Controls.Add(this.gameObject_listBox);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
@@ -107,9 +115,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(5, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 26);
+            this.label1.Size = new System.Drawing.Size(141, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Hierarchy :";
+            this.label1.Text = "Game Objects :";
             // 
             // panel2
             // 
@@ -367,6 +375,39 @@
             this.closeProgramToolStripMenuItem.Text = "Close Program";
             this.closeProgramToolStripMenuItem.Click += new System.EventHandler(this.closeProgramToolStripMenuItem_Click);
             // 
+            // viewportGUI_panel
+            // 
+            this.viewportGUI_panel.AutoSize = true;
+            this.viewportGUI_panel.BackColor = System.Drawing.Color.Gray;
+            this.viewportGUI_panel.Controls.Add(this.viewportCoords_label);
+            this.viewportGUI_panel.Controls.Add(this.addObject_btn);
+            this.viewportGUI_panel.ForeColor = System.Drawing.Color.Transparent;
+            this.viewportGUI_panel.Location = new System.Drawing.Point(3, 6);
+            this.viewportGUI_panel.Name = "viewportGUI_panel";
+            this.viewportGUI_panel.Size = new System.Drawing.Size(219, 36);
+            this.viewportGUI_panel.TabIndex = 1;
+            // 
+            // viewportCoords_label
+            // 
+            this.viewportCoords_label.AutoSize = true;
+            this.viewportCoords_label.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewportCoords_label.Location = new System.Drawing.Point(55, 9);
+            this.viewportCoords_label.Name = "viewportCoords_label";
+            this.viewportCoords_label.Size = new System.Drawing.Size(90, 19);
+            this.viewportCoords_label.TabIndex = 1;
+            this.viewportCoords_label.Text = "XY = 124 / 23";
+            // 
+            // gameObject_listBox
+            // 
+            this.gameObject_listBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.gameObject_listBox.ForeColor = System.Drawing.Color.White;
+            this.gameObject_listBox.FormattingEnabled = true;
+            this.gameObject_listBox.ItemHeight = 26;
+            this.gameObject_listBox.Location = new System.Drawing.Point(10, 35);
+            this.gameObject_listBox.Name = "gameObject_listBox";
+            this.gameObject_listBox.Size = new System.Drawing.Size(244, 342);
+            this.gameObject_listBox.TabIndex = 1;
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
@@ -381,6 +422,7 @@
             this.Text = "Renderite2D Game Engine - Project";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelEditor_FormClosed);
             this.levelViewport_panel.ResumeLayout(false);
+            this.levelViewport_panel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -388,6 +430,8 @@
             this.panel5.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.viewportGUI_panel.ResumeLayout(false);
+            this.viewportGUI_panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -424,5 +468,8 @@
         private System.Windows.Forms.ToolStripMenuItem closeProgramToolStripMenuItem;
         private System.Windows.Forms.Label assetDirectory_label;
         private System.Windows.Forms.Button addObject_btn;
+        private System.Windows.Forms.Panel viewportGUI_panel;
+        private System.Windows.Forms.Label viewportCoords_label;
+        private System.Windows.Forms.ListBox gameObject_listBox;
     }
 }

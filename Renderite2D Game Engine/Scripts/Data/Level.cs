@@ -8,7 +8,7 @@ namespace Renderite2D_Game_Engine.Scripts.Data
     public struct Level
     {
         public Color backgroundColor;
-        public List<LevelObject> gameObjects;
+        public Dictionary<string, LevelObject> gameObjects;
 
         public Level()
         {
@@ -16,7 +16,7 @@ namespace Renderite2D_Game_Engine.Scripts.Data
             gameObjects = new();
         }
 
-        public Level(Color backgroundColor, List<LevelObject> gameObjects)
+        public Level(Color backgroundColor, Dictionary<string, LevelObject> gameObjects)
         {
             this.backgroundColor = backgroundColor;
             this.gameObjects = gameObjects;

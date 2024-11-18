@@ -24,8 +24,9 @@ namespace Renderite2D_Game_Engine.Scripts.Data
             isEnabled = true;
         }
 
-        public LevelObject(double x, double y, double scaleX, double scaleY, List<LevelComponent> components, bool isEnabled = true)
+        public LevelObject(string objectType, double x, double y, double scaleX, double scaleY, List<LevelComponent> components, bool isEnabled = true)
         {
+            this.objectType = objectType;
             this.x = x;
             this.y = y;
             this.scaleX = scaleX;
