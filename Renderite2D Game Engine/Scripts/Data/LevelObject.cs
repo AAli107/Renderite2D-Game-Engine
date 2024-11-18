@@ -6,6 +6,7 @@ namespace Renderite2D_Game_Engine.Scripts.Data
     [Serializable]
     public struct LevelObject
     {
+        public string objectType;
         public double x;
         public double y;
         public List<LevelComponent> components;
