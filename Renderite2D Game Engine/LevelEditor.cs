@@ -15,11 +15,6 @@ namespace Renderite2D_Game_Engine
             InitializeComponent();
         }
 
-        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-
-        }
-
         private void closeProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
