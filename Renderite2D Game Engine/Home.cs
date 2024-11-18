@@ -69,8 +69,8 @@ namespace Renderite2D_Game_Engine
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Invalid or Corrupt Project File...\n" +
-                        ex.Message, "Project Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid or Corrupt Project File...\n" + ex.Message, 
+                        "Project Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 } 
             }
         }
