@@ -80,7 +80,7 @@ namespace Renderite2D_Game_Engine
             // TODO : Load in the project
 
 
-            if (k > 255) // Test code for finishing
+            if (k > 100) // Test code for finishing
             {
                 obj.Finish();
                 k = 0;

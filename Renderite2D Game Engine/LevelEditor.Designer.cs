@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.levelViewport_panel = new System.Windows.Forms.Panel();
+            this.addObject_btn = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.buildGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addObject_btn = new System.Windows.Forms.Button();
             this.levelViewport_panel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -77,6 +77,17 @@
             this.levelViewport_panel.Name = "levelViewport_panel";
             this.levelViewport_panel.Size = new System.Drawing.Size(729, 389);
             this.levelViewport_panel.TabIndex = 0;
+            this.levelViewport_panel.Resize += new System.EventHandler(this.levelViewport_panel_Resize);
+            // 
+            // addObject_btn
+            // 
+            this.addObject_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.addObject_btn.Location = new System.Drawing.Point(4, 6);
+            this.addObject_btn.Name = "addObject_btn";
+            this.addObject_btn.Size = new System.Drawing.Size(60, 39);
+            this.addObject_btn.TabIndex = 0;
+            this.addObject_btn.Text = "Add";
+            this.addObject_btn.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -355,16 +366,6 @@
             this.closeProgramToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.closeProgramToolStripMenuItem.Text = "Close Program";
             this.closeProgramToolStripMenuItem.Click += new System.EventHandler(this.closeProgramToolStripMenuItem_Click);
-            // 
-            // addObject_btn
-            // 
-            this.addObject_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.addObject_btn.Location = new System.Drawing.Point(4, 6);
-            this.addObject_btn.Name = "addObject_btn";
-            this.addObject_btn.Size = new System.Drawing.Size(60, 39);
-            this.addObject_btn.TabIndex = 0;
-            this.addObject_btn.Text = "Add";
-            this.addObject_btn.UseVisualStyleBackColor = false;
             // 
             // LevelEditor
             // 
