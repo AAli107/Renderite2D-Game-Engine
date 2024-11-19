@@ -55,10 +55,16 @@ namespace Renderite2D_Game_Engine
 
         public void UpdateGameObjectList()
         {
-            gameObject_listBox.Items.Clear();
+            string[] items = new string[gameObject_listBox.Items.Count];
+            gameObject_listBox.Items.CopyTo(items, 0);
+
+            foreach (string name in items)
+                if (!levelData.gameObjects.ContainsKey(name))
+                    gameObject_listBox.Items.Remove(name);
 
             foreach (string name in levelData.gameObjects.Keys)
-                gameObject_listBox.Items.Add(name);
+                if (!gameObject_listBox.Items.Contains(name))
+                    gameObject_listBox.Items.Add(name);
         }
 
         private void closeProgramToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,7 +90,6 @@ namespace Renderite2D_Game_Engine
 
         public void UpdateViewport()
         {
-            //levelViewport_panel.Controls;
             string[] controlKeys = new string[levelObjectControls.Count];
             levelObjectControls.Keys.CopyTo(controlKeys, 0);
             foreach (var key in controlKeys)
