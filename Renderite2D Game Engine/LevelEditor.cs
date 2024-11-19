@@ -175,6 +175,7 @@ namespace Renderite2D_Game_Engine
                     objectName = string.Empty;
                     userInteraction = UserInteraction.None;
                 }
+                UpdatePropertiesPanel();
                 UpdateViewport();
             }
         }
@@ -280,6 +281,10 @@ namespace Renderite2D_Game_Engine
             {
                 gameObjectName_label.Text = (string)gameObject_listBox.SelectedItem;
                 gameObjectIsEnabled_checkbox.CheckState = levelData.gameObjects[(string)gameObject_listBox.SelectedItem].isEnabled ? CheckState.Checked : CheckState.Unchecked;
+                posX_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].x;
+                posY_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].y;
+                scaleX_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleX;
+                scaleY_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleY;
             }
         }
 
@@ -297,6 +302,38 @@ namespace Renderite2D_Game_Engine
         {
             var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
             obj.isEnabled = gameObjectIsEnabled_checkbox.Checked;
+            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            UpdateViewport();
+        }
+
+        private void posX_num_ValueChanged(object sender, EventArgs e)
+        {
+            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            obj.x = (double)posX_num.Value;
+            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            UpdateViewport();
+        }
+
+        private void posY_num_ValueChanged(object sender, EventArgs e)
+        {
+            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            obj.y = (double)posY_num.Value;
+            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            UpdateViewport();
+        }
+
+        private void scaleX_num_ValueChanged(object sender, EventArgs e)
+        {
+            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            obj.scaleX = (double)scaleX_num.Value;
+            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            UpdateViewport();
+        }
+
+        private void scaleY_num_ValueChanged(object sender, EventArgs e)
+        {
+            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            obj.scaleY = (double)scaleY_num.Value;
             levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }

@@ -42,6 +42,19 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.properties_panel = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.scaleY_num = new System.Windows.Forms.NumericUpDown();
+            this.scaleX_num = new System.Windows.Forms.NumericUpDown();
+            this.posY_num = new System.Windows.Forms.NumericUpDown();
+            this.posX_num = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.gameObjectIsEnabled_checkbox = new System.Windows.Forms.CheckBox();
             this.gameObjectName_label = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -68,6 +81,12 @@
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.properties_panel.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleY_num)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleX_num)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.posY_num)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.posX_num)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -237,6 +256,7 @@
             this.properties_panel.AutoScroll = true;
             this.properties_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.properties_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.properties_panel.Controls.Add(this.panel3);
             this.properties_panel.Controls.Add(this.gameObjectIsEnabled_checkbox);
             this.properties_panel.Controls.Add(this.gameObjectName_label);
             this.properties_panel.Location = new System.Drawing.Point(994, 24);
@@ -245,8 +265,224 @@
             this.properties_panel.Size = new System.Drawing.Size(270, 389);
             this.properties_panel.TabIndex = 2;
             // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.AutoScroll = true;
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Location = new System.Drawing.Point(8, 35);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(250, 342);
+            this.panel3.TabIndex = 3;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.scaleY_num);
+            this.panel4.Controls.Add(this.scaleX_num);
+            this.panel4.Controls.Add(this.posY_num);
+            this.panel4.Controls.Add(this.posX_num);
+            this.panel4.Controls.Add(this.label8);
+            this.panel4.Controls.Add(this.label7);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Controls.Add(this.label2);
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(240, 86);
+            this.panel4.TabIndex = 0;
+            // 
+            // scaleY_num
+            // 
+            this.scaleY_num.AllowDrop = true;
+            this.scaleY_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scaleY_num.DecimalPlaces = 5;
+            this.scaleY_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scaleY_num.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.scaleY_num.Location = new System.Drawing.Point(186, 45);
+            this.scaleY_num.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.scaleY_num.Minimum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            -2147483648});
+            this.scaleY_num.Name = "scaleY_num";
+            this.scaleY_num.Size = new System.Drawing.Size(49, 26);
+            this.scaleY_num.TabIndex = 17;
+            this.scaleY_num.ValueChanged += new System.EventHandler(this.scaleY_num_ValueChanged);
+            // 
+            // scaleX_num
+            // 
+            this.scaleX_num.AllowDrop = true;
+            this.scaleX_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scaleX_num.DecimalPlaces = 5;
+            this.scaleX_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scaleX_num.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.scaleX_num.Location = new System.Drawing.Point(105, 45);
+            this.scaleX_num.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.scaleX_num.Minimum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            -2147483648});
+            this.scaleX_num.Name = "scaleX_num";
+            this.scaleX_num.Size = new System.Drawing.Size(49, 26);
+            this.scaleX_num.TabIndex = 16;
+            this.scaleX_num.ValueChanged += new System.EventHandler(this.scaleX_num_ValueChanged);
+            // 
+            // posY_num
+            // 
+            this.posY_num.AllowDrop = true;
+            this.posY_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.posY_num.DecimalPlaces = 5;
+            this.posY_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posY_num.Location = new System.Drawing.Point(186, 19);
+            this.posY_num.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.posY_num.Minimum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            -2147483648});
+            this.posY_num.Name = "posY_num";
+            this.posY_num.Size = new System.Drawing.Size(49, 26);
+            this.posY_num.TabIndex = 15;
+            this.posY_num.ValueChanged += new System.EventHandler(this.posY_num_ValueChanged);
+            // 
+            // posX_num
+            // 
+            this.posX_num.AllowDrop = true;
+            this.posX_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.posX_num.DecimalPlaces = 5;
+            this.posX_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posX_num.Location = new System.Drawing.Point(105, 19);
+            this.posX_num.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.posX_num.Minimum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            -2147483648});
+            this.posX_num.Name = "posX_num";
+            this.posX_num.Size = new System.Drawing.Size(49, 26);
+            this.posX_num.TabIndex = 1;
+            this.posX_num.ThousandsSeparator = true;
+            this.posX_num.ValueChanged += new System.EventHandler(this.posX_num_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(160, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(25, 23);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Y :";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(160, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(25, 23);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Y :";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(81, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(25, 23);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "X :";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(81, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 23);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "X :";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 23);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Scale :";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 23);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Position :";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 23);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Transform2D";
+            // 
             // gameObjectIsEnabled_checkbox
             // 
+            this.gameObjectIsEnabled_checkbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gameObjectIsEnabled_checkbox.AutoSize = true;
             this.gameObjectIsEnabled_checkbox.Checked = true;
             this.gameObjectIsEnabled_checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -466,6 +702,12 @@
             this.panel5.PerformLayout();
             this.properties_panel.ResumeLayout(false);
             this.properties_panel.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scaleY_num)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleX_num)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.posY_num)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.posX_num)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -509,5 +751,18 @@
         private System.Windows.Forms.ListBox gameObject_listBox;
         private System.Windows.Forms.Label gameObjectName_label;
         private System.Windows.Forms.CheckBox gameObjectIsEnabled_checkbox;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.NumericUpDown posX_num;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown posY_num;
+        private System.Windows.Forms.NumericUpDown scaleY_num;
+        private System.Windows.Forms.NumericUpDown scaleX_num;
     }
 }
