@@ -35,8 +35,6 @@ namespace Renderite2D_Game_Engine
         {
             InitializeComponent();
             levelData = new();
-            AddGameObject("Game Object", new LevelObject());
-            AddGameObject("Game Object_1", new LevelObject("GameObject", 100, 100, 2, 1, new()));
             UpdatePropertiesPanel();
             UpdateViewport();
         }
