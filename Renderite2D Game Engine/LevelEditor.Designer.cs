@@ -305,7 +305,7 @@
             this.scaleY_num.AllowDrop = true;
             this.scaleY_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleY_num.DecimalPlaces = 1;
+            this.scaleY_num.DecimalPlaces = 2;
             this.scaleY_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scaleY_num.Increment = new decimal(new int[] {
             1,
@@ -321,6 +321,7 @@
             this.scaleY_num.Name = "scaleY_num";
             this.scaleY_num.Size = new System.Drawing.Size(49, 26);
             this.scaleY_num.TabIndex = 17;
+            this.scaleY_num.ThousandsSeparator = true;
             this.scaleY_num.ValueChanged += new System.EventHandler(this.scaleY_num_ValueChanged);
             // 
             // scaleX_num
@@ -328,7 +329,7 @@
             this.scaleX_num.AllowDrop = true;
             this.scaleX_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleX_num.DecimalPlaces = 1;
+            this.scaleX_num.DecimalPlaces = 2;
             this.scaleX_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scaleX_num.Increment = new decimal(new int[] {
             1,
@@ -344,6 +345,7 @@
             this.scaleX_num.Name = "scaleX_num";
             this.scaleX_num.Size = new System.Drawing.Size(49, 26);
             this.scaleX_num.TabIndex = 16;
+            this.scaleX_num.ThousandsSeparator = true;
             this.scaleX_num.ValueChanged += new System.EventHandler(this.scaleX_num_ValueChanged);
             // 
             // posY_num
@@ -351,7 +353,7 @@
             this.posY_num.AllowDrop = true;
             this.posY_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.posY_num.DecimalPlaces = 1;
+            this.posY_num.DecimalPlaces = 2;
             this.posY_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posY_num.Location = new System.Drawing.Point(186, 19);
             this.posY_num.Maximum = new decimal(new int[] {
@@ -367,6 +369,7 @@
             this.posY_num.Name = "posY_num";
             this.posY_num.Size = new System.Drawing.Size(49, 26);
             this.posY_num.TabIndex = 15;
+            this.posY_num.ThousandsSeparator = true;
             this.posY_num.ValueChanged += new System.EventHandler(this.posY_num_ValueChanged);
             // 
             // posX_num
@@ -374,7 +377,7 @@
             this.posX_num.AllowDrop = true;
             this.posX_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.posX_num.DecimalPlaces = 1;
+            this.posX_num.DecimalPlaces = 2;
             this.posX_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posX_num.Location = new System.Drawing.Point(105, 19);
             this.posX_num.Maximum = new decimal(new int[] {

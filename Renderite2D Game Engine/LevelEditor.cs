@@ -114,22 +114,26 @@ namespace Renderite2D_Game_Engine
                 if (Math.Abs(item.Value.x - ViewportPos.x) < levelViewport_panel.Width / 2 &&
                     Math.Abs(item.Value.y - ViewportPos.y) < levelViewport_panel.Height / 2)
                 {
+                    var scaleX = (int)(item.Value.scaleX * 50);
+                    var scaleY = (int)(item.Value.scaleY * 50);
+
                     if (!levelObjectControls.ContainsKey(item.Key))
                     {
                         if (levelData.gameObjects[item.Key].isEnabled)
                         {
                             var p = new Panel()
                             {
-                                Width = (int)(item.Value.scaleX * 50),
-                                Height = (int)(item.Value.scaleY * 50),
-                                BackColor = item.Key == (string)gameObject_listBox.SelectedItem ?
-                                    Color.FromArgb(128, 255, 128, 0) : Color.Transparent,
+                                Width = scaleX,
+                                Height = scaleY,
+                                BackColor = Color.Transparent,
+                                ForeColor = item.Key == (string)gameObject_listBox.SelectedItem ?
+                                    Color.FromArgb(128, 255, 128, 0) : Color.White,
                                 Location = new Point
                                 (
-                                    (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
-                                    (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
+                                    (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x - (scaleX / 2),
+                                    (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y - (scaleY / 2)
                                 ),
-                                BorderStyle = BorderStyle.Fixed3D,
+                                BorderStyle = item.Key == (string)gameObject_listBox.SelectedItem ? BorderStyle.Fixed3D : BorderStyle.FixedSingle,
                             };
                             p.MouseDown += P_MouseDown;
                             p.MouseUp += P_MouseUp;
@@ -140,16 +144,18 @@ namespace Renderite2D_Game_Engine
                     }
                     else
                     {
-                        var control = levelObjectControls[item.Key];
-                        control.Width = (int)(item.Value.scaleX * 50);
-                        control.Height = (int)(item.Value.scaleY * 50);
-                        control.BackColor = item.Key == (string)gameObject_listBox.SelectedItem ?
-                            Color.FromArgb(128, 255, 128, 0) : Color.Transparent;
-                        control.Location = new Point
+                        Panel panel = levelObjectControls[item.Key] as Panel;
+                        panel.Width = scaleX;
+                        panel.Height = scaleY;
+                        panel.BackColor = Color.Transparent;
+                        panel.ForeColor = item.Key == (string)gameObject_listBox.SelectedItem ?
+                            Color.FromArgb(128, 255, 128, 0) : Color.White;
+                        panel.Location = new Point
                         (
-                            (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
-                            (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
+                            (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x - (scaleX / 2),
+                            (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y - (scaleY / 2)
                         );
+                        panel.BorderStyle = item.Key == (string)gameObject_listBox.SelectedItem ? BorderStyle.Fixed3D : BorderStyle.FixedSingle;
                     }
                 }
             }
@@ -163,8 +169,8 @@ namespace Renderite2D_Game_Engine
                 if (levelData.gameObjects.ContainsKey(objectName))
                 {
                     var obj = levelData.gameObjects[objectName];
-                    obj.x = (e.X + levelObjectControls[objectName].Location.X) - (levelViewport_panel.Width / 2) + (int)ViewportPos.x - objectOffset.x;
-                    obj.y = (e.Y + levelObjectControls[objectName].Location.Y) - (levelViewport_panel.Height / 2) + (int)ViewportPos.y - objectOffset.y;
+                    obj.x = (e.X + levelObjectControls[objectName].Location.X) - (levelViewport_panel.Width / 2) + (int)ViewportPos.x - objectOffset.x + ((int)(obj.scaleX * 50) / 2);
+                    obj.y = (e.Y + levelObjectControls[objectName].Location.Y) - (levelViewport_panel.Height / 2) + (int)ViewportPos.y - objectOffset.y + ((int)(obj.scaleY * 50) / 2);
                     levelData.gameObjects[objectName] = obj;
                 }
                 else
