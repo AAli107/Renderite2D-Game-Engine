@@ -122,8 +122,8 @@ namespace Renderite2D_Game_Engine
                         {
                             var p = new Panel()
                             {
-                                Width = (int)item.Value.scaleX * 50,
-                                Height = (int)item.Value.scaleY * 50,
+                                Width = (int)(item.Value.scaleX * 50),
+                                Height = (int)(item.Value.scaleY * 50),
                                 BackColor = item.Key == (string)gameObject_listBox.SelectedItem ?
                                     Color.FromArgb(128, 255, 128, 0) : Color.Transparent,
                                 Location = new Point
@@ -143,8 +143,8 @@ namespace Renderite2D_Game_Engine
                     else
                     {
                         var control = levelObjectControls[item.Key];
-                        control.Width = (int)item.Value.scaleX * 50;
-                        control.Height = (int)item.Value.scaleY * 50;
+                        control.Width = (int)(item.Value.scaleX * 50);
+                        control.Height = (int)(item.Value.scaleY * 50);
                         control.BackColor = item.Key == (string)gameObject_listBox.SelectedItem ?
                             Color.FromArgb(128, 255, 128, 0) : Color.Transparent;
                         control.Location = new Point

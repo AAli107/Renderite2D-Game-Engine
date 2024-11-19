@@ -297,7 +297,7 @@
             this.panel4.Controls.Add(this.label2);
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(240, 86);
+            this.panel4.Size = new System.Drawing.Size(240, 84);
             this.panel4.TabIndex = 0;
             // 
             // scaleY_num
@@ -305,7 +305,7 @@
             this.scaleY_num.AllowDrop = true;
             this.scaleY_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleY_num.DecimalPlaces = 5;
+            this.scaleY_num.DecimalPlaces = 1;
             this.scaleY_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scaleY_num.Increment = new decimal(new int[] {
             1,
@@ -318,11 +318,6 @@
             232,
             0,
             0});
-            this.scaleY_num.Minimum = new decimal(new int[] {
-            -727379968,
-            232,
-            0,
-            -2147483648});
             this.scaleY_num.Name = "scaleY_num";
             this.scaleY_num.Size = new System.Drawing.Size(49, 26);
             this.scaleY_num.TabIndex = 17;
@@ -333,7 +328,7 @@
             this.scaleX_num.AllowDrop = true;
             this.scaleX_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scaleX_num.DecimalPlaces = 5;
+            this.scaleX_num.DecimalPlaces = 1;
             this.scaleX_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scaleX_num.Increment = new decimal(new int[] {
             1,
@@ -346,11 +341,6 @@
             232,
             0,
             0});
-            this.scaleX_num.Minimum = new decimal(new int[] {
-            -727379968,
-            232,
-            0,
-            -2147483648});
             this.scaleX_num.Name = "scaleX_num";
             this.scaleX_num.Size = new System.Drawing.Size(49, 26);
             this.scaleX_num.TabIndex = 16;
@@ -361,7 +351,7 @@
             this.posY_num.AllowDrop = true;
             this.posY_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.posY_num.DecimalPlaces = 5;
+            this.posY_num.DecimalPlaces = 1;
             this.posY_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posY_num.Location = new System.Drawing.Point(186, 19);
             this.posY_num.Maximum = new decimal(new int[] {
@@ -384,7 +374,7 @@
             this.posX_num.AllowDrop = true;
             this.posX_num.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.posX_num.DecimalPlaces = 5;
+            this.posX_num.DecimalPlaces = 1;
             this.posX_num.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posX_num.Location = new System.Drawing.Point(105, 19);
             this.posX_num.Maximum = new decimal(new int[] {
@@ -452,7 +442,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 50);
+            this.label4.Location = new System.Drawing.Point(3, 47);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 23);
             this.label4.TabIndex = 6;
