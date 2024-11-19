@@ -224,7 +224,8 @@ namespace Renderite2D_Game_Engine
             {
                 userInteraction = UserInteraction.Moving;
                 Console.Beep(1500, 10);
-            }
+            } 
+            else gameObject_listBox.SelectedIndex = -1;
         }
 
         private void levelViewport_panel_MouseUp(object sender, MouseEventArgs e)
