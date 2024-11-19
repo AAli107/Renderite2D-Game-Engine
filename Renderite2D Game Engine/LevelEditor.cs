@@ -22,6 +22,7 @@ namespace Renderite2D_Game_Engine
             }
         }
         public Level levelData;
+        public Dictionary<string, Control> levelObjectControls = new();
         public bool isMoving;
 
         (int x, int y) currentMousePos = new(0, 0); 
@@ -84,30 +85,52 @@ namespace Renderite2D_Game_Engine
         public void UpdateViewport()
         {
             //levelViewport_panel.Controls;
-            Control[] controls = new Control[levelViewport_panel.Controls.Count];
-            levelViewport_panel.Controls.CopyTo(controls, 0);
-            foreach (Control item in controls)
+            string[] controlKeys = new string[levelObjectControls.Count];
+            levelObjectControls.Keys.CopyTo(controlKeys, 0);
+            foreach (var key in controlKeys)
             {
-                if (item == viewportGUI_panel) continue;
-                levelViewport_panel.Controls.Remove(item);
-            }
-            foreach (LevelObject obj in levelData.gameObjects.Values)
-            {
-                if (Math.Abs(obj.x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
-                    Math.Abs(obj.y - ViewportPos.y) > levelViewport_panel.Height / 2
-                    ) continue;
-                levelViewport_panel.Controls.Add(new Panel()
+                if (!levelData.gameObjects.ContainsKey(key) ||
+                    Math.Abs(levelData.gameObjects[key].x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
+                    Math.Abs(levelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2)
                 {
-                    Width = (int)obj.scaleX * 50,
-                    Height = (int)obj.scaleY * 50,
-                    Location = new Point
-                    (
-                        (int)obj.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
-                        (int)obj.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
-                    ),
-                    BorderStyle = BorderStyle.Fixed3D,
-                    BackColor = Color.Transparent
-                });
+                    levelViewport_panel.Controls.Remove(levelObjectControls[key]);
+                    levelObjectControls.Remove(key);
+                }
+            }
+            foreach (var item in levelData.gameObjects)
+            {
+                if (Math.Abs(item.Value.x - ViewportPos.x) < levelViewport_panel.Width / 2 &&
+                    Math.Abs(item.Value.y - ViewportPos.y) < levelViewport_panel.Height / 2)
+                {
+                    if (!levelObjectControls.ContainsKey(item.Key))
+                    {
+                        var p = new Panel()
+                        {
+                            Width = (int)item.Value.scaleX * 50,
+                            Height = (int)item.Value.scaleY * 50,
+                            Location = new Point
+                            (
+                                (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
+                                (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
+                            ),
+                            BorderStyle = BorderStyle.Fixed3D,
+                            BackColor = Color.Transparent
+                        };
+                        levelObjectControls.Add(item.Key, p);
+                        levelViewport_panel.Controls.Add(p);
+                    }
+                    else
+                    {
+                        var control = levelObjectControls[item.Key];
+                        control.Width = (int)item.Value.scaleX * 50;
+                        control.Height = (int)item.Value.scaleY * 50;
+                        control.Location = new Point
+                        (
+                            (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
+                            (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
+                        );
+                    }
+                }
             }
             viewportCoords_label.Text = "Looking at " + new Vector2((float)viewportPos.x, (float)viewportPos.y).ToString();
         }
