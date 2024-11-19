@@ -41,7 +41,9 @@
             this.assetDirectory_label = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.properties_panel = new System.Windows.Forms.Panel();
+            this.gameObjectIsEnabled_checkbox = new System.Windows.Forms.CheckBox();
+            this.gameObjectName_label = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +67,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.properties_panel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -227,18 +230,43 @@
             this.button8.Text = "Import";
             this.button8.UseVisualStyleBackColor = false;
             // 
-            // panel3
+            // properties_panel
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.properties_panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.AutoScroll = true;
-            this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
-            this.panel3.Location = new System.Drawing.Point(994, 24);
-            this.panel3.Margin = new System.Windows.Forms.Padding(0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(270, 389);
-            this.panel3.TabIndex = 2;
+            this.properties_panel.AutoScroll = true;
+            this.properties_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.properties_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.properties_panel.Controls.Add(this.gameObjectIsEnabled_checkbox);
+            this.properties_panel.Controls.Add(this.gameObjectName_label);
+            this.properties_panel.Location = new System.Drawing.Point(994, 24);
+            this.properties_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.properties_panel.Name = "properties_panel";
+            this.properties_panel.Size = new System.Drawing.Size(270, 389);
+            this.properties_panel.TabIndex = 2;
+            // 
+            // gameObjectIsEnabled_checkbox
+            // 
+            this.gameObjectIsEnabled_checkbox.AutoSize = true;
+            this.gameObjectIsEnabled_checkbox.Checked = true;
+            this.gameObjectIsEnabled_checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gameObjectIsEnabled_checkbox.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameObjectIsEnabled_checkbox.Location = new System.Drawing.Point(174, 9);
+            this.gameObjectIsEnabled_checkbox.Name = "gameObjectIsEnabled_checkbox";
+            this.gameObjectIsEnabled_checkbox.Size = new System.Drawing.Size(93, 23);
+            this.gameObjectIsEnabled_checkbox.TabIndex = 2;
+            this.gameObjectIsEnabled_checkbox.Text = "IsEnabled";
+            this.gameObjectIsEnabled_checkbox.UseVisualStyleBackColor = true;
+            this.gameObjectIsEnabled_checkbox.CheckedChanged += new System.EventHandler(this.gameObjectIsEnabled_checkbox_CheckedChanged);
+            // 
+            // gameObjectName_label
+            // 
+            this.gameObjectName_label.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameObjectName_label.Location = new System.Drawing.Point(4, 9);
+            this.gameObjectName_label.Name = "gameObjectName_label";
+            this.gameObjectName_label.Size = new System.Drawing.Size(164, 23);
+            this.gameObjectName_label.TabIndex = 0;
+            this.gameObjectName_label.Text = "Game Object Name";
             // 
             // openFileDialog
             // 
@@ -416,8 +444,9 @@
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.properties_panel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.levelViewport_panel);
@@ -435,6 +464,8 @@
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.properties_panel.ResumeLayout(false);
+            this.properties_panel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -448,7 +479,7 @@
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel properties_panel;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
@@ -476,5 +507,7 @@
         private System.Windows.Forms.Panel viewportGUI_panel;
         private System.Windows.Forms.Label viewportCoords_label;
         private System.Windows.Forms.ListBox gameObject_listBox;
+        private System.Windows.Forms.Label gameObjectName_label;
+        private System.Windows.Forms.CheckBox gameObjectIsEnabled_checkbox;
     }
 }

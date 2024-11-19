@@ -37,6 +37,7 @@ namespace Renderite2D_Game_Engine
             levelData = new();
             AddGameObject("Game Object", new LevelObject());
             AddGameObject("Game Object_1", new LevelObject("GameObject", 100, 100, 2, 1, new()));
+            UpdatePropertiesPanel();
             UpdateViewport();
         }
 
@@ -262,6 +263,36 @@ namespace Renderite2D_Game_Engine
 
         private void gameObject_listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdatePropertiesPanel();
+            UpdateViewport();
+        }
+
+        public void UpdatePropertiesPanel()
+        {
+            bool validSelection = IsValidSelection();
+            properties_panel.Visible = validSelection;
+            if (validSelection)
+            {
+                gameObjectName_label.Text = (string)gameObject_listBox.SelectedItem;
+                gameObjectIsEnabled_checkbox.CheckState = levelData.gameObjects[(string)gameObject_listBox.SelectedItem].isEnabled ? CheckState.Checked : CheckState.Unchecked;
+            }
+        }
+
+        public bool IsValidSelection()
+        {
+            foreach (string item in levelData.gameObjects.Keys)
+            {
+                if (item == (string)gameObject_listBox.SelectedItem)
+                    return true;
+            }
+            return false;
+        }
+
+        private void gameObjectIsEnabled_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            obj.isEnabled = gameObjectIsEnabled_checkbox.Checked;
+            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
     }
