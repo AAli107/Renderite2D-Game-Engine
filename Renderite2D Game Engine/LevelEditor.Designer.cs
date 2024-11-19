@@ -29,9 +29,12 @@
         private void InitializeComponent()
         {
             this.levelViewport_panel = new System.Windows.Forms.Panel();
+            this.viewportGUI_panel = new System.Windows.Forms.Panel();
+            this.viewportCoords_label = new System.Windows.Forms.Label();
             this.addObject_btn = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.gameObject_listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -57,15 +60,12 @@
             this.buildGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewportGUI_panel = new System.Windows.Forms.Panel();
-            this.viewportCoords_label = new System.Windows.Forms.Label();
-            this.gameObject_listBox = new System.Windows.Forms.ListBox();
             this.levelViewport_panel.SuspendLayout();
+            this.viewportGUI_panel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.viewportGUI_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // levelViewport_panel
@@ -84,6 +84,28 @@
             this.levelViewport_panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.levelViewport_panel_MouseMove);
             this.levelViewport_panel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.levelViewport_panel_MouseUp);
             this.levelViewport_panel.Resize += new System.EventHandler(this.levelViewport_panel_Resize);
+            // 
+            // viewportGUI_panel
+            // 
+            this.viewportGUI_panel.AutoSize = true;
+            this.viewportGUI_panel.BackColor = System.Drawing.Color.Gray;
+            this.viewportGUI_panel.Controls.Add(this.viewportCoords_label);
+            this.viewportGUI_panel.Controls.Add(this.addObject_btn);
+            this.viewportGUI_panel.ForeColor = System.Drawing.Color.Transparent;
+            this.viewportGUI_panel.Location = new System.Drawing.Point(3, 6);
+            this.viewportGUI_panel.Name = "viewportGUI_panel";
+            this.viewportGUI_panel.Size = new System.Drawing.Size(219, 36);
+            this.viewportGUI_panel.TabIndex = 1;
+            // 
+            // viewportCoords_label
+            // 
+            this.viewportCoords_label.AutoSize = true;
+            this.viewportCoords_label.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewportCoords_label.Location = new System.Drawing.Point(55, 9);
+            this.viewportCoords_label.Name = "viewportCoords_label";
+            this.viewportCoords_label.Size = new System.Drawing.Size(90, 19);
+            this.viewportCoords_label.TabIndex = 1;
+            this.viewportCoords_label.Text = "XY = 124 / 23";
             // 
             // addObject_btn
             // 
@@ -110,6 +132,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(265, 389);
             this.panel1.TabIndex = 1;
+            // 
+            // gameObject_listBox
+            // 
+            this.gameObject_listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gameObject_listBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.gameObject_listBox.ForeColor = System.Drawing.Color.White;
+            this.gameObject_listBox.FormattingEnabled = true;
+            this.gameObject_listBox.ItemHeight = 26;
+            this.gameObject_listBox.Location = new System.Drawing.Point(10, 35);
+            this.gameObject_listBox.Name = "gameObject_listBox";
+            this.gameObject_listBox.Size = new System.Drawing.Size(244, 342);
+            this.gameObject_listBox.TabIndex = 1;
+            this.gameObject_listBox.SelectedIndexChanged += new System.EventHandler(this.gameObject_listBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -376,42 +413,6 @@
             this.closeProgramToolStripMenuItem.Text = "Close Program";
             this.closeProgramToolStripMenuItem.Click += new System.EventHandler(this.closeProgramToolStripMenuItem_Click);
             // 
-            // viewportGUI_panel
-            // 
-            this.viewportGUI_panel.AutoSize = true;
-            this.viewportGUI_panel.BackColor = System.Drawing.Color.Gray;
-            this.viewportGUI_panel.Controls.Add(this.viewportCoords_label);
-            this.viewportGUI_panel.Controls.Add(this.addObject_btn);
-            this.viewportGUI_panel.ForeColor = System.Drawing.Color.Transparent;
-            this.viewportGUI_panel.Location = new System.Drawing.Point(3, 6);
-            this.viewportGUI_panel.Name = "viewportGUI_panel";
-            this.viewportGUI_panel.Size = new System.Drawing.Size(219, 36);
-            this.viewportGUI_panel.TabIndex = 1;
-            // 
-            // viewportCoords_label
-            // 
-            this.viewportCoords_label.AutoSize = true;
-            this.viewportCoords_label.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewportCoords_label.Location = new System.Drawing.Point(55, 9);
-            this.viewportCoords_label.Name = "viewportCoords_label";
-            this.viewportCoords_label.Size = new System.Drawing.Size(90, 19);
-            this.viewportCoords_label.TabIndex = 1;
-            this.viewportCoords_label.Text = "XY = 124 / 23";
-            // 
-            // gameObject_listBox
-            // 
-            this.gameObject_listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gameObject_listBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.gameObject_listBox.ForeColor = System.Drawing.Color.White;
-            this.gameObject_listBox.FormattingEnabled = true;
-            this.gameObject_listBox.ItemHeight = 26;
-            this.gameObject_listBox.Location = new System.Drawing.Point(10, 35);
-            this.gameObject_listBox.Name = "gameObject_listBox";
-            this.gameObject_listBox.Size = new System.Drawing.Size(244, 342);
-            this.gameObject_listBox.TabIndex = 1;
-            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
@@ -427,6 +428,8 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelEditor_FormClosed);
             this.levelViewport_panel.ResumeLayout(false);
             this.levelViewport_panel.PerformLayout();
+            this.viewportGUI_panel.ResumeLayout(false);
+            this.viewportGUI_panel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -434,8 +437,6 @@
             this.panel5.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.viewportGUI_panel.ResumeLayout(false);
-            this.viewportGUI_panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

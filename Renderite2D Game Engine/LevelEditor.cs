@@ -120,13 +120,14 @@ namespace Renderite2D_Game_Engine
                         {
                             Width = (int)item.Value.scaleX * 50,
                             Height = (int)item.Value.scaleY * 50,
+                            BackColor = item.Key == (string)gameObject_listBox.SelectedItem ? 
+                                Color.FromArgb(128, 255, 128, 0) : Color.Transparent,
                             Location = new Point
                             (
                                 (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
                                 (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
                             ),
                             BorderStyle = BorderStyle.Fixed3D,
-                            BackColor = Color.Transparent
                         };
                         p.MouseDown += P_MouseDown;
                         p.MouseUp += P_MouseUp;
@@ -139,6 +140,8 @@ namespace Renderite2D_Game_Engine
                         var control = levelObjectControls[item.Key];
                         control.Width = (int)item.Value.scaleX * 50;
                         control.Height = (int)item.Value.scaleY * 50;
+                        control.BackColor = item.Key == (string)gameObject_listBox.SelectedItem ?
+                            Color.FromArgb(128, 255, 128, 0) : Color.Transparent;
                         control.Location = new Point
                         (
                             (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
@@ -159,7 +162,6 @@ namespace Renderite2D_Game_Engine
                     var obj = levelData.gameObjects[objectName];
                     obj.x = (e.X + levelObjectControls[objectName].Location.X) - (levelViewport_panel.Width / 2) + (int)ViewportPos.x - objectOffset.x;
                     obj.y = (e.Y + levelObjectControls[objectName].Location.Y) - (levelViewport_panel.Height / 2) + (int)ViewportPos.y - objectOffset.y;
-                    Console.WriteLine(new Vector2(objectOffset.x, objectOffset.y));
                     levelData.gameObjects[objectName] = obj;
                 }
                 else
@@ -253,6 +255,11 @@ namespace Renderite2D_Game_Engine
                 gameObjectName = gameObjectBaseName + "_" + index;
             }
             AddGameObject(gameObjectName, new LevelObject("GameObject", ViewportPos.x, ViewportPos.y, 1, 1, new()));
+            UpdateViewport();
+        }
+
+        private void gameObject_listBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
             UpdateViewport();
         }
     }
