@@ -25,11 +25,21 @@ namespace Renderite2D_Game_Engine
         public Level levelData;
         public Dictionary<string, Control> levelObjectControls = new();
         public UserInteraction userInteraction;
+        public (string name, LevelObject obj)? ClipboardObject 
+        {
+            get { return clipboardObject; }
+            set
+            {
+                clipboardObject = value;
+                pasteObjectToolStripMenuItem.Enabled = ClipboardObject != null;
+            }
+        }
 
         (int x, int y) currentMousePos = new(0, 0); 
         (double x, double y) viewportPos = new(0, 0);
         (int x, int y) objectOffset = new(0, 0);
         string objectName = string.Empty;
+        (string name, LevelObject obj)? clipboardObject = null;
 
         public LevelEditor()
         {
@@ -37,6 +47,7 @@ namespace Renderite2D_Game_Engine
             levelData = new();
             UpdatePropertiesPanel();
             UpdateViewport();
+            ClipboardObject = null;
         }
 
         public bool AddGameObject(string name, LevelObject gameObject)
@@ -349,6 +360,38 @@ namespace Renderite2D_Game_Engine
                 levelData.gameObjects.Remove((string)gameObject_listBox.SelectedItem);
                 gameObject_listBox.SelectedIndex = -1;
                 UpdateGameObjectList();
+            }
+        }
+
+        private void copyObjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsValidSelection())
+            {
+                var name = (string)gameObject_listBox.SelectedItem;
+                ClipboardObject = new (name, levelData.gameObjects[name]);
+            }
+        }
+
+        private void pasteObjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ClipboardObject != null)
+            {
+                string gameObjectBaseName = ClipboardObject.Value.name;
+                int index = 0;
+                string gameObjectName;
+
+                gameObjectName = gameObjectBaseName;
+                while (levelData.gameObjects.ContainsKey(gameObjectName))
+                {
+                    index++;
+                    gameObjectName = gameObjectBaseName + "_" + index;
+                }
+                LevelObject obj = ClipboardObject.Value.obj;
+                obj.x = viewportPos.x;
+                obj.y = viewportPos.y;
+                AddGameObject(gameObjectName, obj);
+                UpdateViewport();
+                gameObject_listBox.SelectedIndex = gameObject_listBox.Items.IndexOf(gameObjectName);
             }
         }
     }
