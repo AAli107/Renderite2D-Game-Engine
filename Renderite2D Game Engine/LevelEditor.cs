@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Windows.Forms;
@@ -23,10 +24,12 @@ namespace Renderite2D_Game_Engine
         }
         public Level levelData;
         public Dictionary<string, Control> levelObjectControls = new();
-        public bool isMoving;
+        public UserInteraction userInteraction;
 
         (int x, int y) currentMousePos = new(0, 0); 
         (double x, double y) viewportPos = new(0, 0);
+        (int x, int y) objectOffset = new(0, 0);
+        string objectName = string.Empty;
 
         public LevelEditor()
         {
@@ -98,6 +101,10 @@ namespace Renderite2D_Game_Engine
                     Math.Abs(levelData.gameObjects[key].x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
                     Math.Abs(levelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2)
                 {
+                    levelObjectControls[key].MouseDown -= P_MouseDown;
+                    P_MouseUp(levelObjectControls[key], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                    levelObjectControls[key].MouseUp -= P_MouseUp;
+                    levelObjectControls[key].MouseMove -= P_MouseMove;
                     levelViewport_panel.Controls.Remove(levelObjectControls[key]);
                     levelObjectControls.Remove(key);
                 }
@@ -121,6 +128,9 @@ namespace Renderite2D_Game_Engine
                             BorderStyle = BorderStyle.Fixed3D,
                             BackColor = Color.Transparent
                         };
+                        p.MouseDown += P_MouseDown;
+                        p.MouseUp += P_MouseUp;
+                        p.MouseMove += P_MouseMove;
                         levelObjectControls.Add(item.Key, p);
                         levelViewport_panel.Controls.Add(p);
                     }
@@ -140,6 +150,60 @@ namespace Renderite2D_Game_Engine
             viewportCoords_label.Text = "Looking at " + new Vector2((float)viewportPos.x, (float)viewportPos.y).ToString();
         }
 
+        private void P_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (userInteraction == UserInteraction.Object_Drag)
+            {
+                if (levelData.gameObjects.ContainsKey(objectName))
+                {
+                    var obj = levelData.gameObjects[objectName];
+                    obj.x = (e.X + levelObjectControls[objectName].Location.X) - (levelViewport_panel.Width / 2) + (int)ViewportPos.x - objectOffset.x;
+                    obj.y = (e.Y + levelObjectControls[objectName].Location.Y) - (levelViewport_panel.Height / 2) + (int)ViewportPos.y - objectOffset.y;
+                    Console.WriteLine(new Vector2(objectOffset.x, objectOffset.y));
+                    levelData.gameObjects[objectName] = obj;
+                }
+                else
+                {
+                    objectOffset = new(0, 0);
+                    objectName = string.Empty;
+                    userInteraction = UserInteraction.None;
+                }
+                UpdateViewport();
+            }
+        }
+
+        private void P_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel p &&
+                userInteraction == UserInteraction.Object_Drag &&
+                e.Button == MouseButtons.Left &&
+                levelObjectControls.Values.Contains(p))
+            {
+                objectOffset = new(0,0);
+                objectName = string.Empty;
+                userInteraction = UserInteraction.None;
+            }
+        }
+
+        private void P_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel p &&
+                userInteraction == UserInteraction.None &&
+                e.Button == MouseButtons.Left &&
+                levelObjectControls.Values.Contains(p))
+            {
+                foreach (var item in levelObjectControls)
+                {
+                    if (item.Value == p)
+                    {
+                        objectOffset = new(e.X, e.Y);
+                        objectName = item.Key;
+                        userInteraction = UserInteraction.Object_Drag;
+                    }
+                }
+            }
+        }
+
         private void levelViewport_panel_Resize(object sender, EventArgs e)
         {
             UpdateViewport();
@@ -149,21 +213,22 @@ namespace Renderite2D_Game_Engine
         {
             if (e.Button == MouseButtons.Middle)
             {
-                isMoving = true;
+                userInteraction = UserInteraction.Moving;
                 Console.Beep(1500, 10);
             }
         }
 
         private void levelViewport_panel_MouseUp(object sender, MouseEventArgs e)
         {
-            isMoving = false;
+            if (userInteraction == UserInteraction.Moving)
+                userInteraction = UserInteraction.None;
             if (e.Button == MouseButtons.Middle)
                 Console.Beep(1000, 10);
         }
 
         private void levelViewport_panel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isMoving)
+            if (userInteraction == UserInteraction.Moving)
             {
                 (double x, double y) deltaDir = new(
                     currentMousePos.x - e.Location.X,
@@ -192,4 +257,10 @@ namespace Renderite2D_Game_Engine
         }
     }
 
+    public enum UserInteraction
+    {
+        None,
+        Moving,
+        Object_Drag,
+    }
 }
