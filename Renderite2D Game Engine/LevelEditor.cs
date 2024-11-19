@@ -100,7 +100,8 @@ namespace Renderite2D_Game_Engine
             {
                 if (!levelData.gameObjects.ContainsKey(key) ||
                     Math.Abs(levelData.gameObjects[key].x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
-                    Math.Abs(levelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2)
+                    Math.Abs(levelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2 ||
+                    !levelData.gameObjects[key].isEnabled)
                 {
                     levelObjectControls[key].MouseDown -= P_MouseDown;
                     P_MouseUp(levelObjectControls[key], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
@@ -117,24 +118,27 @@ namespace Renderite2D_Game_Engine
                 {
                     if (!levelObjectControls.ContainsKey(item.Key))
                     {
-                        var p = new Panel()
+                        if (levelData.gameObjects[item.Key].isEnabled)
                         {
-                            Width = (int)item.Value.scaleX * 50,
-                            Height = (int)item.Value.scaleY * 50,
-                            BackColor = item.Key == (string)gameObject_listBox.SelectedItem ? 
-                                Color.FromArgb(128, 255, 128, 0) : Color.Transparent,
-                            Location = new Point
-                            (
-                                (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
-                                (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
-                            ),
-                            BorderStyle = BorderStyle.Fixed3D,
-                        };
-                        p.MouseDown += P_MouseDown;
-                        p.MouseUp += P_MouseUp;
-                        p.MouseMove += P_MouseMove;
-                        levelObjectControls.Add(item.Key, p);
-                        levelViewport_panel.Controls.Add(p);
+                            var p = new Panel()
+                            {
+                                Width = (int)item.Value.scaleX * 50,
+                                Height = (int)item.Value.scaleY * 50,
+                                BackColor = item.Key == (string)gameObject_listBox.SelectedItem ?
+                                    Color.FromArgb(128, 255, 128, 0) : Color.Transparent,
+                                Location = new Point
+                                (
+                                    (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x,
+                                    (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y
+                                ),
+                                BorderStyle = BorderStyle.Fixed3D,
+                            };
+                            p.MouseDown += P_MouseDown;
+                            p.MouseUp += P_MouseUp;
+                            p.MouseMove += P_MouseMove;
+                            levelObjectControls.Add(item.Key, p);
+                            levelViewport_panel.Controls.Add(p);
+                        }
                     }
                     else
                     {
