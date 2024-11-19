@@ -341,6 +341,16 @@ namespace Renderite2D_Game_Engine
             levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
+
+        private void deleteGameObjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsValidSelection())
+            {
+                levelData.gameObjects.Remove((string)gameObject_listBox.SelectedItem);
+                gameObject_listBox.SelectedIndex = -1;
+                UpdateGameObjectList();
+            }
+        }
     }
 
     public enum UserInteraction

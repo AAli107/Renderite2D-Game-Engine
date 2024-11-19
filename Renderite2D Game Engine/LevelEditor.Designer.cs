@@ -75,6 +75,7 @@
             this.buildGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteGameObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelViewport_panel.SuspendLayout();
             this.viewportGUI_panel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -600,7 +601,8 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.levelSettingsToolStripMenuItem,
-            this.projectSettingsToolStripMenuItem});
+            this.projectSettingsToolStripMenuItem,
+            this.deleteGameObjectToolStripMenuItem});
             this.editToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -611,7 +613,7 @@
             this.levelSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
             this.levelSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.levelSettingsToolStripMenuItem.Name = "levelSettingsToolStripMenuItem";
-            this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.levelSettingsToolStripMenuItem.Text = "Level Settings";
             // 
             // projectSettingsToolStripMenuItem
@@ -619,7 +621,7 @@
             this.projectSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
             this.projectSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.projectSettingsToolStripMenuItem.Name = "projectSettingsToolStripMenuItem";
-            this.projectSettingsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.projectSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.projectSettingsToolStripMenuItem.Text = "Project Settings";
             // 
             // buildAndRunToolStripMenuItem
@@ -669,6 +671,16 @@
             this.closeProgramToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.closeProgramToolStripMenuItem.Text = "Close Program";
             this.closeProgramToolStripMenuItem.Click += new System.EventHandler(this.closeProgramToolStripMenuItem_Click);
+            // 
+            // deleteGameObjectToolStripMenuItem
+            // 
+            this.deleteGameObjectToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.deleteGameObjectToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.deleteGameObjectToolStripMenuItem.Name = "deleteGameObjectToolStripMenuItem";
+            this.deleteGameObjectToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteGameObjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteGameObjectToolStripMenuItem.Text = "Delete Object";
+            this.deleteGameObjectToolStripMenuItem.Click += new System.EventHandler(this.deleteGameObjectToolStripMenuItem_Click);
             // 
             // LevelEditor
             // 
@@ -757,5 +769,6 @@
         private System.Windows.Forms.NumericUpDown posY_num;
         private System.Windows.Forms.NumericUpDown scaleY_num;
         private System.Windows.Forms.NumericUpDown scaleX_num;
+        private System.Windows.Forms.ToolStripMenuItem deleteGameObjectToolStripMenuItem;
     }
 }
