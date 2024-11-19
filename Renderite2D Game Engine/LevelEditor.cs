@@ -201,6 +201,8 @@ namespace Renderite2D_Game_Engine
                         objectOffset = new(e.X, e.Y);
                         objectName = item.Key;
                         userInteraction = UserInteraction.Object_Drag;
+                        if (gameObject_listBox.Items.Contains(item.Key))
+                            gameObject_listBox.SelectedIndex = gameObject_listBox.Items.IndexOf(item.Key);
                     }
                 }
             }
