@@ -37,7 +37,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 case "CreateLevel":
                     try {
                         string levelJson = JsonConvert.SerializeObject(new Level(), Formatting.Indented);
-                        File.WriteAllText(path + '/' + parameter + ".json", levelJson);
+                        File.WriteAllText(path + '/' + parameter + ".rdlvl", levelJson);
                         return true;
                     } catch { return false; }
             }
