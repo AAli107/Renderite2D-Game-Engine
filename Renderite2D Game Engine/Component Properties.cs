@@ -12,14 +12,11 @@ namespace Renderite2D_Game_Engine
 {
     public partial class Component_Properties : UserControl
     {
-        public string gameObjectName;
-        public int componentIndex;
+        public string gameObjectName = "";
+        public int componentIndex = -1;
 
-        public Component_Properties(string gameObjectName, int componentIndex)
+        public Component_Properties()
         {
-            this.gameObjectName = gameObjectName;
-            this.componentIndex = componentIndex;
-
             InitializeComponent();
         }
     }
