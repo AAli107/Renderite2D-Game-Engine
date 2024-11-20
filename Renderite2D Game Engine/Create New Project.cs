@@ -21,6 +21,8 @@ namespace Renderite2D_Game_Engine
             $$""" CreateDir "project_name/Build"                  """,
             $$""" CreateProject "project_name/project_name"       """,
             $$""" CreateLevel "project_name/Assets/SampleLevel"   """,
+            $$""" LoadProject "project_name/project_name"         """,
+            $$""" LoadStartLevel ""                               """,
         };
 
         public Create_New_Project()
