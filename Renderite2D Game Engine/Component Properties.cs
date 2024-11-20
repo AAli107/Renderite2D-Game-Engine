@@ -15,8 +15,11 @@ namespace Renderite2D_Game_Engine
         public string gameObjectName;
         public int componentIndex;
 
-        public Component_Properties()
+        public Component_Properties(string gameObjectName, int componentIndex)
         {
+            this.gameObjectName = gameObjectName;
+            this.componentIndex = componentIndex;
+
             InitializeComponent();
         }
     }
