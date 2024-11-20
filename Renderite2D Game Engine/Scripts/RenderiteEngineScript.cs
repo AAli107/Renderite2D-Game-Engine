@@ -42,6 +42,8 @@ namespace Renderite2D_Game_Engine.Scripts
                     } catch { return false; }
                 case "LoadProject":
                     return ProjectManager.LoadProject(path + '/' + parameter + ".rdrt");
+                case "LoadLevel":
+                    return ProjectManager.LoadLevel(path + '/' + parameter + ".rdlvl");
             }
             return false;
         }
