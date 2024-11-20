@@ -44,6 +44,14 @@ namespace Renderite2D_Game_Engine.Scripts
                     return ProjectManager.LoadProject(path + '/' + parameter + ".rdrt");
                 case "LoadLevel":
                     return ProjectManager.LoadLevel(path + '/' + parameter + ".rdlvl");
+                case "LoadStartLevel":
+                    {
+                        if (ProjectManager.IsProjectOpen)
+                            return ProjectManager.LoadLevel (
+                                path + '/' + project_name + "/Assets/" + ProjectManager.ProjectData.startingLevel + ".rdlvl"
+                            );
+                        return false;
+                    }
             }
             return false;
         }
