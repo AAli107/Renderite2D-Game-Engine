@@ -40,6 +40,8 @@ namespace Renderite2D_Game_Engine.Scripts
                         File.WriteAllText(path + '/' + parameter + ".rdlvl", levelJson);
                         return true;
                     } catch { return false; }
+                case "LoadProject":
+                    return ProjectManager.LoadProject(path + '/' + parameter + ".rdrt");
             }
             return false;
         }
