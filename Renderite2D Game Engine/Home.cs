@@ -17,7 +17,11 @@ namespace Renderite2D_Game_Engine
 {
     public partial class Home : BaseForm
     {
-        int k = 0;
+        public readonly string[] postLoadProjectCode =
+        {
+            $$""" LoadStartLevel "" """,
+        };
+        int projectCodeIndex = 0;
 
         public Home()
         {
@@ -59,22 +63,31 @@ namespace Renderite2D_Game_Engine
                     pw.UpdateEvent -= Pw_UpdateEvent;
 
                     if (dr == DialogResult.OK)
-                        new LevelEditor().Show();
+                        new LevelEditor().Show(); 
+                    else MessageBox.Show("Failed to Load Project...", "Loading Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void Pw_UpdateEvent(ProgressWindow obj)
         {
-            // TODO : Load in the project
-
-
-            if (k > 100) // Test code for finishing
+            if (projectCodeIndex < postLoadProjectCode.Length)
             {
-                obj.Finish();
-                k = 0;
+                if (!RenderiteEngineScript.ExecuteLine(postLoadProjectCode[projectCodeIndex], 
+                    ProjectManager.ProjectName, ProjectManager.ProjectParentFolder))
+                {
+                    projectCodeIndex = 0;
+                    obj.DialogResult = DialogResult.Cancel;
+                }
+                
+                projectCodeIndex++;
             }
-            k++;
+            else
+            {
+                projectCodeIndex = 0;
+                obj.Finish();
+            }
         }
     }
 }
