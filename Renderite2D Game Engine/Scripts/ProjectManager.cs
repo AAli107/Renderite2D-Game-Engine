@@ -13,6 +13,7 @@ namespace Renderite2D_Game_Engine.Scripts
     public static class ProjectManager
     {
         public static bool IsProjectOpen { get; private set; }
+        public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
         public static string CurrentLevelPath { get; private set; }
         public static Project ProjectData { get; private set; }
@@ -50,6 +51,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 };
                 ProjectData = JsonConvert.DeserializeObject<Project>(File.ReadAllText(projectPath), settings);
                 ProjectPath = projectPath;
+                ProjectName = Path.GetFileNameWithoutExtension(projectPath);
                 IsProjectOpen = true;
                 return true;
             }
@@ -66,6 +68,7 @@ namespace Renderite2D_Game_Engine.Scripts
             if (IsProjectOpen)
             {
                 IsProjectOpen = false;
+                ProjectName = null;
                 ProjectPath = null;
                 CurrentLevelPath = null;
                 ProjectData = default;
