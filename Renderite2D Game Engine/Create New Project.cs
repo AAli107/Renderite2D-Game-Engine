@@ -144,6 +144,8 @@ namespace Renderite2D_Game_Engine
 
                 if (dr == DialogResult.OK)
                     new LevelEditor().Show();
+                else MessageBox.Show("Failed to Create Project...", "Project Creation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else UpdateCreateButton();
         }
@@ -152,7 +154,11 @@ namespace Renderite2D_Game_Engine
         {
             if (projectCodeIndex < createProjectCode.Length)
             {
-                RenderiteEngineScript.ExecuteLine(createProjectCode[projectCodeIndex], projectName_txt.Text, folderPath_txt.Text);
+                if (!RenderiteEngineScript.ExecuteLine(createProjectCode[projectCodeIndex], projectName_txt.Text, folderPath_txt.Text))
+                {
+                    projectCodeIndex = 0;
+                    obj.DialogResult = DialogResult.Cancel;
+                }
                 projectCodeIndex++;
             }
             else
