@@ -35,7 +35,6 @@
             this.openProject_btn = new System.Windows.Forms.Button();
             this.newProject_btn = new System.Windows.Forms.Button();
             this.Logo = new System.Windows.Forms.PictureBox();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
@@ -155,7 +154,6 @@
         private System.Windows.Forms.Button newProject_btn;
         private System.Windows.Forms.Button exit_btn;
         private System.Windows.Forms.Button openProject_btn;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 

@@ -17,12 +17,6 @@ namespace Renderite2D_Game_Engine
 {
     public partial class Home : BaseForm
     {
-        public readonly string[] postLoadProjectCode =
-        {
-            $$""" LoadStartLevel "" """,
-        };
-        int projectCodeIndex = 0;
-
         public Home()
         {
             InitializeComponent();
@@ -41,9 +35,6 @@ namespace Renderite2D_Game_Engine
             if (!Directory.Exists(WinFormController.projectsFolder))
                 Directory.CreateDirectory(WinFormController.projectsFolder);
 
-            openFileDialog.Title = "Open Renderite2D Project";
-            openFileDialog.Filter = "Renderite2D Project file (*.rdrt)|*.rdrt";
-            openFileDialog.InitialDirectory = WinFormController.projectsFolder.Replace('/', '\\');
         }
 
         private void newProject_btn_Click(object sender, EventArgs e)
@@ -53,41 +44,7 @@ namespace Renderite2D_Game_Engine
 
         private void openProject_btn_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                if (ProjectManager.LoadProject(openFileDialog.FileName))
-                {
-                    ProgressWindow pw = new();
-                    pw.UpdateEvent += Pw_UpdateEvent;
-                    DialogResult dr = pw.ShowDialog(this);
-                    pw.UpdateEvent -= Pw_UpdateEvent;
-
-                    if (dr == DialogResult.OK)
-                        new LevelEditor().Show(); 
-                    else MessageBox.Show("Failed to Load Project...", "Loading Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void Pw_UpdateEvent(ProgressWindow obj)
-        {
-            if (projectCodeIndex < postLoadProjectCode.Length)
-            {
-                if (!RenderiteEngineScript.ExecuteLine(postLoadProjectCode[projectCodeIndex], 
-                    ProjectManager.ProjectName, ProjectManager.ProjectParentFolder))
-                {
-                    projectCodeIndex = 0;
-                    obj.DialogResult = DialogResult.Cancel;
-                }
-                
-                projectCodeIndex++;
-            }
-            else
-            {
-                projectCodeIndex = 0;
-                obj.Finish();
-            }
+            ProjectManager.SelectAndOpenProject(this);
         }
     }
 }

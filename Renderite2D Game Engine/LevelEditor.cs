@@ -1,4 +1,5 @@
-﻿using Renderite2D_Game_Engine.Scripts.Data;
+﻿using Renderite2D_Game_Engine.Scripts;
+using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,6 @@ namespace Renderite2D_Game_Engine
                 UpdateViewport();
             }
         }
-        public Level levelData;
         public Dictionary<string, Control> levelObjectControls = new();
         public UserInteraction userInteraction;
         public (string name, LevelObject obj)? ClipboardObject 
@@ -44,7 +44,6 @@ namespace Renderite2D_Game_Engine
         public LevelEditor()
         {
             InitializeComponent();
-            levelData = new();
             UpdatePropertiesPanel();
             UpdateViewport();
             ClipboardObject = null;
@@ -52,16 +51,16 @@ namespace Renderite2D_Game_Engine
 
         public bool AddGameObject(string name, LevelObject gameObject)
         {
-            if (levelData.gameObjects.ContainsKey(name.Trim())) return false;
-            levelData.gameObjects.Add(name.Trim(), gameObject);
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(name.Trim())) return false;
+            ProjectManager.CurrentLevelData.gameObjects.Add(name.Trim(), gameObject);
             UpdateGameObjectList();
             return true;
         }
 
         public bool RemoveGameObject(string name)
         {
-            if (levelData.gameObjects.ContainsKey(name.Trim())) return false;
-            levelData.gameObjects.Remove(name.Trim()); 
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(name.Trim())) return false;
+            ProjectManager.CurrentLevelData.gameObjects.Remove(name.Trim()); 
             UpdateGameObjectList();
             return true;
         }
@@ -72,10 +71,10 @@ namespace Renderite2D_Game_Engine
             gameObject_listBox.Items.CopyTo(items, 0);
 
             foreach (string name in items)
-                if (!levelData.gameObjects.ContainsKey(name))
+                if (!ProjectManager.CurrentLevelData.gameObjects.ContainsKey(name))
                     gameObject_listBox.Items.Remove(name);
 
-            foreach (string name in levelData.gameObjects.Keys)
+            foreach (string name in ProjectManager.CurrentLevelData.gameObjects.Keys)
                 if (!gameObject_listBox.Items.Contains(name))
                     gameObject_listBox.Items.Add(name);
         }
@@ -93,6 +92,7 @@ namespace Renderite2D_Game_Engine
 
         private void closeProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ProjectManager.CloseProject();
             CloseAndGoHome();
         }
 
@@ -107,10 +107,10 @@ namespace Renderite2D_Game_Engine
             levelObjectControls.Keys.CopyTo(controlKeys, 0);
             foreach (var key in controlKeys)
             {
-                if (!levelData.gameObjects.ContainsKey(key) ||
-                    Math.Abs(levelData.gameObjects[key].x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
-                    Math.Abs(levelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2 ||
-                    !levelData.gameObjects[key].isEnabled)
+                if (!ProjectManager.CurrentLevelData.gameObjects.ContainsKey(key) ||
+                    Math.Abs(ProjectManager.CurrentLevelData.gameObjects[key].x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
+                    Math.Abs(ProjectManager.CurrentLevelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2 ||
+                    !ProjectManager.CurrentLevelData.gameObjects[key].isEnabled)
                 {
                     levelObjectControls[key].MouseDown -= P_MouseDown;
                     P_MouseUp(levelObjectControls[key], new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
@@ -120,7 +120,7 @@ namespace Renderite2D_Game_Engine
                     levelObjectControls.Remove(key);
                 }
             }
-            foreach (var item in levelData.gameObjects)
+            foreach (var item in ProjectManager.CurrentLevelData.gameObjects)
             {
                 if (Math.Abs(item.Value.x - ViewportPos.x) < levelViewport_panel.Width / 2 &&
                     Math.Abs(item.Value.y - ViewportPos.y) < levelViewport_panel.Height / 2)
@@ -130,7 +130,7 @@ namespace Renderite2D_Game_Engine
 
                     if (!levelObjectControls.ContainsKey(item.Key))
                     {
-                        if (levelData.gameObjects[item.Key].isEnabled)
+                        if (ProjectManager.CurrentLevelData.gameObjects[item.Key].isEnabled)
                         {
                             var p = new Panel()
                             {
@@ -177,12 +177,12 @@ namespace Renderite2D_Game_Engine
         {
             if (userInteraction == UserInteraction.Object_Drag)
             {
-                if (levelData.gameObjects.ContainsKey(objectName))
+                if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectName))
                 {
-                    var obj = levelData.gameObjects[objectName];
+                    var obj = ProjectManager.CurrentLevelData.gameObjects[objectName];
                     obj.x = (e.X + levelObjectControls[objectName].Location.X) - (levelViewport_panel.Width / 2) + (int)ViewportPos.x - objectOffset.x + ((int)(obj.scaleX * 50) / 2);
                     obj.y = (e.Y + levelObjectControls[objectName].Location.Y) - (levelViewport_panel.Height / 2) + (int)ViewportPos.y - objectOffset.y + ((int)(obj.scaleY * 50) / 2);
-                    levelData.gameObjects[objectName] = obj;
+                    ProjectManager.CurrentLevelData.gameObjects[objectName] = obj;
                 }
                 else
                 {
@@ -273,7 +273,7 @@ namespace Renderite2D_Game_Engine
             string gameObjectName;
 
             gameObjectName = gameObjectBaseName;
-            while (levelData.gameObjects.ContainsKey(gameObjectName))
+            while (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(gameObjectName))
             {
                 index++;
                 gameObjectName = gameObjectBaseName + "_" + index;
@@ -295,17 +295,17 @@ namespace Renderite2D_Game_Engine
             if (validSelection)
             {
                 gameObjectName_label.Text = (string)gameObject_listBox.SelectedItem;
-                gameObjectIsEnabled_checkbox.CheckState = levelData.gameObjects[(string)gameObject_listBox.SelectedItem].isEnabled ? CheckState.Checked : CheckState.Unchecked;
-                posX_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].x;
-                posY_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].y;
-                scaleX_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleX;
-                scaleY_num.Value = (decimal)levelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleY;
+                gameObjectIsEnabled_checkbox.CheckState = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].isEnabled ? CheckState.Checked : CheckState.Unchecked;
+                posX_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].x;
+                posY_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].y;
+                scaleX_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleX;
+                scaleY_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleY;
             }
         }
 
         public bool IsValidSelection()
         {
-            foreach (string item in levelData.gameObjects.Keys)
+            foreach (string item in ProjectManager.CurrentLevelData.gameObjects.Keys)
             {
                 if (item == (string)gameObject_listBox.SelectedItem)
                     return true;
@@ -315,41 +315,41 @@ namespace Renderite2D_Game_Engine
 
         private void gameObjectIsEnabled_checkbox_CheckedChanged(object sender, EventArgs e)
         {
-            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            var obj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
             obj.isEnabled = gameObjectIsEnabled_checkbox.Checked;
-            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
 
         private void posX_num_ValueChanged(object sender, EventArgs e)
         {
-            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            var obj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
             obj.x = (double)posX_num.Value;
-            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
 
         private void posY_num_ValueChanged(object sender, EventArgs e)
         {
-            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            var obj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
             obj.y = (double)posY_num.Value;
-            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
 
         private void scaleX_num_ValueChanged(object sender, EventArgs e)
         {
-            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            var obj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
             obj.scaleX = (double)scaleX_num.Value;
-            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
 
         private void scaleY_num_ValueChanged(object sender, EventArgs e)
         {
-            var obj = levelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+            var obj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
             obj.scaleY = (double)scaleY_num.Value;
-            levelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
+            ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem] = obj;
             UpdateViewport();
         }
 
@@ -357,7 +357,7 @@ namespace Renderite2D_Game_Engine
         {
             if (IsValidSelection())
             {
-                levelData.gameObjects.Remove((string)gameObject_listBox.SelectedItem);
+                ProjectManager.CurrentLevelData.gameObjects.Remove((string)gameObject_listBox.SelectedItem);
                 gameObject_listBox.SelectedIndex = -1;
                 UpdateGameObjectList();
             }
@@ -368,7 +368,7 @@ namespace Renderite2D_Game_Engine
             if (IsValidSelection())
             {
                 var name = (string)gameObject_listBox.SelectedItem;
-                ClipboardObject = new (name, levelData.gameObjects[name]);
+                ClipboardObject = new (name, ProjectManager.CurrentLevelData.gameObjects[name]);
             }
         }
 
@@ -381,7 +381,7 @@ namespace Renderite2D_Game_Engine
                 string gameObjectName;
 
                 gameObjectName = gameObjectBaseName;
-                while (levelData.gameObjects.ContainsKey(gameObjectName))
+                while (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(gameObjectName))
                 {
                     index++;
                     gameObjectName = gameObjectBaseName + "_" + index;
@@ -393,6 +393,11 @@ namespace Renderite2D_Game_Engine
                 UpdateViewport();
                 gameObject_listBox.SelectedIndex = gameObject_listBox.Items.IndexOf(gameObjectName);
             }
+        }
+
+        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProjectManager.SelectAndOpenProject(this);
         }
     }
 
