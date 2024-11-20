@@ -74,11 +74,12 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Location = new System.Drawing.Point(3, 58);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(233, 23);
+            this.panel1.Size = new System.Drawing.Size(234, 23);
             this.panel1.TabIndex = 3;
             // 
             // Component_Properties
@@ -107,6 +108,6 @@
         private System.Windows.Forms.Label componentName;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel1;
+        protected System.Windows.Forms.Panel panel1;
     }
 }
