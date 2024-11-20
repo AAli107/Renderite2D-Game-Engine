@@ -51,14 +51,8 @@ namespace Renderite2D_Game_Engine
         {
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                try
+                if (ProjectManager.LoadProject(openFileDialog.FileName))
                 {
-                    var settings = new JsonSerializerSettings()
-                    {
-                        MissingMemberHandling = MissingMemberHandling.Error,
-                    };
-                    var p = JsonConvert.DeserializeObject<Project>(File.ReadAllText(openFileDialog.FileName), settings);
-
                     ProgressWindow pw = new();
                     pw.UpdateEvent += Pw_UpdateEvent;
                     DialogResult dr = pw.ShowDialog(this);
@@ -67,11 +61,6 @@ namespace Renderite2D_Game_Engine
                     if (dr == DialogResult.OK)
                         new LevelEditor().Show();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Invalid or Corrupt Project File...\n" + ex.Message, 
-                        "Project Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } 
             }
         }
 
