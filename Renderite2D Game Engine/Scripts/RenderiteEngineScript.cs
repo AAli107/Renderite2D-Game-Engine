@@ -11,7 +11,7 @@ namespace Renderite2D_Game_Engine.Scripts
 {
     public static class RenderiteEngineScript
     {
-        public static void ExecuteLine(string line, string project_name, string path)
+        public static bool ExecuteLine(string line, string project_name, string path)
         {
             string[] lineTokens = line.Trim().Replace("project_name", project_name).Split(' ');
             string parameter = string.Empty;
@@ -24,23 +24,24 @@ namespace Renderite2D_Game_Engine.Scripts
             switch (lineTokens[0])
             {
                 case "CreateDir":
-                    {
+                    try {
                         Directory.CreateDirectory(path + '/' + parameter);
-                    }
-                    break;
+                        return true;
+                    } catch { return false; }
                 case "CreateProject":
-                    {
+                    try {
                         string projectJson = JsonConvert.SerializeObject(new Project(), Formatting.Indented);
                         File.WriteAllText(path + '/' + parameter + ".rdrt", projectJson);
-                    }
-                    break;
+                        return true;
+                    } catch { return false; }
                 case "CreateLevel":
-                    {
+                    try {
                         string levelJson = JsonConvert.SerializeObject(new Level(), Formatting.Indented);
                         File.WriteAllText(path + '/' + parameter + ".json", levelJson);
-                    }
-                    break;
+                        return true;
+                    } catch { return false; }
             }
+            return false;
         }
     }
 }
