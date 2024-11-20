@@ -120,6 +120,7 @@
     <Compile Include="Scripts\Data\LevelComponent.cs" />
     <Compile Include="Scripts\Data\LevelObject.cs" />
     <Compile Include="Scripts\Data\Project.cs" />
+    <Compile Include="Scripts\ProjectManager.cs" />
     <Compile Include="Scripts\RenderiteEngineScript.cs" />
     <Compile Include="Scripts\WinFormController.cs" />
     <EmbeddedResource Include="BaseForm.resx">
