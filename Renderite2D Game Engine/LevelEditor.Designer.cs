@@ -577,8 +577,8 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.levelSettingsToolStripMenuItem,
             this.projectSettingsToolStripMenuItem,
+            this.levelSettingsToolStripMenuItem,
             this.copyObjectToolStripMenuItem,
             this.pasteObjectToolStripMenuItem,
             this.deleteGameObjectToolStripMenuItem});
@@ -602,6 +602,7 @@
             this.projectSettingsToolStripMenuItem.Name = "projectSettingsToolStripMenuItem";
             this.projectSettingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.projectSettingsToolStripMenuItem.Text = "Project Settings";
+            this.projectSettingsToolStripMenuItem.Click += new System.EventHandler(this.projectSettingsToolStripMenuItem_Click);
             // 
             // copyObjectToolStripMenuItem
             // 

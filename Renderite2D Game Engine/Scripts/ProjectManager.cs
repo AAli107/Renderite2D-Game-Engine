@@ -19,6 +19,7 @@ namespace Renderite2D_Game_Engine.Scripts
         { get { return !CurrentLevelData.Equals(originalLevelData) || !ProjectData.Equals(originalProjectData); } }
         public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
+        public static string AssetsPath { get; private set; }
         public static string ProjectParentFolder { get; private set; }
         public static string CurrentLevelPath { get; private set; }
         public static Project ProjectData { get; private set; }
@@ -66,6 +67,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 ProjectData = JsonConvert.DeserializeObject<Project>(File.ReadAllText(projectPath), settings);
                 originalProjectData = JsonConvert.DeserializeObject<Project>(File.ReadAllText(projectPath), settings);
                 ProjectPath = projectPath;
+                AssetsPath = Path.GetDirectoryName(projectPath) + "/Assets";
                 ProjectName = Path.GetFileNameWithoutExtension(projectPath);
                 ProjectParentFolder = Directory.GetParent(Path.GetDirectoryName(projectPath)).FullName;
                 IsProjectOpen = true;
@@ -107,6 +109,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 {
                     IsProjectOpen = false;
                     ProjectPath = null;
+                    AssetsPath = null;
                     ProjectName = null;
                     ProjectParentFolder = null;
                     CurrentLevelPath = null;
@@ -118,6 +121,11 @@ namespace Renderite2D_Game_Engine.Scripts
                 }
             }
             return false;
+        }
+
+        public static void SetProjectData(Project projectData)
+        {
+            ProjectData = new Project(projectData);
         }
 
         public static void SaveProjectFiles(IWin32Window win = null)

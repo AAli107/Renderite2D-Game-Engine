@@ -411,6 +411,11 @@ namespace Renderite2D_Game_Engine
         {
             ProjectManager.SaveProjectFiles(this);
         }
+
+        private void projectSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ProjectSettingsMenu().ShowDialog(this);
+        }
     }
 
     public enum UserInteraction
