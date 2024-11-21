@@ -406,6 +406,11 @@ namespace Renderite2D_Game_Engine
             if (!IsClosingForms)
                 e.Cancel = !ProjectManager.CloseProject();
         }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProjectManager.SaveProjectFiles();
+        }
     }
 
     public enum UserInteraction

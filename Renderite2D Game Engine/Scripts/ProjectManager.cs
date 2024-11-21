@@ -14,7 +14,7 @@ namespace Renderite2D_Game_Engine.Scripts
     {
         public static bool IsProjectOpen { get; private set; }
         public static bool IsOpeningProject { get; private set; }
-        public static bool IsLevelChanged 
+        public static bool IsProjectChanged 
         { get { return !CurrentLevelData.Equals(originalLevelData) || !ProjectData.Equals(originalProjectData); } }
         public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
@@ -83,7 +83,7 @@ namespace Renderite2D_Game_Engine.Scripts
             if (IsProjectOpen)
             {
                 bool allowClosure = true;
-                if (IsLevelChanged)
+                if (IsProjectChanged)
                 {
                     DialogResult result = MessageBox.Show("Do you want to save your project before Leaving?",
                         ProjectName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
@@ -92,7 +92,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     {
                         case DialogResult.Yes:
                             allowClosure = true;
-                            // TODO : Save Function
+                            SaveProjectFiles();
                             break;
                         case DialogResult.No:
                             allowClosure = true;
@@ -123,10 +123,10 @@ namespace Renderite2D_Game_Engine.Scripts
         {
             if (IsProjectOpen)
             {
-                ProgressWindow pw = new();
-                pw.ShowDialog();
+                ProgressWindow pwSave = new();
+                pwSave.Show();
+                pwSave.Refresh();
                 try {
-
                     string projectJson = JsonConvert.SerializeObject(ProjectData, Formatting.Indented);
                     string levelJson = JsonConvert.SerializeObject(CurrentLevelData, Formatting.Indented);
 
@@ -140,11 +140,11 @@ namespace Renderite2D_Game_Engine.Scripts
 
                     originalLevelData = JsonConvert.DeserializeObject<Level>(levelJson, settings);
                     originalProjectData = JsonConvert.DeserializeObject<Project>(projectJson, settings);
-                    pw.DialogResult = DialogResult.OK;
+                    pwSave.Close();
                 } 
                 catch (Exception ex)
                 {
-                    pw.DialogResult = DialogResult.Cancel;
+                    pwSave.Close();
                     MessageBox.Show("Failed to Save Project...\n\n" + ex.Message, "Save Error", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
