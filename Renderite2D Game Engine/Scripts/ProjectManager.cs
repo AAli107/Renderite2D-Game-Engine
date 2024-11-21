@@ -75,19 +75,44 @@ namespace Renderite2D_Game_Engine.Scripts
             }
         }
 
-        public static void CloseProject()
+        public static bool CloseProject()
         {
             if (IsProjectOpen)
             {
-                IsProjectOpen = false;
-                ProjectPath = null;
-                ProjectName = null;
-                ProjectParentFolder = null;
-                CurrentLevelPath = null;
-                ProjectData = default;
-                CurrentLevelData = default;
-                originalLevelData = default;
+                bool allowClosure = true;
+                if (IsLevelChanged)
+                {
+                    DialogResult result = MessageBox.Show("Do you want to save your project before Leaving?",
+                        ProjectName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                    switch (result)
+                    {
+                        case DialogResult.Yes:
+                            allowClosure = true;
+                            // TODO : Save Function
+                            break;
+                        case DialogResult.No:
+                            allowClosure = true;
+                            break;
+                        case DialogResult.Cancel:
+                            allowClosure = false;
+                            break;
+                    }
+                }
+                if (allowClosure)
+                {
+                    IsProjectOpen = false;
+                    ProjectPath = null;
+                    ProjectName = null;
+                    ProjectParentFolder = null;
+                    CurrentLevelPath = null;
+                    ProjectData = default;
+                    CurrentLevelData = default;
+                    originalLevelData = default;
+                    return true;
+                }
             }
+            return false;
         }
 
         public static void SelectAndOpenProject(IWin32Window parentWindow)

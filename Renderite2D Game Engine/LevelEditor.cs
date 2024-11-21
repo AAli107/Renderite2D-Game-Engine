@@ -92,8 +92,8 @@ namespace Renderite2D_Game_Engine
 
         private void closeProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProjectManager.CloseProject();
-            CloseAndGoHome();
+            if (ProjectManager.CloseProject())
+                CloseAndGoHome();
         }
 
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
