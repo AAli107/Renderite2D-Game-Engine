@@ -14,7 +14,8 @@ namespace Renderite2D_Game_Engine.Scripts
     {
         public static bool IsProjectOpen { get; private set; }
         public static bool IsOpeningProject { get; private set; }
-        public static bool IsLevelChanged { get { return !CurrentLevelData.Equals(originalLevelData); } }
+        public static bool IsLevelChanged 
+        { get { return !CurrentLevelData.Equals(originalLevelData) || !ProjectData.Equals(originalProjectData); } }
         public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
         public static string ProjectParentFolder { get; private set; }
@@ -23,6 +24,7 @@ namespace Renderite2D_Game_Engine.Scripts
         public static Level CurrentLevelData { get; private set; }
 
 
+        private static Project originalProjectData;
         private static Level originalLevelData;
         private static readonly string[] postLoadProjectCode =
         {
@@ -61,6 +63,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     MissingMemberHandling = MissingMemberHandling.Error,
                 };
                 ProjectData = JsonConvert.DeserializeObject<Project>(File.ReadAllText(projectPath), settings);
+                originalProjectData = JsonConvert.DeserializeObject<Project>(File.ReadAllText(projectPath), settings);
                 ProjectPath = projectPath;
                 ProjectName = Path.GetFileNameWithoutExtension(projectPath);
                 ProjectParentFolder = Directory.GetParent(Path.GetDirectoryName(projectPath)).FullName;
@@ -109,10 +112,43 @@ namespace Renderite2D_Game_Engine.Scripts
                     ProjectData = default;
                     CurrentLevelData = default;
                     originalLevelData = default;
+                    originalProjectData = default;
                     return true;
                 }
             }
             return false;
+        }
+
+        public static void SaveProjectFiles()
+        {
+            if (IsProjectOpen)
+            {
+                ProgressWindow pw = new();
+                pw.ShowDialog();
+                try {
+
+                    string projectJson = JsonConvert.SerializeObject(ProjectData, Formatting.Indented);
+                    string levelJson = JsonConvert.SerializeObject(CurrentLevelData, Formatting.Indented);
+
+                    File.WriteAllText(ProjectPath, projectJson);
+                    File.WriteAllText(CurrentLevelPath, levelJson);
+
+                    var settings = new JsonSerializerSettings()
+                    {
+                        MissingMemberHandling = MissingMemberHandling.Error,
+                    };
+
+                    originalLevelData = JsonConvert.DeserializeObject<Level>(levelJson, settings);
+                    originalProjectData = JsonConvert.DeserializeObject<Project>(projectJson, settings);
+                    pw.DialogResult = DialogResult.OK;
+                } 
+                catch (Exception ex)
+                {
+                    pw.DialogResult = DialogResult.Cancel;
+                    MessageBox.Show("Failed to Save Project...\n\n" + ex.Message, "Save Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         public static void SelectAndOpenProject(IWin32Window parentWindow)
