@@ -40,13 +40,12 @@ namespace Renderite2D_Game_Engine.Scripts
                     MissingMemberHandling = MissingMemberHandling.Error,
                 };
                 CurrentLevelData = JsonConvert.DeserializeObject<Level>(File.ReadAllText(levelPath), settings);
-                originalLevelData = CurrentLevelData;
+                originalLevelData = JsonConvert.DeserializeObject<Level>(File.ReadAllText(levelPath), settings);
                 CurrentLevelPath = levelPath;
                 return true;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Invalid or Corrupt Level File...\n" + ex.Message,
                     "Level Loading Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

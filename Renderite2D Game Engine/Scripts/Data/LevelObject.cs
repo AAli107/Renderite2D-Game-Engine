@@ -34,5 +34,22 @@ namespace Renderite2D_Game_Engine.Scripts.Data
             this.components = components;
             this.isEnabled = isEnabled;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is LevelObject levelObject)
+            {
+                return
+                    objectType == levelObject.objectType &&
+                    x == levelObject.x &&
+                    y == levelObject.y &&
+                    scaleX == levelObject.scaleX &&
+                    scaleY == levelObject.scaleY &&
+                    components.Count == levelObject.components.Count &&
+                    components.Equals(levelObject.components) &&
+                    isEnabled == levelObject.isEnabled;
+            }
+            return false;
+        }
     }
 }
