@@ -45,5 +45,24 @@ namespace Renderite2D_Game_Engine.Scripts.Data
             this.drawColliders = drawColliders;
             this.allowAltEnter = allowAltEnter;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Project project)
+            {
+                return
+                    resolutionX == project.resolutionX &&
+                    resolutionY == project.resolutionY &&
+                    vSyncEnabled == project.vSyncEnabled &&
+                    isWindowResizeable == project.isWindowResizeable &&
+                    windowTitle == project.windowTitle &&
+                    fixedUpdateFrequency == project.fixedUpdateFrequency &&
+                    windowState == project.windowState &&
+                    startingLevel == project.startingLevel &&
+                    drawColliders == project.drawColliders &&
+                    allowAltEnter == project.allowAltEnter;
+            }
+            return false;
+        }
     }
 }
