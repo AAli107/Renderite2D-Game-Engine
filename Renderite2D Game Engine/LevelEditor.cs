@@ -44,6 +44,7 @@ namespace Renderite2D_Game_Engine
         public LevelEditor()
         {
             InitializeComponent();
+            UpdateGameObjectList();
             UpdatePropertiesPanel();
             UpdateViewport();
             ClipboardObject = null;
