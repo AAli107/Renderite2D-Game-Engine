@@ -402,7 +402,8 @@ namespace Renderite2D_Game_Engine
 
         private void LevelEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = !ProjectManager.CloseProject();
+            if (!IsClosingForms)
+                e.Cancel = !ProjectManager.CloseProject();
         }
     }
 
