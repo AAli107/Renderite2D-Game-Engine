@@ -12,8 +12,9 @@ namespace Renderite2D_Game_Engine.Scripts
 {
     public static class ProjectManager
     {
-        public static bool IsOpeningProject { get; private set; }
         public static bool IsProjectOpen { get; private set; }
+        public static bool IsOpeningProject { get; private set; }
+        public static bool IsLevelChanged { get { return !CurrentLevelData.Equals(originalLevelData); } }
         public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
         public static string ProjectParentFolder { get; private set; }
@@ -39,6 +40,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     MissingMemberHandling = MissingMemberHandling.Error,
                 };
                 CurrentLevelData = JsonConvert.DeserializeObject<Level>(File.ReadAllText(levelPath), settings);
+                originalLevelData = CurrentLevelData;
                 CurrentLevelPath = levelPath;
                 return true;
             }
