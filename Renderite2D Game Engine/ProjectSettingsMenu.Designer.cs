@@ -332,7 +332,6 @@
             this.Name = "ProjectSettingsMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Renderite2D Game Engine - Project Settings";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.resolutionX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resolutionY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fixedUpdateFrequency)).EndInit();
