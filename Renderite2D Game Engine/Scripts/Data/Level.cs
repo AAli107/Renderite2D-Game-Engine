@@ -27,11 +27,27 @@ namespace Renderite2D_Game_Engine.Scripts.Data
         {
             if (obj is Level level)
             {
-                var t = this;
-                 bool gameObjectDictionaryEqual = gameObjects.Count == level.gameObjects.Count &&
-                    gameObjects.Keys.All(k => level.gameObjects.ContainsKey(k) && level.gameObjects[k].Equals(t.gameObjects[k]));
+                if (gameObjects.Count != level.gameObjects.Count) return false;
 
-                return backgroundColor == level.backgroundColor && gameObjectDictionaryEqual;
+                foreach (var keys in gameObjects.Keys)
+                {
+                    if (!level.gameObjects.ContainsKey(keys))
+                        return false;
+                }
+
+                foreach (var keys in level.gameObjects.Keys)
+                {
+                    if (!gameObjects.ContainsKey(keys))
+                        return false;
+                }
+
+                foreach (var keyValue in gameObjects) 
+                {
+                    if (!level.gameObjects[keyValue.Key].Equals(keyValue.Value))
+                        return false;
+                }
+
+                return backgroundColor == level.backgroundColor;
             }
             return false;
         }

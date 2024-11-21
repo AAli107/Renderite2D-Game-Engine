@@ -39,14 +39,19 @@ namespace Renderite2D_Game_Engine.Scripts.Data
         {
             if (obj is LevelObject levelObject)
             {
+                if (components.Count != levelObject.components.Count) 
+                    return false;
+
+                for (int i = 0; i < components.Count; i++)
+                    if (!components[i].Equals(levelObject.components[i])) 
+                        return false;
+
                 return
                     objectType == levelObject.objectType &&
                     x == levelObject.x &&
                     y == levelObject.y &&
                     scaleX == levelObject.scaleX &&
                     scaleY == levelObject.scaleY &&
-                    components.Count == levelObject.components.Count &&
-                    components.Equals(levelObject.components) &&
                     isEnabled == levelObject.isEnabled;
             }
             return false;

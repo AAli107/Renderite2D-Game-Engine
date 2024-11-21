@@ -22,13 +22,28 @@ namespace Renderite2D_Game_Engine.Scripts.Data
         {
             if (obj is LevelComponent component)
             {
-                var t = this;
-                bool gameObjectDictionaryEqual = values.Count == component.values.Count &&
-                   values.Keys.All(k => component.values.ContainsKey(k) && component.values[k].Equals(t.values[k]));
+                if (values.Count != component.values.Count) return false;
+
+                foreach (var keys in values.Keys)
+                {
+                    if (!component.values.ContainsKey(keys))
+                        return false;
+                }
+
+                foreach (var keys in component.values.Keys)
+                {
+                    if (!values.ContainsKey(keys))
+                        return false;
+                }
+
+                foreach (var keyValue in values)
+                {
+                    if (!component.values[keyValue.Key].Equals(keyValue.Value))
+                        return false;
+                }
 
                 return 
                     componentType == component.componentType &&
-                    gameObjectDictionaryEqual &&
                     isEnabled == component.isEnabled;
             }
             return false;
