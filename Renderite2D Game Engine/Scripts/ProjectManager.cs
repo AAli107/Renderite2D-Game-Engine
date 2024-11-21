@@ -22,6 +22,7 @@ namespace Renderite2D_Game_Engine.Scripts
         public static Level CurrentLevelData { get; private set; }
 
 
+        private static Level originalLevelData;
         private static readonly string[] postLoadProjectCode =
         {
             $$""" LoadStartLevel "" """,
@@ -84,6 +85,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 CurrentLevelPath = null;
                 ProjectData = default;
                 CurrentLevelData = default;
+                originalLevelData = default;
             }
         }
 
