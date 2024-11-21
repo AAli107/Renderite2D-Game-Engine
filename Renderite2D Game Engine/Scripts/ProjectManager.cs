@@ -79,7 +79,7 @@ namespace Renderite2D_Game_Engine.Scripts
             }
         }
 
-        public static bool CloseProject()
+        public static bool CloseProject(IWin32Window win = null)
         {
             if (IsProjectOpen)
             {
@@ -93,7 +93,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     {
                         case DialogResult.Yes:
                             allowClosure = true;
-                            SaveProjectFiles();
+                            SaveProjectFiles(win);
                             break;
                         case DialogResult.No:
                             allowClosure = true;
@@ -120,12 +120,12 @@ namespace Renderite2D_Game_Engine.Scripts
             return false;
         }
 
-        public static void SaveProjectFiles()
+        public static void SaveProjectFiles(IWin32Window win = null)
         {
             if (IsProjectOpen)
             {
                 ProgressWindow pwSave = new();
-                pwSave.Show();
+                pwSave.Show(win);
                 pwSave.Refresh();
                 try {
                     string projectJson = string.Empty;

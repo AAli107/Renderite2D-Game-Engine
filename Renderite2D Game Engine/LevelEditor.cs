@@ -93,7 +93,7 @@ namespace Renderite2D_Game_Engine
 
         private void closeProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ProjectManager.CloseProject())
+            if (ProjectManager.CloseProject(this))
                 CloseAndGoHome();
         }
 
@@ -404,12 +404,12 @@ namespace Renderite2D_Game_Engine
         private void LevelEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!IsClosingForms)
-                e.Cancel = !ProjectManager.CloseProject();
+                e.Cancel = !ProjectManager.CloseProject(this);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProjectManager.SaveProjectFiles();
+            ProjectManager.SaveProjectFiles(this);
         }
     }
 
