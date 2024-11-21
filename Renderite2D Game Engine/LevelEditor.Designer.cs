@@ -707,6 +707,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "LevelEditor";
             this.Text = "Renderite2D Game Engine - Project";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelEditor_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LevelEditor_FormClosed);
             this.levelViewport_panel.ResumeLayout(false);
             this.levelViewport_panel.PerformLayout();

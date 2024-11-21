@@ -399,6 +399,11 @@ namespace Renderite2D_Game_Engine
         {
             ProjectManager.SelectAndOpenProject(this);
         }
+
+        private void LevelEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !ProjectManager.CloseProject();
+        }
     }
 
     public enum UserInteraction
