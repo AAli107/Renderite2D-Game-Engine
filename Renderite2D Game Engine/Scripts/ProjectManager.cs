@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -127,19 +128,43 @@ namespace Renderite2D_Game_Engine.Scripts
                 pwSave.Show();
                 pwSave.Refresh();
                 try {
-                    string projectJson = JsonConvert.SerializeObject(ProjectData, Formatting.Indented);
-                    string levelJson = JsonConvert.SerializeObject(CurrentLevelData, Formatting.Indented);
+                    string projectJson = string.Empty;
+                    string levelJson = string.Empty;
+                    JsonSerializerSettings settings = null;
+                    pwSave.Refresh();
 
-                    File.WriteAllText(ProjectPath, projectJson);
-                    File.WriteAllText(CurrentLevelPath, levelJson);
-
-                    var settings = new JsonSerializerSettings()
+                    for (int i = 0; i < 7; i++)
                     {
-                        MissingMemberHandling = MissingMemberHandling.Error,
-                    };
-
-                    originalLevelData = JsonConvert.DeserializeObject<Level>(levelJson, settings);
-                    originalProjectData = JsonConvert.DeserializeObject<Project>(projectJson, settings);
+                        switch (i)
+                        {
+                            case 0:
+                                projectJson = JsonConvert.SerializeObject(ProjectData, Formatting.Indented);
+                                break;
+                            case 1:
+                                levelJson = JsonConvert.SerializeObject(CurrentLevelData, Formatting.Indented);
+                                break;
+                            case 2:
+                                File.WriteAllText(ProjectPath, projectJson);
+                                break;
+                            case 3:
+                                File.WriteAllText(CurrentLevelPath, levelJson);
+                                break;
+                            case 4:
+                                settings = new JsonSerializerSettings()
+                                {
+                                    MissingMemberHandling = MissingMemberHandling.Error,
+                                };
+                                break;
+                            case 5: 
+                                originalLevelData = JsonConvert.DeserializeObject<Level>(levelJson, settings);
+                                break;
+                            case 6:
+                                originalProjectData = JsonConvert.DeserializeObject<Project>(projectJson, settings);
+                                break;
+                        }
+                        pwSave.Refresh();
+                        Thread.Sleep(1);
+                    }
                     pwSave.Close();
                 } 
                 catch (Exception ex)
