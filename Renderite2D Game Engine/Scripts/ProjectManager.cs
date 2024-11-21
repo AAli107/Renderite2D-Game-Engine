@@ -131,10 +131,10 @@ namespace Renderite2D_Game_Engine.Scripts
                 {
                     if (LoadProject(openFileDialog.FileName))
                     {
-                        ProgressWindow pw = new();
-                        pw.UpdateEvent += Pw_UpdateEvent;
-                        DialogResult dr = pw.ShowDialog(parentWindow);
-                        pw.UpdateEvent -= Pw_UpdateEvent;
+                        ProgressWindow pwOpen = new();
+                        pwOpen.UpdateEvent += PwOpen_UpdateEvent;
+                        DialogResult dr = pwOpen.ShowDialog(parentWindow);
+                        pwOpen.UpdateEvent -= PwOpen_UpdateEvent;
 
                         if (dr == DialogResult.OK)
                             new LevelEditor().Show();
@@ -146,7 +146,7 @@ namespace Renderite2D_Game_Engine.Scripts
             }
         }
 
-        private static void Pw_UpdateEvent(ProgressWindow obj)
+        private static void PwOpen_UpdateEvent(ProgressWindow obj)
         {
             if (projectCodeIndex < postLoadProjectCode.Length)
             {
