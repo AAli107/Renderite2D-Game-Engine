@@ -1,12 +1,7 @@
 ﻿using Renderite2D_Game_Engine.Scripts;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Renderite2D_Game_Engine
@@ -14,6 +9,7 @@ namespace Renderite2D_Game_Engine
     public partial class Create_New_Project : Renderite2D_Game_Engine.BaseForm
     {
         int projectCodeIndex = 0;
+        private Exception caughtException = null;
         public readonly string[] createProjectCode =
         { 
             $$""" CreateDir "project_name"                        """,
@@ -144,8 +140,14 @@ namespace Renderite2D_Game_Engine
 
                 if (dr == DialogResult.OK)
                     new LevelEditor().Show();
-                else MessageBox.Show("Failed to Create Project...", "Project Creation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show(
+                        "[Message] " + caughtException.Message + "\n\n" +
+                        "[Source] " + caughtException.Source + "\n\n" +
+                        "[Stack Trace]\n" + caughtException.StackTrace,
+                    "Exception Caught!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else UpdateCreateButton();
         }
@@ -154,9 +156,11 @@ namespace Renderite2D_Game_Engine
         {
             if (projectCodeIndex < createProjectCode.Length)
             {
-                if (!RenderiteEngineScript.ExecuteLine(createProjectCode[projectCodeIndex], projectName_txt.Text, folderPath_txt.Text))
+                var (success, exception) = RenderiteEngineScript.ExecuteLine(createProjectCode[projectCodeIndex], projectName_txt.Text, folderPath_txt.Text);
+                if (!success)
                 {
                     projectCodeIndex = 0;
+                    caughtException = exception ?? new Exception("Unknown Error");
                     obj.DialogResult = DialogResult.Cancel;
                 }
                 projectCodeIndex++;

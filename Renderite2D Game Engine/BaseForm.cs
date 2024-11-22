@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Renderite2D_Game_Engine
@@ -46,8 +39,11 @@ namespace Renderite2D_Game_Engine
                 IsClosingForms = true;
                 WinFormController.currentlyOpenForm?.Close();
                 IsClosingForms = false;
-                WinFormController.startingForm.Show();
-                WinFormController.startingForm?.LoadForm();
+                if (!WinFormController.startingForm.IsDisposed)
+                {
+                    WinFormController.startingForm.Show();
+                    WinFormController.startingForm?.LoadForm();
+                }
             }
         }
 

@@ -33,10 +33,11 @@ namespace Renderite2D_Game_Engine.Scripts
             $$""" LoadStartLevel "" """,
         };
         private static int projectCodeIndex = 0;
+        private static Exception caughtException = null;
 
-        public static bool LoadLevel(string levelPath)
+        public static (bool success, Exception exception) LoadLevel(string levelPath)
         {
-            if (!IsProjectOpen) return false;
+            if (!IsProjectOpen) return (false, new Exception("Error: Project not loaded"));
 
             try {
                 var settings = new JsonSerializerSettings()
@@ -46,17 +47,15 @@ namespace Renderite2D_Game_Engine.Scripts
                 CurrentLevelData = JsonConvert.DeserializeObject<Level>(File.ReadAllText(levelPath), settings);
                 originalLevelData = JsonConvert.DeserializeObject<Level>(File.ReadAllText(levelPath), settings);
                 CurrentLevelPath = levelPath;
-                return true;
+                return (true, null);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Invalid or Corrupt Level File...\n" + ex.Message,
-                    "Level Loading Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                return (false, ex);
             }
         }
 
-        public static bool LoadProject(string projectPath)
+        public static (bool success, Exception exception) LoadProject(string projectPath)
         {
             try
             {
@@ -71,13 +70,11 @@ namespace Renderite2D_Game_Engine.Scripts
                 ProjectName = Path.GetFileNameWithoutExtension(projectPath);
                 ProjectParentFolder = Directory.GetParent(Path.GetDirectoryName(projectPath)).FullName;
                 IsProjectOpen = true;
-                return true;
+                return (true, null);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Invalid or Corrupt Level File...\n" + ex.Message,
-                    "Level Loading Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                return (false, ex);
             }
         }
 
@@ -198,7 +195,7 @@ namespace Renderite2D_Game_Engine.Scripts
 
                 if (openFileDialog.ShowDialog(parentWindow) == DialogResult.OK)
                 {
-                    if (LoadProject(openFileDialog.FileName))
+                    if (LoadProject(openFileDialog.FileName).success)
                     {
                         ProgressWindow pwOpen = new();
                         pwOpen.UpdateEvent += PwOpen_UpdateEvent;
@@ -207,8 +204,14 @@ namespace Renderite2D_Game_Engine.Scripts
 
                         if (dr == DialogResult.OK)
                             new LevelEditor().Show();
-                        else MessageBox.Show("Failed to Load Project...", "Loading Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                        {
+                            MessageBox.Show(
+                                "[Message] " + caughtException.Message + "\n\n" +
+                                "[Source] " + caughtException.Source + "\n\n" +
+                                "[Stack Trace]\n" + caughtException.StackTrace,
+                            "Exception Caught!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 IsOpeningProject = false;
@@ -219,10 +222,12 @@ namespace Renderite2D_Game_Engine.Scripts
         {
             if (projectCodeIndex < postLoadProjectCode.Length)
             {
-                if (!RenderiteEngineScript.ExecuteLine(postLoadProjectCode[projectCodeIndex],
-                    ProjectName, ProjectParentFolder))
+                var (success, exception) = RenderiteEngineScript.ExecuteLine(postLoadProjectCode[projectCodeIndex],
+                    ProjectName, ProjectParentFolder);
+                if (!success)
                 {
                     projectCodeIndex = 0;
+                    caughtException = exception ?? new Exception("Unknown Error");
                     obj.DialogResult = DialogResult.Cancel;
                 }
 

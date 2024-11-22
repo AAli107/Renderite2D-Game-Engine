@@ -12,7 +12,7 @@ namespace Renderite2D_Game_Engine.Scripts
 {
     public static class RenderiteEngineScript
     {
-        public static bool ExecuteLine(string line, string project_name, string path)
+        public static (bool success, Exception exception) ExecuteLine(string line, string project_name, string path)
         {
             string[] lineTokens = line.Trim().Replace("project_name", project_name).Split(' ');
             string parameter = string.Empty;
@@ -27,20 +27,20 @@ namespace Renderite2D_Game_Engine.Scripts
                 case "CreateDir":
                     try {
                         Directory.CreateDirectory(path + '/' + parameter);
-                        return true;
-                    } catch { return false; }
+                        return (true, null);
+                    } catch (Exception ex) { return (false, ex); }
                 case "CreateProject":
                     try {
                         string projectJson = JsonConvert.SerializeObject(new Project(), Formatting.Indented);
                         File.WriteAllText(path + '/' + parameter + ".rdrt", projectJson);
-                        return true;
-                    } catch { return false; }
+                        return (true, null);
+                    } catch (Exception ex) { return (false, ex); }
                 case "CreateLevel":
                     try {
                         string levelJson = JsonConvert.SerializeObject(new Level(), Formatting.Indented);
                         File.WriteAllText(path + '/' + parameter + ".rdlvl", levelJson);
-                        return true;
-                    } catch { return false; }
+                        return (true, null);
+                    } catch (Exception ex) { return (false, ex); }
                 case "LoadProject":
                     return ProjectManager.LoadProject(path + '/' + parameter + ".rdrt");
                 case "LoadLevel":
@@ -51,10 +51,10 @@ namespace Renderite2D_Game_Engine.Scripts
                             return ProjectManager.LoadLevel (
                                 path + '/' + project_name + "/Assets/" + ProjectManager.ProjectData.startingLevel + ".rdlvl"
                             );
-                        return false;
+                        return (false, new Exception("Error: Project not Open"));
                     }
             }
-            return false;
+            return (false, new Exception("Error: Invalid instruction"));
         }
     }
 }

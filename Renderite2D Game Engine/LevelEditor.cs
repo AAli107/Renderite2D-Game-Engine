@@ -43,6 +43,11 @@ namespace Renderite2D_Game_Engine
 
         public LevelEditor()
         {
+            if (!ProjectManager.IsProjectOpen || ProjectManager.CurrentLevelData.gameObjects == null)
+            {
+                CloseAndGoHome();
+                return;
+            }
             InitializeComponent();
             UpdateGameObjectList();
             UpdatePropertiesPanel();
