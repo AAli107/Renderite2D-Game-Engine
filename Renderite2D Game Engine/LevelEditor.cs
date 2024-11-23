@@ -38,7 +38,7 @@ namespace Renderite2D_Game_Engine
                 pasteObjectToolStripMenuItem.Enabled = ClipboardObject != null;
             }
         }
-        public string assetBrowserPath = "Levels";
+        public string assetBrowserPath = "";
 
         (int x, int y) currentMousePos = new(0, 0); 
         (double x, double y) viewportPos = new(0, 0);
@@ -651,6 +651,39 @@ namespace Renderite2D_Game_Engine
 
             if (shouldUpdate)
                 UpdateAssetDirectory();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileD = new()
+            {
+                Filter = "All files (*.*)|*.*",
+                Title = "Import Asset Files",
+                Multiselect = true
+            };
+
+            if (fileD.ShowDialog(this) == DialogResult.OK)
+            {
+                for (int i = 0; i < fileD.FileNames.Length; i++)
+                {
+                    try
+                    {
+                        string importFilePath = (ProjectManager.AssetsPath + '\\' + assetBrowserPath + '\\' + 
+                            Path.GetFileName(fileD.FileNames[i])).Replace('/', '\\');
+
+                        File.Copy(fileD.FileNames[i], importFilePath, true);
+                        UpdateAssetDirectory();
+                    } 
+                    catch (Exception ex) 
+                    {
+                        MessageBox.Show(
+                            "[Message] " + ex.Message + "\n\n" +
+                            "[Source] " + ex.Source + "\n\n" +
+                            "[Stack Trace]\n" + ex.StackTrace,
+                            "Exception Caught!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 
