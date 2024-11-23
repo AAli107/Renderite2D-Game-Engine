@@ -39,7 +39,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.assets_panel = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button9 = new System.Windows.Forms.Button();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.levelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameObjectScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button8 = new System.Windows.Forms.Button();
             this.currentAssetPath_menuStrip = new System.Windows.Forms.MenuStrip();
             this.properties_panel = new System.Windows.Forms.Panel();
@@ -85,6 +91,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.properties_panel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -213,7 +220,7 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.panel5.Controls.Add(this.button9);
+            this.panel5.Controls.Add(this.menuStrip2);
             this.panel5.Controls.Add(this.button8);
             this.panel5.Controls.Add(this.currentAssetPath_menuStrip);
             this.panel5.Location = new System.Drawing.Point(0, 0);
@@ -222,21 +229,74 @@
             this.panel5.Size = new System.Drawing.Size(1264, 53);
             this.panel5.TabIndex = 0;
             // 
-            // button9
+            // menuStrip2
             // 
-            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.button9.FlatAppearance.BorderSize = 2;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(119, 3);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(111, 45);
-            this.button9.TabIndex = 18;
-            this.button9.Text = "Create";
-            this.button9.UseVisualStyleBackColor = false;
+            this.menuStrip2.AutoSize = false;
+            this.menuStrip2.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip2.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip2.GripMargin = new System.Windows.Forms.Padding(0);
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createToolStripMenuItem});
+            this.menuStrip2.Location = new System.Drawing.Point(116, 3);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(0);
+            this.menuStrip2.Size = new System.Drawing.Size(131, 45);
+            this.menuStrip2.TabIndex = 21;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // createToolStripMenuItem
+            // 
+            this.createToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.createToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.folderToolStripMenuItem,
+            this.levelToolStripMenuItem,
+            this.scriptToolStripMenuItem});
+            this.createToolStripMenuItem.Font = new System.Drawing.Font("Corbel", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.createToolStripMenuItem.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
+            this.createToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(103, 45);
+            this.createToolStripMenuItem.Text = "    Create    ";
+            // 
+            // folderToolStripMenuItem
+            // 
+            this.folderToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.folderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.folderToolStripMenuItem.Name = "folderToolStripMenuItem";
+            this.folderToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.folderToolStripMenuItem.Text = "Folder";
+            // 
+            // levelToolStripMenuItem
+            // 
+            this.levelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.levelToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.levelToolStripMenuItem.Name = "levelToolStripMenuItem";
+            this.levelToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.levelToolStripMenuItem.Text = "Level";
+            // 
+            // scriptToolStripMenuItem
+            // 
+            this.scriptToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.scriptToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scriptToolStripMenuItem1,
+            this.gameObjectScriptToolStripMenuItem});
+            this.scriptToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.scriptToolStripMenuItem.Name = "scriptToolStripMenuItem";
+            this.scriptToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.scriptToolStripMenuItem.Text = "Script";
+            // 
+            // scriptToolStripMenuItem1
+            // 
+            this.scriptToolStripMenuItem1.Name = "scriptToolStripMenuItem1";
+            this.scriptToolStripMenuItem1.Size = new System.Drawing.Size(249, 30);
+            this.scriptToolStripMenuItem1.Text = "Script";
+            // 
+            // gameObjectScriptToolStripMenuItem
+            // 
+            this.gameObjectScriptToolStripMenuItem.Name = "gameObjectScriptToolStripMenuItem";
+            this.gameObjectScriptToolStripMenuItem.Size = new System.Drawing.Size(249, 30);
+            this.gameObjectScriptToolStripMenuItem.Text = "Game Object Script";
             // 
             // button8
             // 
@@ -244,12 +304,12 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button8.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.button8.FlatAppearance.BorderSize = 2;
+            this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(2, 3);
+            this.button8.Location = new System.Drawing.Point(10, 3);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(111, 45);
+            this.button8.Size = new System.Drawing.Size(103, 45);
             this.button8.TabIndex = 17;
             this.button8.Text = "Import";
             this.button8.UseVisualStyleBackColor = false;
@@ -732,6 +792,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.properties_panel.ResumeLayout(false);
             this.properties_panel.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -755,7 +817,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel properties_panel;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
@@ -801,5 +862,12 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Panel assets_panel;
         private System.Windows.Forms.MenuStrip currentAssetPath_menuStrip;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem levelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scriptToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scriptToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem gameObjectScriptToolStripMenuItem;
     }
 }
