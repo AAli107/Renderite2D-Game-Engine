@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -34,12 +35,14 @@ namespace Renderite2D_Game_Engine
                 pasteObjectToolStripMenuItem.Enabled = ClipboardObject != null;
             }
         }
+        public string assetBrowserPath = string.Empty;
 
         (int x, int y) currentMousePos = new(0, 0); 
         (double x, double y) viewportPos = new(0, 0);
         (int x, int y) objectOffset = new(0, 0);
         string objectName = string.Empty;
         (string name, LevelObject obj)? clipboardObject = null;
+        List<(bool isDirectory, string path)> currentDirContents = new();
 
         public LevelEditor()
         {
@@ -53,6 +56,16 @@ namespace Renderite2D_Game_Engine
             UpdatePropertiesPanel();
             UpdateViewport();
             ClipboardObject = null;
+        }
+
+        public void UpdateOpenDirectory()
+        {
+            string dir = ProjectManager.AssetsPath + '\\' + assetBrowserPath;
+            currentDirContents.Clear();
+            var entries = Directory.EnumerateFileSystemEntries(dir);
+            var dirs = Directory.EnumerateDirectories(dir);
+            foreach (var entry in entries)
+                currentDirContents.Add(new(dirs.Contains(entry), entry.Replace(dir, "").Trim('\\')));
         }
 
         public bool AddGameObject(string name, LevelObject gameObject)
