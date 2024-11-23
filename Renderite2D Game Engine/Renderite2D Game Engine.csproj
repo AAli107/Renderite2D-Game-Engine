@@ -183,6 +183,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Renderite2D_logo.ico" />
+    <Content Include="Resources\icon_audio.png" />
+    <Content Include="Resources\icon_code.png" />
+    <Content Include="Resources\icon_file.png" />
+    <Content Include="Resources\icon_folder.png" />
+    <Content Include="Resources\icon_level.png" />
+    <Content Include="Resources\icon_picture.png" />
     <None Include="Resources\renderite_animation.gif" />
   </ItemGroup>
   <ItemGroup>
