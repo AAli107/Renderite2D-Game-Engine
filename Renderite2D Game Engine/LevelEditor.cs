@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -110,6 +111,8 @@ namespace Renderite2D_Game_Engine
 
             (bool isDirectory, string name, Point location)[] values = new (bool isDirectory, string name, Point location)[currentDirContents.Values.Count];
             currentDirContents.Values.CopyTo(values, 0);
+            var keys = currentDirContents.Keys.ToArray();
+            int cdc_index = 0;
             foreach (var (isDirectory, name, location) in values)
             {
                 Panel entry_panel = new() 
@@ -125,7 +128,9 @@ namespace Renderite2D_Game_Engine
                     IsLevelFile(name) ? Properties.Resources.icon_level : (
                     IsAudioFile(name) ? Properties.Resources.icon_audio :
                     Properties.Resources.icon_file)))),
+                    Name = keys[cdc_index],
                 };
+                entry_panel.DoubleClick += Entry_panel_DoubleClick;
                 assets_panel.Controls.Add(entry_panel);
                 assets_panel.Controls.Add(
                     new Label() {
@@ -141,6 +146,7 @@ namespace Renderite2D_Game_Engine
                         BackColor = Color.Transparent,
                     }
                 );
+                cdc_index++;
             }
 
             assets_panel.AutoScroll = false;
@@ -150,6 +156,68 @@ namespace Renderite2D_Game_Engine
             assets_panel.VerticalScroll.Enabled = true;
             assets_panel.VerticalScroll.Visible = true;
             assets_panel.AutoScroll = true;
+        }
+
+        private void Entry_panel_DoubleClick(object sender, EventArgs e)
+        {
+            if (sender is Panel p)
+            {
+                if (File.Exists(p.Name))
+                {
+                    if (p.Name.EndsWith(".rdlvl"))
+                    {
+                        bool allowLevelChange = true;
+                        if (ProjectManager.IsProjectChanged)
+                        {
+                            DialogResult result = MessageBox.Show("Do you want to save your project before Leaving?",
+                                ProjectManager.ProjectName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                            switch (result)
+                            {
+                                case DialogResult.Yes:
+                                    allowLevelChange = true;
+                                    ProjectManager.SaveProjectFiles(this);
+                                    break;
+                                case DialogResult.No:
+                                    allowLevelChange = true;
+                                    break;
+                                case DialogResult.Cancel:
+                                    allowLevelChange = false;
+                                    break;
+                            }
+                        }
+                        if (allowLevelChange)
+                        {
+                            var (success, exception) = ProjectManager.LoadLevel(p.Name);
+                            if (success)
+                            {
+                                objectOffset = new(0, 0);
+                                objectName = string.Empty;
+                                userInteraction = UserInteraction.None;
+
+                                UpdateGameObjectList();
+                                UpdatePropertiesPanel();
+                                UpdateViewport();
+                            }
+                            else
+                            {
+                                MessageBox.Show(
+                                    "[Message] " + exception.Message + "\n\n" +
+                                    "[Source] " + exception.Source + "\n\n" +
+                                    "[Stack Trace]\n" + exception.StackTrace,
+                                    "Exception Caught!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    else Process.Start(p.Name);
+                } 
+                else if (Directory.Exists(p.Name))
+                {
+                    assetBrowserPath = p.Name.Replace(ProjectManager.AssetsPath, "").Replace('/', '\\').Trim('\\');
+                    UpdateAssetDirectory();
+                }
+
+            }
         }
 
         private void PathSegment_Click(object sender, EventArgs e)
@@ -583,10 +651,6 @@ namespace Renderite2D_Game_Engine
 
             if (shouldUpdate)
                 UpdateAssetDirectory();
-        }
-
-        private void LevelEditor_Activated(object sender, EventArgs e)
-        {
         }
     }
 
