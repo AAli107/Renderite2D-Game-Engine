@@ -2,6 +2,7 @@
 using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Renderite2D_Game_Engine
@@ -35,14 +37,14 @@ namespace Renderite2D_Game_Engine
                 pasteObjectToolStripMenuItem.Enabled = ClipboardObject != null;
             }
         }
-        public string assetBrowserPath = string.Empty;
+        public string assetBrowserPath = "Levels";
 
         (int x, int y) currentMousePos = new(0, 0); 
         (double x, double y) viewportPos = new(0, 0);
         (int x, int y) objectOffset = new(0, 0);
         string objectName = string.Empty;
         (string name, LevelObject obj)? clipboardObject = null;
-        List<(bool isDirectory, string path)> currentDirContents = new();
+        readonly Dictionary<string, (bool isDirectory, string name, Point location)> currentDirContents = new();
 
         public LevelEditor()
         {
@@ -54,18 +56,143 @@ namespace Renderite2D_Game_Engine
             InitializeComponent();
             UpdateGameObjectList();
             UpdatePropertiesPanel();
+            UpdateAssetDirectory();
             UpdateViewport();
             ClipboardObject = null;
         }
 
-        public void UpdateOpenDirectory()
+
+        public void UpdateAssetDirectory()
         {
+            if (assets_panel.Width == 0) return;
+
             string dir = ProjectManager.AssetsPath + '\\' + assetBrowserPath;
-            currentDirContents.Clear();
-            var entries = Directory.EnumerateFileSystemEntries(dir);
-            var dirs = Directory.EnumerateDirectories(dir);
-            foreach (var entry in entries)
-                currentDirContents.Add(new(dirs.Contains(entry), entry.Replace(dir, "").Trim('\\')));
+
+            if (!Directory.Exists(dir))
+            {
+                assetBrowserPath = string.Empty;
+                dir = ProjectManager.AssetsPath + '\\' + assetBrowserPath;
+            }
+
+            string[] p = ("Assets/" + assetBrowserPath).Replace('\\', '/').Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            currentAssetPath_menuStrip.Items.Clear();
+            for (int i = 0; i < p.Length; i++)
+            {
+                var pathSegment = new ToolStripMenuItem(p[i] + "    /")
+                {
+                    ForeColor = Color.White,
+                    Font = new Font(Font.FontFamily, 16, FontStyle.Regular),
+                    Margin = new Padding(0, 0, 0, 0),
+                    Name = p[i],
+                };
+                pathSegment.Click += PathSegment_Click;
+                currentAssetPath_menuStrip.Items.Add(pathSegment);
+            }
+
+            {
+                currentDirContents.Clear();
+                var dirs = Directory.EnumerateDirectories(dir);
+                var files = Directory.EnumerateFiles(dir);
+                var entries = dirs.Concat(files).ToArray();
+                int i = 0;
+                foreach (var entry in entries)
+                {
+                    currentDirContents.Add(entry, new(dirs.Contains(entry), entry.Replace(dir, "").Trim('\\'), 
+                        new (
+                            ((i % (assets_panel.Width / 80)) * 80) + 8,
+                            (i / (assets_panel.Width / 80)) * 80
+                        )));
+                    i++;
+                }
+            }
+
+            assets_panel.Controls.Clear();
+
+            (bool isDirectory, string name, Point location)[] values = new (bool isDirectory, string name, Point location)[currentDirContents.Values.Count];
+            currentDirContents.Values.CopyTo(values, 0);
+            foreach (var (isDirectory, name, location) in values)
+            {
+                Panel entry_panel = new() 
+                {
+                    Location = location,
+                    Width = 64,
+                    Height = 64,
+                    BackColor = Color.Transparent,
+                    BackgroundImage =
+                    isDirectory ? Properties.Resources.icon_folder : (
+                    IsImageFile(name) ? Properties.Resources.icon_picture : (
+                    IsScriptFile(name) ? Properties.Resources.icon_code : (
+                    IsLevelFile(name) ? Properties.Resources.icon_level : (
+                    IsAudioFile(name) ? Properties.Resources.icon_audio :
+                    Properties.Resources.icon_file)))),
+                };
+                assets_panel.Controls.Add(entry_panel);
+                assets_panel.Controls.Add(
+                    new Label() {
+                        AutoSize = false,
+                        Location = new Point(entry_panel.Location.X - (isDirectory ? 10 : 8), entry_panel.Location.Y + 64),
+                        Width = 80,
+                        Height = 24,
+                        Font = new Font(Font.FontFamily, 8, FontStyle.Regular),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        UseCompatibleTextRendering = true,
+                        Text = name.Trim(),
+                        ForeColor = Color.White,
+                        BackColor = Color.Transparent,
+                    }
+                );
+            }
+
+            assets_panel.AutoScroll = false;
+            assets_panel.HorizontalScroll.Enabled = false;
+            assets_panel.HorizontalScroll.Visible = false;
+            assets_panel.HorizontalScroll.Maximum = 0;
+            assets_panel.VerticalScroll.Enabled = true;
+            assets_panel.VerticalScroll.Visible = true;
+            assets_panel.AutoScroll = true;
+        }
+
+        private void PathSegment_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem tsmi)
+            {
+                string localPath = "";
+                for (int i = 0; i < currentAssetPath_menuStrip.Items.Count; i++)
+                {
+                    if (i > 0)
+                        localPath += currentAssetPath_menuStrip.Items[i].Name + '/';
+                    if (currentAssetPath_menuStrip.Items[i].Name == tsmi.Name)
+                        break;
+                }
+                assetBrowserPath = localPath;
+                UpdateAssetDirectory();
+            }
+        }
+
+        public bool IsAudioFile(string path)
+        {
+            return
+                path.EndsWith(".mp3") ||
+                path.EndsWith(".wav");
+        }
+
+        public bool IsLevelFile(string path)
+        {
+            return path.EndsWith(".rdlvl");
+        }
+
+        public bool IsScriptFile(string path)
+        {
+            return path.EndsWith(".cs");
+        }
+
+        public bool IsImageFile(string path)
+        {
+            return 
+                path.EndsWith(".png")   ||
+                path.EndsWith(".jpg")   ||
+                path.EndsWith(".jpeg")  ||
+                path.EndsWith(".bmp");
         }
 
         public bool AddGameObject(string name, LevelObject gameObject)
@@ -433,6 +560,33 @@ namespace Renderite2D_Game_Engine
         private void projectSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ProjectSettingsMenu().ShowDialog(this);
+        }
+
+        private void assets_panel_Resize(object sender, EventArgs e)
+        {
+            bool shouldUpdate = false;
+
+            int i = 0;
+            foreach (var item in currentDirContents.Values)
+            {
+                if (item.location != new Point(
+                            ((i % (assets_panel.Width / 80)) * 80) + 8,
+                            (i / (assets_panel.Width / 80)) * 80
+                        )
+                    )
+                {
+                    shouldUpdate = true; 
+                    break;
+                }
+                i++;
+            }
+
+            if (shouldUpdate)
+                UpdateAssetDirectory();
+        }
+
+        private void LevelEditor_Activated(object sender, EventArgs e)
+        {
         }
     }
 

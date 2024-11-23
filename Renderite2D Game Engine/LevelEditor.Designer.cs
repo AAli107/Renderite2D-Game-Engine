@@ -37,10 +37,11 @@
             this.gameObject_listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.assets_panel = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.assetDirectory_label = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.currentAssetPath_menuStrip = new System.Windows.Forms.MenuStrip();
             this.properties_panel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -68,8 +69,8 @@
             this.exportSolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.levelSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.levelSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteGameObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -189,6 +190,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.panel2.Controls.Add(this.assets_panel);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Location = new System.Drawing.Point(0, 413);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
@@ -196,30 +198,29 @@
             this.panel2.Size = new System.Drawing.Size(1264, 271);
             this.panel2.TabIndex = 2;
             // 
+            // assets_panel
+            // 
+            this.assets_panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.assets_panel.Location = new System.Drawing.Point(4, 56);
+            this.assets_panel.Name = "assets_panel";
+            this.assets_panel.Size = new System.Drawing.Size(1255, 212);
+            this.assets_panel.TabIndex = 1;
+            this.assets_panel.Resize += new System.EventHandler(this.assets_panel_Resize);
+            // 
             // panel5
             // 
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.panel5.Controls.Add(this.assetDirectory_label);
             this.panel5.Controls.Add(this.button9);
             this.panel5.Controls.Add(this.button8);
+            this.panel5.Controls.Add(this.currentAssetPath_menuStrip);
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Margin = new System.Windows.Forms.Padding(0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1264, 52);
+            this.panel5.Size = new System.Drawing.Size(1264, 53);
             this.panel5.TabIndex = 0;
-            // 
-            // assetDirectory_label
-            // 
-            this.assetDirectory_label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.assetDirectory_label.AutoSize = true;
-            this.assetDirectory_label.Location = new System.Drawing.Point(236, 12);
-            this.assetDirectory_label.Name = "assetDirectory_label";
-            this.assetDirectory_label.Size = new System.Drawing.Size(241, 26);
-            this.assetDirectory_label.TabIndex = 19;
-            this.assetDirectory_label.Text = "Assets / Folder / Sub Folder";
             // 
             // button9
             // 
@@ -232,7 +233,7 @@
             this.button9.ForeColor = System.Drawing.Color.White;
             this.button9.Location = new System.Drawing.Point(119, 3);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(111, 44);
+            this.button9.Size = new System.Drawing.Size(111, 45);
             this.button9.TabIndex = 18;
             this.button9.Text = "Create";
             this.button9.UseVisualStyleBackColor = false;
@@ -248,10 +249,21 @@
             this.button8.ForeColor = System.Drawing.Color.White;
             this.button8.Location = new System.Drawing.Point(2, 3);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(111, 44);
+            this.button8.Size = new System.Drawing.Size(111, 45);
             this.button8.TabIndex = 17;
             this.button8.Text = "Import";
             this.button8.UseVisualStyleBackColor = false;
+            // 
+            // currentAssetPath_menuStrip
+            // 
+            this.currentAssetPath_menuStrip.AutoSize = false;
+            this.currentAssetPath_menuStrip.BackColor = System.Drawing.Color.Transparent;
+            this.currentAssetPath_menuStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.currentAssetPath_menuStrip.Location = new System.Drawing.Point(247, 3);
+            this.currentAssetPath_menuStrip.Name = "currentAssetPath_menuStrip";
+            this.currentAssetPath_menuStrip.Size = new System.Drawing.Size(1012, 45);
+            this.currentAssetPath_menuStrip.TabIndex = 20;
+            this.currentAssetPath_menuStrip.Text = "menuStrip2";
             // 
             // properties_panel
             // 
@@ -587,14 +599,6 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
-            // levelSettingsToolStripMenuItem
-            // 
-            this.levelSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
-            this.levelSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.levelSettingsToolStripMenuItem.Name = "levelSettingsToolStripMenuItem";
-            this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.levelSettingsToolStripMenuItem.Text = "Level Settings";
-            // 
             // projectSettingsToolStripMenuItem
             // 
             this.projectSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
@@ -603,6 +607,14 @@
             this.projectSettingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.projectSettingsToolStripMenuItem.Text = "Project Settings";
             this.projectSettingsToolStripMenuItem.Click += new System.EventHandler(this.projectSettingsToolStripMenuItem_Click);
+            // 
+            // levelSettingsToolStripMenuItem
+            // 
+            this.levelSettingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.levelSettingsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.levelSettingsToolStripMenuItem.Name = "levelSettingsToolStripMenuItem";
+            this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.levelSettingsToolStripMenuItem.Text = "Level Settings";
             // 
             // copyObjectToolStripMenuItem
             // 
@@ -719,7 +731,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.properties_panel.ResumeLayout(false);
             this.properties_panel.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -747,7 +758,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.Label assetDirectory_label;
         private System.Windows.Forms.Button addObject_btn;
         private System.Windows.Forms.Panel viewportGUI_panel;
         private System.Windows.Forms.Label viewportCoords_label;
@@ -788,5 +798,7 @@
         private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeProgramToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Panel assets_panel;
+        private System.Windows.Forms.MenuStrip currentAssetPath_menuStrip;
     }
 }
