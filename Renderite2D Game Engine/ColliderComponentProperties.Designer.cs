@@ -107,6 +107,7 @@
             0,
             0,
             0});
+            this.scaleY_num.ValueChanged += new System.EventHandler(this.scaleY_num_ValueChanged);
             // 
             // scaleX_num
             // 
@@ -133,6 +134,7 @@
             0,
             0,
             0});
+            this.scaleX_num.ValueChanged += new System.EventHandler(this.scaleX_num_ValueChanged);
             // 
             // posY_num
             // 
@@ -154,6 +156,7 @@
             this.posY_num.Size = new System.Drawing.Size(51, 23);
             this.posY_num.TabIndex = 15;
             this.posY_num.ThousandsSeparator = true;
+            this.posY_num.ValueChanged += new System.EventHandler(this.posY_num_ValueChanged);
             // 
             // posX_num
             // 
@@ -251,6 +254,7 @@
             this.isSolidCollision_checkBox.TabIndex = 0;
             this.isSolidCollision_checkBox.Text = "isSolidCollision";
             this.isSolidCollision_checkBox.UseVisualStyleBackColor = true;
+            this.isSolidCollision_checkBox.CheckedChanged += new System.EventHandler(this.isSolidCollision_checkBox_CheckedChanged);
             // 
             // friction_num
             // 
@@ -277,6 +281,7 @@
             0,
             0,
             65536});
+            this.friction_num.ValueChanged += new System.EventHandler(this.friction_num_ValueChanged);
             // 
             // label1
             // 

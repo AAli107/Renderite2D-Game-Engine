@@ -15,7 +15,7 @@ namespace Renderite2D_Game_Engine
     public partial class Component_Properties : UserControl
     {
         public string componentId = "";
-        private readonly LevelEditor levelEditor;
+        protected readonly LevelEditor levelEditor;
 
         public Component_Properties(LevelEditor levelEditor, string componentId)
         {
@@ -73,6 +73,22 @@ namespace Renderite2D_Game_Engine
         private void Component_Properties_Load(object sender, EventArgs e)
         {
             UpdateComponent();
+        }
+
+        protected void SetComponentValue(string valueId, object value)
+        {
+            if (ProjectManager.IsProjectOpen && levelEditor.gameObject_listBox.SelectedItem != null)
+            {
+                string objectKey = (string)levelEditor.gameObject_listBox.SelectedItem;
+                if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectKey) &&
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components.ContainsKey(componentId))
+                {
+                    var component = ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId];
+                    component.values[valueId] = value;
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId] = component;
+                }
+                levelEditor.UpdateViewport();
+            }
         }
     }
 }

@@ -34,7 +34,32 @@ namespace Renderite2D_Game_Engine
 
         private void posX_num_ValueChanged(object sender, EventArgs e)
         {
+            SetComponentValue("transform.position.X", (double)posX_num.Value);
+        }
 
+        private void posY_num_ValueChanged(object sender, EventArgs e)
+        {
+            SetComponentValue("transform.position.Y", (double)posY_num.Value);
+        }
+
+        private void scaleX_num_ValueChanged(object sender, EventArgs e)
+        {
+            SetComponentValue("transform.scale.X", (double)scaleX_num.Value);
+        }
+
+        private void scaleY_num_ValueChanged(object sender, EventArgs e)
+        {
+            SetComponentValue("transform.scale.Y", (double)scaleY_num.Value);
+        }
+
+        private void isSolidCollision_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SetComponentValue("isSolidCollision", isSolidCollision_checkBox.Checked);
+        }
+
+        private void friction_num_ValueChanged(object sender, EventArgs e)
+        {
+            SetComponentValue("friction", (float)friction_num.Value);
         }
     }
 }

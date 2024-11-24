@@ -520,7 +520,7 @@ namespace Renderite2D_Game_Engine
 
                 int index = 0;
                 int height = 0;
-                foreach (var item in selectedObj.components)
+                foreach (var item in selectedObj.components.ToArray())
                 {
                     if (item.Value.componentType == "ColliderComponent")
                     {
