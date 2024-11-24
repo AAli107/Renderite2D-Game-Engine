@@ -508,12 +508,32 @@ namespace Renderite2D_Game_Engine
             properties_panel.Visible = validSelection;
             if (validSelection)
             {
+                var selectedObj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
                 gameObjectName_label.Text = (string)gameObject_listBox.SelectedItem;
-                gameObjectIsEnabled_checkbox.CheckState = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].isEnabled ? CheckState.Checked : CheckState.Unchecked;
-                posX_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].x;
-                posY_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].y;
-                scaleX_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleX;
-                scaleY_num.Value = (decimal)ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem].scaleY;
+                gameObjectIsEnabled_checkbox.CheckState = selectedObj.isEnabled ? CheckState.Checked : CheckState.Unchecked;
+                posX_num.Value = (decimal)selectedObj.x;
+                posY_num.Value = (decimal)selectedObj.y;
+                scaleX_num.Value = (decimal)selectedObj.scaleX;
+                scaleY_num.Value = (decimal)selectedObj.scaleY;
+
+                componentsPanel.Controls.Clear();
+
+                int index = 0;
+                int height = 0;
+                foreach (var item in selectedObj.components)
+                {
+                    if (item.Value.componentType == "ColliderComponent")
+                    {
+                        var componentPanel = new ColliderComponentProperties(this, item.Key)
+                        {
+                            Location = new Point(8, height),
+                        };
+                        height += componentPanel.GetHeight() + 16;
+                        
+                        componentsPanel.Controls.Add(componentPanel);
+                        index++;
+                    }
+                }
             }
         }
 
@@ -719,6 +739,11 @@ namespace Renderite2D_Game_Engine
                 AddComponentToObject("ColliderComponent", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
+        }
+
+        private void properties_panel_Resize(object sender, EventArgs e)
+        {
+            UpdatePropertiesPanel();
         }
     }
 

@@ -15,5 +15,10 @@ namespace Renderite2D_Game_Engine
         {
             InitializeComponent();
         }
+
+        public override int GetHeight()
+        {
+            return 230;
+        }
     }
 }

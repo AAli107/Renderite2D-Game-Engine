@@ -20,6 +20,11 @@
             base.Dispose(disposing);
         }
 
+        public virtual int GetHeight()
+        {
+            return 84;
+        }
+
         #region Component Designer generated code
 
         /// <summary> 

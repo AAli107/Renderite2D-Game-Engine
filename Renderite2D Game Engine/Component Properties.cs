@@ -22,6 +22,7 @@ namespace Renderite2D_Game_Engine
             InitializeComponent();
             this.componentId = componentId;
             this.levelEditor = levelEditor ?? throw new Exception("Error: Missing access to Level Editor!");
+            UpdateComponent();
         }
 
         public void UpdateComponent()
