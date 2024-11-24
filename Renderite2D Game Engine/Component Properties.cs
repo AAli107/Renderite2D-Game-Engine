@@ -22,7 +22,6 @@ namespace Renderite2D_Game_Engine
             InitializeComponent();
             this.componentId = componentId;
             this.levelEditor = levelEditor ?? throw new Exception("Error: Missing access to Level Editor!");
-            UpdateComponent();
         }
 
         public void UpdateComponent()
@@ -33,14 +32,13 @@ namespace Renderite2D_Game_Engine
                 if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectKey) &&
                     ProjectManager.CurrentLevelData.gameObjects[objectKey].components.ContainsKey(componentId))
                 {
-                    IsEnabled_checkbox.Checked = 
-                        ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId].isEnabled;
-                    UpdateComponent_();
+                    var component = ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId];
+                    IsEnabled_checkbox.Checked = component.isEnabled;
+                    UpdateComponent_(component);
                 }
             }
         }
 
-        protected virtual void UpdateComponent_() { }
 
         private void deleteComponent_button_Click(object sender, EventArgs e)
         {
@@ -70,6 +68,11 @@ namespace Renderite2D_Game_Engine
                 }
                 levelEditor.UpdateViewport();
             }
+        }
+
+        private void Component_Properties_Load(object sender, EventArgs e)
+        {
+            UpdateComponent();
         }
     }
 }

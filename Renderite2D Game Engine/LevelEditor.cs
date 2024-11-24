@@ -730,10 +730,10 @@ namespace Renderite2D_Game_Engine
             {
                 Dictionary<string, object> values = new()
                 {
-                    { "transform.position.X", 0 },
-                    { "transform.position.Y", 0 },
-                    { "transform.scale.X", 1 },
-                    { "transform.scale.Y", 1 },
+                    { "transform.position.X", 0.0 },
+                    { "transform.position.Y", 0.0 },
+                    { "transform.scale.X", 1.0 },
+                    { "transform.scale.Y", 1.0 },
                     { "isSolidCollision", true },
                     { "friction", 0.1f }
                 };

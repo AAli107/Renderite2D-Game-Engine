@@ -1,4 +1,6 @@
-﻿namespace Renderite2D_Game_Engine
+﻿using Renderite2D_Game_Engine.Scripts.Data;
+
+namespace Renderite2D_Game_Engine
 {
     partial class Component_Properties
     {
@@ -19,6 +21,8 @@
             }
             base.Dispose(disposing);
         }
+
+        protected virtual void UpdateComponent_(LevelComponent component) { }
 
         public virtual int GetHeight()
         {
@@ -105,6 +109,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Component_Properties";
             this.Size = new System.Drawing.Size(240, 84);
+            this.Load += new System.EventHandler(this.Component_Properties_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

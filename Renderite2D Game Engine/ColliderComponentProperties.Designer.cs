@@ -175,6 +175,7 @@
             this.posX_num.Size = new System.Drawing.Size(51, 23);
             this.posX_num.TabIndex = 1;
             this.posX_num.ThousandsSeparator = true;
+            this.posX_num.ValueChanged += new System.EventHandler(this.posX_num_ValueChanged);
             // 
             // label8
             // 
