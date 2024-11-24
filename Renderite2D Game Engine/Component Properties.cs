@@ -24,6 +24,23 @@ namespace Renderite2D_Game_Engine
             this.levelEditor = levelEditor ?? throw new Exception("Error: Missing access to Level Editor!");
         }
 
+        public void UpdateComponent()
+        {
+            if (ProjectManager.IsProjectOpen && levelEditor.gameObject_listBox.SelectedItem != null)
+            {
+                string objectKey = (string)levelEditor.gameObject_listBox.SelectedItem;
+                if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectKey) &&
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components.ContainsKey(componentId))
+                {
+                    IsEnabled_checkbox.Checked = 
+                        ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId].isEnabled;
+                    UpdateComponent_();
+                }
+            }
+        }
+
+        protected virtual void UpdateComponent_() { }
+
         private void deleteComponent_button_Click(object sender, EventArgs e)
         {
             if (ProjectManager.IsProjectOpen && levelEditor.gameObject_listBox.SelectedItem != null)
