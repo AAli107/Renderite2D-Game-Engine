@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 
 namespace Renderite2D_Game_Engine.Scripts.Data
@@ -11,7 +12,7 @@ namespace Renderite2D_Game_Engine.Scripts.Data
         public double y;
         public double scaleX;
         public double scaleY;
-        public List<LevelComponent> components;
+        public Dictionary<string, LevelComponent> components;
         public bool isEnabled;
 
         public LevelObject()
@@ -24,7 +25,7 @@ namespace Renderite2D_Game_Engine.Scripts.Data
             isEnabled = true;
         }
 
-        public LevelObject(string objectType, double x, double y, double scaleX, double scaleY, List<LevelComponent> components, bool isEnabled = true)
+        public LevelObject(string objectType, double x, double y, double scaleX, double scaleY, Dictionary<string, LevelComponent> components, bool isEnabled = true)
         {
             this.objectType = objectType;
             this.x = x;
@@ -39,12 +40,25 @@ namespace Renderite2D_Game_Engine.Scripts.Data
         {
             if (obj is LevelObject levelObject)
             {
-                if (components.Count != levelObject.components.Count) 
-                    return false;
+                if (components.Count != levelObject.components.Count) return false;
 
-                for (int i = 0; i < components.Count; i++)
-                    if (!components[i].Equals(levelObject.components[i])) 
+                foreach (var keys in components.Keys)
+                {
+                    if (!levelObject.components.ContainsKey(keys))
                         return false;
+                }
+
+                foreach (var keys in levelObject.components.Keys)
+                {
+                    if (!components.ContainsKey(keys))
+                        return false;
+                }
+
+                foreach (var keyValue in components)
+                {
+                    if (!levelObject.components[keyValue.Key].Equals(keyValue.Value))
+                        return false;
+                }
 
                 return
                     objectType == levelObject.objectType &&
