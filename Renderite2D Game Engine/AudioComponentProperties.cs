@@ -35,8 +35,10 @@ namespace Renderite2D_Game_Engine
                         (ProjectManager.AssetsPath.Replace('/', '\\')) + "\\", ""));
             }
 
-            trackBar1.Value = (int)component.values["Volume"] * 100;
-            comboBox1.SelectedItem = (string)component.values["FilePath"];
+            trackBar1.Value = (int)((float)component.values["Volume"] * 100);
+            comboBox1.SelectedItem = (string)component.values["FilePath"]; 
+            
+            UpdateVolumeText();
         }
 
         public override int GetHeight()
@@ -46,13 +48,18 @@ namespace Renderite2D_Game_Engine
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            volumePercentLabel.Text = trackBar1.Value + "%";
-            SetComponentValue("Volume", trackBar1.Value / 100.0);
+            UpdateVolumeText();
+            SetComponentValue("Volume", trackBar1.Value / 100.0f);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetComponentValue("FilePath", comboBox1.SelectedItem != null ? "Assets\\Game Assets\\" + ((string)comboBox1.SelectedItem) : "");
+        }
+
+        private void UpdateVolumeText()
+        {
+            volumePercentLabel.Text = trackBar1.Value + "%";
         }
     }
 }

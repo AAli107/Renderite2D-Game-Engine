@@ -427,6 +427,7 @@
             this.audioComponentToolStripMenuItem.Name = "audioComponentToolStripMenuItem";
             this.audioComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
             this.audioComponentToolStripMenuItem.Text = "Audio Component";
+            this.audioComponentToolStripMenuItem.Click += new System.EventHandler(this.audioComponentToolStripMenuItem_Click);
             // 
             // customScriptToolStripMenuItem
             // 

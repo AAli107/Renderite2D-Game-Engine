@@ -522,17 +522,26 @@ namespace Renderite2D_Game_Engine
                 int height = 0;
                 foreach (var item in selectedObj.components.ToArray())
                 {
-                    if (item.Value.componentType == "ColliderComponent")
+                    Component_Properties componentPanel = null;
+                    
+                    Point loc = new(8, height);
+
+                    switch (item.Value.componentType)
                     {
-                        var componentPanel = new ColliderComponentProperties(this, item.Key)
-                        {
-                            Location = new Point(8, height),
-                        };
-                        height += componentPanel.GetHeight() + 16;
-                        
-                        componentsPanel.Controls.Add(componentPanel);
-                        index++;
+                        case "ColliderComponent":
+                            componentPanel = new ColliderComponentProperties(this, item.Key) { Location = loc, };
+                            break;
+                        case "AudioComponent":
+                            componentPanel = new AudioComponentProperties(this, item.Key) { Location = loc, };
+                            break;
                     }
+
+                    if (componentPanel == null) continue;
+
+                    height += componentPanel.GetHeight() + 16;
+
+                    componentsPanel.Controls.Add(componentPanel);
+                    index++;
                 }
             }
         }
@@ -746,6 +755,22 @@ namespace Renderite2D_Game_Engine
         private void properties_panel_Resize(object sender, EventArgs e)
         {
             UpdatePropertiesPanel();
+        }
+
+        private void audioComponentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "FilePath", "" },
+                    { "Volume", 1.0f },
+                };
+
+                AddComponentToObject("AudioComponent", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
         }
     }
 
