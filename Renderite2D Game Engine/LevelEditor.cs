@@ -652,6 +652,8 @@ namespace Renderite2D_Game_Engine
 
         private void assets_panel_Resize(object sender, EventArgs e)
         {
+            if (assets_panel.Width == 0) return;
+
             bool shouldUpdate = false;
 
             int i = 0;
