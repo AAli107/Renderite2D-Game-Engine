@@ -36,7 +36,7 @@ namespace Renderite2D_Game_Engine
             }
 
             trackBar1.Value = (int)((float)component.values["Volume"] * 100);
-            comboBox1.SelectedItem = (string)component.values["FilePath"]; 
+            comboBox1.SelectedItem = ((string)component.values["FilePath"]).Replace("Assets\\Game Assets\\", ""); 
             
             UpdateVolumeText();
         }
