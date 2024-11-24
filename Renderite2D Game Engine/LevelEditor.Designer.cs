@@ -875,6 +875,7 @@
             this.colliderComponentToolStripMenuItem.Name = "colliderComponentToolStripMenuItem";
             this.colliderComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
             this.colliderComponentToolStripMenuItem.Text = "Collider Component";
+            this.colliderComponentToolStripMenuItem.Click += new System.EventHandler(this.colliderComponentToolStripMenuItem_Click);
             // 
             // pointRendererToolStripMenuItem
             // 

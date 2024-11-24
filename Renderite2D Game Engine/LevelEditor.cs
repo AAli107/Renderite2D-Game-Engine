@@ -700,6 +700,26 @@ namespace Renderite2D_Game_Engine
             }
             return null;
         }
+
+        private void colliderComponentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "transform.position.X", 0 },
+                    { "transform.position.Y", 0 },
+                    { "transform.scale.X", 1 },
+                    { "transform.scale.Y", 1 },
+                    { "isSolidCollision", true },
+                    { "friction", 0.1f }
+                };
+
+                AddComponentToObject("ColliderComponent", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
     }
 
     public enum UserInteraction
