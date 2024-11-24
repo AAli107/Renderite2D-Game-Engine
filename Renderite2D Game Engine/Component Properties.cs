@@ -17,6 +17,12 @@ namespace Renderite2D_Game_Engine
         public string componentId = "";
         protected readonly LevelEditor levelEditor;
 
+        [Obsolete("Designer only", true)]
+        public Component_Properties()
+        {
+            InitializeComponent();
+        }
+
         public Component_Properties(LevelEditor levelEditor, string componentId)
         {
             InitializeComponent();

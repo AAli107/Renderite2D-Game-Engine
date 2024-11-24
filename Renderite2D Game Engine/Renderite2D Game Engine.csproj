@@ -73,6 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioComponentProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AudioComponentProperties.Designer.cs">
+      <DependentUpon>AudioComponentProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +136,9 @@
     <Compile Include="Scripts\ProjectManager.cs" />
     <Compile Include="Scripts\RenderiteEngineScript.cs" />
     <Compile Include="Scripts\WinFormController.cs" />
+    <EmbeddedResource Include="AudioComponentProperties.resx">
+      <DependentUpon>AudioComponentProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>

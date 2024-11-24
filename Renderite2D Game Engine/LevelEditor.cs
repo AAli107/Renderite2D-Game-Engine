@@ -237,24 +237,24 @@ namespace Renderite2D_Game_Engine
             }
         }
 
-        public bool IsAudioFile(string path)
+        public static bool IsAudioFile(string path)
         {
             return
                 path.EndsWith(".mp3") ||
                 path.EndsWith(".wav");
         }
 
-        public bool IsLevelFile(string path)
+        public static bool IsLevelFile(string path)
         {
             return path.EndsWith(".rdlvl");
         }
 
-        public bool IsScriptFile(string path)
+        public static bool IsScriptFile(string path)
         {
             return path.EndsWith(".cs");
         }
 
-        public bool IsImageFile(string path)
+        public static bool IsImageFile(string path)
         {
             return 
                 path.EndsWith(".png")   ||

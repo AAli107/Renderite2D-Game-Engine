@@ -12,6 +12,12 @@ namespace Renderite2D_Game_Engine
 {
     public partial class ColliderComponentProperties : Component_Properties
     {
+        [Obsolete("Designer only", true)]
+        public ColliderComponentProperties()
+        {
+            InitializeComponent();
+        }
+
         public ColliderComponentProperties(LevelEditor levelEditor, string componentId) : base(levelEditor, componentId)
         {
             InitializeComponent();
