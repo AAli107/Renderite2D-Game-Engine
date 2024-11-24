@@ -50,6 +50,14 @@
             this.currentAssetPath_menuStrip = new System.Windows.Forms.MenuStrip();
             this.properties_panel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.menuStrip3 = new System.Windows.Forms.MenuStrip();
+            this.addComponent_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.physicsComponentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.audioComponentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renderingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.animatedSpriteRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lineRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.scaleY_num = new System.Windows.Forms.NumericUpDown();
@@ -86,6 +94,14 @@
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.colliderComponentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pointRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quadRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quadSpritesheetRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rectRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spritesheetRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.triangleRendererToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelViewport_panel.SuspendLayout();
             this.viewportGUI_panel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -94,6 +110,7 @@
             this.menuStrip2.SuspendLayout();
             this.properties_panel.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.menuStrip3.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleY_num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scaleX_num)).BeginInit();
@@ -349,6 +366,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.menuStrip3);
             this.panel3.Controls.Add(this.panel6);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Location = new System.Drawing.Point(0, 35);
@@ -356,12 +374,95 @@
             this.panel3.Size = new System.Drawing.Size(270, 354);
             this.panel3.TabIndex = 3;
             // 
+            // menuStrip3
+            // 
+            this.menuStrip3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.menuStrip3.AutoSize = false;
+            this.menuStrip3.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip3.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip3.GripMargin = new System.Windows.Forms.Padding(0);
+            this.menuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addComponent_toolStripMenuItem});
+            this.menuStrip3.Location = new System.Drawing.Point(40, 317);
+            this.menuStrip3.Name = "menuStrip3";
+            this.menuStrip3.Padding = new System.Windows.Forms.Padding(0);
+            this.menuStrip3.Size = new System.Drawing.Size(193, 33);
+            this.menuStrip3.TabIndex = 22;
+            this.menuStrip3.Text = "menuStrip3";
+            // 
+            // addComponent_toolStripMenuItem
+            // 
+            this.addComponent_toolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.addComponent_toolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.physicsComponentToolStripMenuItem,
+            this.colliderComponentToolStripMenuItem,
+            this.audioComponentToolStripMenuItem,
+            this.customScriptToolStripMenuItem,
+            this.renderingToolStripMenuItem});
+            this.addComponent_toolStripMenuItem.Font = new System.Drawing.Font("Corbel", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addComponent_toolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.addComponent_toolStripMenuItem.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.addComponent_toolStripMenuItem.Name = "addComponent_toolStripMenuItem";
+            this.addComponent_toolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
+            this.addComponent_toolStripMenuItem.Size = new System.Drawing.Size(186, 33);
+            this.addComponent_toolStripMenuItem.Text = "    Add Component    ";
+            // 
+            // physicsComponentToolStripMenuItem
+            // 
+            this.physicsComponentToolStripMenuItem.Name = "physicsComponentToolStripMenuItem";
+            this.physicsComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.physicsComponentToolStripMenuItem.Text = "Physics Component";
+            // 
+            // audioComponentToolStripMenuItem
+            // 
+            this.audioComponentToolStripMenuItem.Name = "audioComponentToolStripMenuItem";
+            this.audioComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.audioComponentToolStripMenuItem.Text = "Audio Component";
+            // 
+            // customScriptToolStripMenuItem
+            // 
+            this.customScriptToolStripMenuItem.Name = "customScriptToolStripMenuItem";
+            this.customScriptToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.customScriptToolStripMenuItem.Text = "Custom Script";
+            // 
+            // renderingToolStripMenuItem
+            // 
+            this.renderingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.animatedSpriteRendererToolStripMenuItem,
+            this.lineRendererToolStripMenuItem,
+            this.pointRendererToolStripMenuItem,
+            this.quadRendererToolStripMenuItem,
+            this.quadSpritesheetRendererToolStripMenuItem,
+            this.rectRendererToolStripMenuItem,
+            this.spritesheetRendererToolStripMenuItem,
+            this.textRendererToolStripMenuItem,
+            this.triangleRendererToolStripMenuItem});
+            this.renderingToolStripMenuItem.Name = "renderingToolStripMenuItem";
+            this.renderingToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.renderingToolStripMenuItem.Text = "Rendering";
+            // 
+            // animatedSpriteRendererToolStripMenuItem
+            // 
+            this.animatedSpriteRendererToolStripMenuItem.Name = "animatedSpriteRendererToolStripMenuItem";
+            this.animatedSpriteRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.animatedSpriteRendererToolStripMenuItem.Text = "Animated Sprite Renderer";
+            // 
+            // lineRendererToolStripMenuItem
+            // 
+            this.lineRendererToolStripMenuItem.Name = "lineRendererToolStripMenuItem";
+            this.lineRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.lineRendererToolStripMenuItem.Text = "Line Renderer";
+            // 
             // panel6
             // 
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel6.AutoScroll = true;
             this.panel6.Location = new System.Drawing.Point(-2, 93);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(270, 259);
+            this.panel6.Size = new System.Drawing.Size(270, 221);
             this.panel6.TabIndex = 1;
             // 
             // panel4
@@ -769,6 +870,54 @@
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip";
             // 
+            // colliderComponentToolStripMenuItem
+            // 
+            this.colliderComponentToolStripMenuItem.Name = "colliderComponentToolStripMenuItem";
+            this.colliderComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.colliderComponentToolStripMenuItem.Text = "Collider Component";
+            // 
+            // pointRendererToolStripMenuItem
+            // 
+            this.pointRendererToolStripMenuItem.Name = "pointRendererToolStripMenuItem";
+            this.pointRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.pointRendererToolStripMenuItem.Text = "Point Renderer";
+            // 
+            // quadRendererToolStripMenuItem
+            // 
+            this.quadRendererToolStripMenuItem.Name = "quadRendererToolStripMenuItem";
+            this.quadRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.quadRendererToolStripMenuItem.Text = "Quad Renderer";
+            // 
+            // quadSpritesheetRendererToolStripMenuItem
+            // 
+            this.quadSpritesheetRendererToolStripMenuItem.Name = "quadSpritesheetRendererToolStripMenuItem";
+            this.quadSpritesheetRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.quadSpritesheetRendererToolStripMenuItem.Text = "Quad Spritesheet Renderer";
+            // 
+            // rectRendererToolStripMenuItem
+            // 
+            this.rectRendererToolStripMenuItem.Name = "rectRendererToolStripMenuItem";
+            this.rectRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.rectRendererToolStripMenuItem.Text = "Rect Renderer";
+            // 
+            // spritesheetRendererToolStripMenuItem
+            // 
+            this.spritesheetRendererToolStripMenuItem.Name = "spritesheetRendererToolStripMenuItem";
+            this.spritesheetRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.spritesheetRendererToolStripMenuItem.Text = "Spritesheet Renderer";
+            // 
+            // textRendererToolStripMenuItem
+            // 
+            this.textRendererToolStripMenuItem.Name = "textRendererToolStripMenuItem";
+            this.textRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.textRendererToolStripMenuItem.Text = "Text Renderer";
+            // 
+            // triangleRendererToolStripMenuItem
+            // 
+            this.triangleRendererToolStripMenuItem.Name = "triangleRendererToolStripMenuItem";
+            this.triangleRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
+            this.triangleRendererToolStripMenuItem.Text = "Triangle Renderer";
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
@@ -797,6 +946,8 @@
             this.properties_panel.ResumeLayout(false);
             this.properties_panel.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.menuStrip3.ResumeLayout(false);
+            this.menuStrip3.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scaleY_num)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scaleX_num)).EndInit();
@@ -869,5 +1020,21 @@
         private System.Windows.Forms.ToolStripMenuItem scriptToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem gameObjectScriptToolStripMenuItem;
         public System.Windows.Forms.ListBox gameObject_listBox;
+        private System.Windows.Forms.MenuStrip menuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem addComponent_toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem physicsComponentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem audioComponentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customScriptToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renderingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem animatedSpriteRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lineRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem colliderComponentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pointRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quadRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quadSpritesheetRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rectRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spritesheetRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem textRendererToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem triangleRendererToolStripMenuItem;
     }
 }
