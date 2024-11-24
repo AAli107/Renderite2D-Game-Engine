@@ -34,10 +34,8 @@ namespace Renderite2D_Game_Engine
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text.Replace(" ", "").Trim();
-
-            if (textBox1.Text == "ScriptComponent") 
-                textBox1.Text = "";
+            if (textBox1.Text.Contains(" "))
+                textBox1.Text = textBox1.Text.Replace(" ", "").Trim();
 
             bool characterCheck = true;
             if (textBox1.Text.Length > 1)
@@ -52,8 +50,10 @@ namespace Renderite2D_Game_Engine
                 }
             }
 
-            if ((char.IsLetter(textBox1.Text[0]) || textBox1.Text[0] == '_' || textBox1.Text[0] == '@') && characterCheck) 
-                SetComponentValue("ScriptClass", textBox1.Text);
+            if (textBox1.Text.Length == 0 || 
+                ((char.IsLetter(textBox1.Text[0]) || textBox1.Text[0] == '_' || textBox1.Text[0] == '@') && characterCheck && 
+                textBox1.Text != "ScriptComponent")) 
+                    SetComponentValue("ScriptClass", textBox1.Text);
         }
     }
 }

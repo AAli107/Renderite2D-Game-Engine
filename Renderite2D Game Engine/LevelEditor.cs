@@ -537,6 +537,9 @@ namespace Renderite2D_Game_Engine
                         case "PhysicsComponent":
                             componentPanel = new PhysicsComponentProperties(this, item.Key) { Location = loc, };
                             break;
+                        case "ScriptComponent":
+                            componentPanel = new ScriptComponentProperties(this, item.Key) { Location = loc, };
+                            break;
                     }
 
                     if (componentPanel == null) continue;
@@ -791,6 +794,21 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("PhysicsComponent", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void customScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "ScriptClass", "" },
+                };
+
+                AddComponentToObject("ScriptComponent", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }

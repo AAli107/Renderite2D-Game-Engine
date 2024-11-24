@@ -412,29 +412,30 @@
             // physicsComponentToolStripMenuItem
             // 
             this.physicsComponentToolStripMenuItem.Name = "physicsComponentToolStripMenuItem";
-            this.physicsComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.physicsComponentToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
             this.physicsComponentToolStripMenuItem.Text = "Physics Component";
             this.physicsComponentToolStripMenuItem.Click += new System.EventHandler(this.physicsComponentToolStripMenuItem_Click);
             // 
             // colliderComponentToolStripMenuItem
             // 
             this.colliderComponentToolStripMenuItem.Name = "colliderComponentToolStripMenuItem";
-            this.colliderComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.colliderComponentToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
             this.colliderComponentToolStripMenuItem.Text = "Collider Component";
             this.colliderComponentToolStripMenuItem.Click += new System.EventHandler(this.colliderComponentToolStripMenuItem_Click);
             // 
             // audioComponentToolStripMenuItem
             // 
             this.audioComponentToolStripMenuItem.Name = "audioComponentToolStripMenuItem";
-            this.audioComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.audioComponentToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
             this.audioComponentToolStripMenuItem.Text = "Audio Component";
             this.audioComponentToolStripMenuItem.Click += new System.EventHandler(this.audioComponentToolStripMenuItem_Click);
             // 
             // customScriptToolStripMenuItem
             // 
             this.customScriptToolStripMenuItem.Name = "customScriptToolStripMenuItem";
-            this.customScriptToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
-            this.customScriptToolStripMenuItem.Text = "Custom Script";
+            this.customScriptToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
+            this.customScriptToolStripMenuItem.Text = "Custom Script Component";
+            this.customScriptToolStripMenuItem.Click += new System.EventHandler(this.customScriptToolStripMenuItem_Click);
             // 
             // renderingToolStripMenuItem
             // 
@@ -449,7 +450,7 @@
             this.textRendererToolStripMenuItem,
             this.triangleRendererToolStripMenuItem});
             this.renderingToolStripMenuItem.Name = "renderingToolStripMenuItem";
-            this.renderingToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
+            this.renderingToolStripMenuItem.Size = new System.Drawing.Size(308, 30);
             this.renderingToolStripMenuItem.Text = "Rendering";
             // 
             // animatedSpriteRendererToolStripMenuItem
