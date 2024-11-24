@@ -414,6 +414,7 @@
             this.physicsComponentToolStripMenuItem.Name = "physicsComponentToolStripMenuItem";
             this.physicsComponentToolStripMenuItem.Size = new System.Drawing.Size(254, 30);
             this.physicsComponentToolStripMenuItem.Text = "Physics Component";
+            this.physicsComponentToolStripMenuItem.Click += new System.EventHandler(this.physicsComponentToolStripMenuItem_Click);
             // 
             // colliderComponentToolStripMenuItem
             // 

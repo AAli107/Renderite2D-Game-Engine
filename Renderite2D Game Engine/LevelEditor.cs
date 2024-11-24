@@ -534,6 +534,9 @@ namespace Renderite2D_Game_Engine
                         case "AudioComponent":
                             componentPanel = new AudioComponentProperties(this, item.Key) { Location = loc, };
                             break;
+                        case "PhysicsComponent":
+                            componentPanel = new PhysicsComponentProperties(this, item.Key) { Location = loc, };
+                            break;
                     }
 
                     if (componentPanel == null) continue;
@@ -769,6 +772,25 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("AudioComponent", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void physicsComponentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "mass", 10f },
+                    { "friction", 0.1f },
+                    { "isAirborne", true },
+                    { "gravityEnabled", true },
+                    { "gravityMultiplier", 1f },
+                };
+
+                AddComponentToObject("PhysicsComponent", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }
