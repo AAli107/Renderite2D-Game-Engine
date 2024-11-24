@@ -35,7 +35,7 @@ namespace Renderite2D_Game_Engine
                         (ProjectManager.AssetsPath.Replace('/', '\\')) + "\\", ""));
             }
 
-            trackBar1.Value = (int)((float)component.values["Volume"] * 100);
+            trackBar1.Value = (int)(Convert.ToDouble(component.values["Volume"]) * 100);
             comboBox1.SelectedItem = ((string)component.values["FilePath"]).Replace("Assets\\Game Assets\\", ""); 
             
             UpdateVolumeText();
@@ -49,7 +49,7 @@ namespace Renderite2D_Game_Engine
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             UpdateVolumeText();
-            SetComponentValue("Volume", trackBar1.Value / 100.0f);
+            SetComponentValue("Volume", trackBar1.Value / 100.0);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

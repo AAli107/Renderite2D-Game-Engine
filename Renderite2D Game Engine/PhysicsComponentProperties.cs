@@ -24,11 +24,11 @@ namespace Renderite2D_Game_Engine
 
         protected override void UpdateComponent_(LevelComponent component)
         {
-            mass_num.Value = (decimal)(float)component.values["mass"];
-            friction_num.Value = (decimal)(float)component.values["friction"];
+            mass_num.Value = (decimal)Convert.ToDouble(component.values["mass"]);
+            friction_num.Value = (decimal)Convert.ToDouble(component.values["friction"]);
             isAirborne_checkBox.Checked = (bool)component.values["isAirborne"];
             gravityEnabled_checkBox.Checked = (bool)component.values["gravityEnabled"];
-            gravityMultiplier_num.Value = (decimal)(float)component.values["gravityMultiplier"];
+            gravityMultiplier_num.Value = (decimal)Convert.ToDouble(component.values["gravityMultiplier"]);
         }
 
         public override int GetHeight()
@@ -38,12 +38,12 @@ namespace Renderite2D_Game_Engine
 
         private void mass_num_ValueChanged(object sender, EventArgs e)
         {
-            SetComponentValue("mass", (float)mass_num.Value);
+            SetComponentValue("mass", (double)mass_num.Value);
         }
 
         private void friction_num_ValueChanged(object sender, EventArgs e)
         {
-            SetComponentValue("friction", (float)friction_num.Value);
+            SetComponentValue("friction", (double)friction_num.Value);
         }
 
         private void isAirborne_checkBox_CheckedChanged(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace Renderite2D_Game_Engine
 
         private void gravityMultiplier_num_ValueChanged(object sender, EventArgs e)
         {
-            SetComponentValue("gravityMultiplier", (float)gravityMultiplier_num.Value);
+            SetComponentValue("gravityMultiplier", (double)gravityMultiplier_num.Value);
         }
     }
 }

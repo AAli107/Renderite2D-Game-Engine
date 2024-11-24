@@ -30,12 +30,12 @@ namespace Renderite2D_Game_Engine
 
         protected override void UpdateComponent_(LevelComponent component)
         {
-            posX_num.Value = (decimal)(double)component.values["transform.position.X"];
-            posY_num.Value = (decimal)(double)component.values["transform.position.Y"];
-            scaleX_num.Value = (decimal)(double)component.values["transform.scale.X"];
-            scaleY_num.Value = (decimal)(double)component.values["transform.scale.Y"];
+            posX_num.Value = (decimal)Convert.ToDouble(component.values["transform.position.X"]);
+            posY_num.Value = (decimal)Convert.ToDouble(component.values["transform.position.Y"]);
+            scaleX_num.Value = (decimal)Convert.ToDouble(component.values["transform.scale.X"]);
+            scaleY_num.Value = (decimal)Convert.ToDouble(component.values["transform.scale.Y"]);
             isSolidCollision_checkBox.Checked = (bool)component.values["isSolidCollision"];
-            friction_num.Value = (decimal)(float)component.values["friction"];
+            friction_num.Value = (decimal)Convert.ToDouble(component.values["friction"]);
         }
 
         private void posX_num_ValueChanged(object sender, EventArgs e)

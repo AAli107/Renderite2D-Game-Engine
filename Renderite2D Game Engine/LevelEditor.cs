@@ -750,7 +750,7 @@ namespace Renderite2D_Game_Engine
                     { "transform.scale.X", 1.0 },
                     { "transform.scale.Y", 1.0 },
                     { "isSolidCollision", true },
-                    { "friction", 0.1f }
+                    { "friction", 0.1 }
                 };
 
                 AddComponentToObject("ColliderComponent", selectedObjName, values);
@@ -771,7 +771,7 @@ namespace Renderite2D_Game_Engine
                 Dictionary<string, object> values = new()
                 {
                     { "FilePath", "" },
-                    { "Volume", 1.0f },
+                    { "Volume", 1.0 },
                 };
 
                 AddComponentToObject("AudioComponent", selectedObjName, values);
@@ -786,11 +786,11 @@ namespace Renderite2D_Game_Engine
             {
                 Dictionary<string, object> values = new()
                 {
-                    { "mass", 10f },
-                    { "friction", 0.1f },
+                    { "mass", 10.0 },
+                    { "friction", 0.1 },
                     { "isAirborne", true },
                     { "gravityEnabled", true },
-                    { "gravityMultiplier", 1f },
+                    { "gravityMultiplier", 1.0 },
                 };
 
                 AddComponentToObject("PhysicsComponent", selectedObjName, values);

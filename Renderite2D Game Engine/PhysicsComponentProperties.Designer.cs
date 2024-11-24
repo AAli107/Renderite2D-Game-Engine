@@ -62,7 +62,7 @@
             // 
             this.label3.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Location = new System.Drawing.Point(14, 13);
+            this.label3.Location = new System.Drawing.Point(8, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 23);
             this.label3.TabIndex = 6;
@@ -72,7 +72,7 @@
             // 
             this.label1.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(14, 48);
+            this.label1.Location = new System.Drawing.Point(8, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 23);
             this.label1.TabIndex = 7;
@@ -83,7 +83,7 @@
             this.isAirborne_checkBox.AutoSize = true;
             this.isAirborne_checkBox.Checked = true;
             this.isAirborne_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.isAirborne_checkBox.Location = new System.Drawing.Point(12, 83);
+            this.isAirborne_checkBox.Location = new System.Drawing.Point(6, 82);
             this.isAirborne_checkBox.Name = "isAirborne_checkBox";
             this.isAirborne_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.isAirborne_checkBox.Size = new System.Drawing.Size(151, 23);
@@ -97,7 +97,7 @@
             this.gravityEnabled_checkBox.AutoSize = true;
             this.gravityEnabled_checkBox.Checked = true;
             this.gravityEnabled_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.gravityEnabled_checkBox.Location = new System.Drawing.Point(12, 122);
+            this.gravityEnabled_checkBox.Location = new System.Drawing.Point(6, 121);
             this.gravityEnabled_checkBox.Name = "gravityEnabled_checkBox";
             this.gravityEnabled_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.gravityEnabled_checkBox.Size = new System.Drawing.Size(149, 23);
@@ -110,7 +110,7 @@
             // 
             this.label2.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(14, 160);
+            this.label2.Location = new System.Drawing.Point(8, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(135, 23);
             this.label2.TabIndex = 10;
@@ -126,7 +126,7 @@
             0,
             0,
             65536});
-            this.friction_num.Location = new System.Drawing.Point(149, 46);
+            this.friction_num.Location = new System.Drawing.Point(143, 45);
             this.friction_num.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -153,7 +153,7 @@
             0,
             0,
             65536});
-            this.mass_num.Location = new System.Drawing.Point(149, 9);
+            this.mass_num.Location = new System.Drawing.Point(143, 8);
             this.mass_num.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -180,7 +180,7 @@
             0,
             0,
             65536});
-            this.gravityMultiplier_num.Location = new System.Drawing.Point(149, 158);
+            this.gravityMultiplier_num.Location = new System.Drawing.Point(143, 157);
             this.gravityMultiplier_num.Maximum = new decimal(new int[] {
             65535,
             0,
