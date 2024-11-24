@@ -685,6 +685,21 @@ namespace Renderite2D_Game_Engine
                 }
             }
         }
+
+        public string AddComponentToObject(string componentType, string objectName, Dictionary<string, object> values)
+        {
+            values ??= new();
+
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectName))
+            {
+                var obj = ProjectManager.CurrentLevelData.gameObjects[objectName];
+                string id = Guid.NewGuid().ToString();
+                values.Add("isEnabled", true);
+                obj.components.Add(id, new LevelComponent(componentType, values));
+                return id;
+            }
+            return null;
+        }
     }
 
     public enum UserInteraction
