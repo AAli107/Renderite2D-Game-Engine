@@ -58,6 +58,7 @@
             this.IsEnabled_checkbox.TabIndex = 1;
             this.IsEnabled_checkbox.Text = "IsEnabled";
             this.IsEnabled_checkbox.UseVisualStyleBackColor = true;
+            this.IsEnabled_checkbox.CheckedChanged += new System.EventHandler(this.IsEnabled_checkbox_CheckedChanged);
             // 
             // deleteComponent_button
             // 
@@ -71,6 +72,7 @@
             this.deleteComponent_button.TabIndex = 2;
             this.deleteComponent_button.Text = "Delete";
             this.deleteComponent_button.UseVisualStyleBackColor = false;
+            this.deleteComponent_button.Click += new System.EventHandler(this.deleteComponent_button_Click);
             // 
             // panel1
             // 

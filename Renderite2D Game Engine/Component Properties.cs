@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Renderite2D_Game_Engine.Scripts;
+using Renderite2D_Game_Engine.Scripts.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,10 +15,43 @@ namespace Renderite2D_Game_Engine
     public partial class Component_Properties : UserControl
     {
         public string componentId = "";
+        private readonly LevelEditor levelEditor;
 
-        public Component_Properties()
+        public Component_Properties(LevelEditor levelEditor, string componentId)
         {
             InitializeComponent();
+            this.componentId = componentId;
+            this.levelEditor = levelEditor ?? throw new Exception("Error: Missing access to Level Editor!");
+        }
+
+        private void deleteComponent_button_Click(object sender, EventArgs e)
+        {
+            if (ProjectManager.IsProjectOpen && levelEditor.gameObject_listBox.SelectedItem != null)
+            {
+                string objectKey = (string)levelEditor.gameObject_listBox.SelectedItem;
+                if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectKey) &&
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components.ContainsKey(componentId))
+                {
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components.Remove(componentId);
+                }
+                levelEditor.UpdatePropertiesPanel();
+            }
+        }
+
+        private void IsEnabled_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ProjectManager.IsProjectOpen && levelEditor.gameObject_listBox.SelectedItem != null)
+            {
+                string objectKey = (string)levelEditor.gameObject_listBox.SelectedItem;
+                if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectKey) &&
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components.ContainsKey(componentId))
+                {
+                    var component = ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId];
+                    component.isEnabled = IsEnabled_checkbox.Checked;
+                    ProjectManager.CurrentLevelData.gameObjects[objectKey].components[componentId] = component;
+                }
+                levelEditor.UpdateViewport();
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Renderite2D_Game_Engine
 {
     public partial class ColliderComponentProperties : Component_Properties
     {
-        public ColliderComponentProperties()
+        public ColliderComponentProperties(LevelEditor levelEditor, string componentId) : base(levelEditor, componentId)
         {
             InitializeComponent();
         }

@@ -264,7 +264,7 @@
             this.folderToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.folderToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.folderToolStripMenuItem.Name = "folderToolStripMenuItem";
-            this.folderToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.folderToolStripMenuItem.Size = new System.Drawing.Size(139, 30);
             this.folderToolStripMenuItem.Text = "Folder";
             // 
             // levelToolStripMenuItem
@@ -272,7 +272,7 @@
             this.levelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.levelToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.levelToolStripMenuItem.Name = "levelToolStripMenuItem";
-            this.levelToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.levelToolStripMenuItem.Size = new System.Drawing.Size(139, 30);
             this.levelToolStripMenuItem.Text = "Level";
             // 
             // scriptToolStripMenuItem
@@ -283,7 +283,7 @@
             this.gameObjectScriptToolStripMenuItem});
             this.scriptToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.scriptToolStripMenuItem.Name = "scriptToolStripMenuItem";
-            this.scriptToolStripMenuItem.Size = new System.Drawing.Size(180, 30);
+            this.scriptToolStripMenuItem.Size = new System.Drawing.Size(139, 30);
             this.scriptToolStripMenuItem.Text = "Script";
             // 
             // scriptToolStripMenuItem1
@@ -823,7 +823,6 @@
         private System.Windows.Forms.Button addObject_btn;
         private System.Windows.Forms.Panel viewportGUI_panel;
         private System.Windows.Forms.Label viewportCoords_label;
-        private System.Windows.Forms.ListBox gameObject_listBox;
         private System.Windows.Forms.Label gameObjectName_label;
         private System.Windows.Forms.CheckBox gameObjectIsEnabled_checkbox;
         private System.Windows.Forms.Panel panel3;
@@ -869,5 +868,6 @@
         private System.Windows.Forms.ToolStripMenuItem scriptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scriptToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem gameObjectScriptToolStripMenuItem;
+        public System.Windows.Forms.ListBox gameObject_listBox;
     }
 }
