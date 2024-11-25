@@ -190,6 +190,12 @@
     <Compile Include="SpritesheetRendererProperties.Designer.cs">
       <DependentUpon>SpritesheetRendererProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TextRendererProperties.Designer.cs">
+      <DependentUpon>TextRendererProperties.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AnimatedSpriteRendererProperties.resx">
       <DependentUpon>AnimatedSpriteRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SpritesheetRendererProperties.resx">
       <DependentUpon>SpritesheetRendererProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextRendererProperties.resx">
+      <DependentUpon>TextRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
