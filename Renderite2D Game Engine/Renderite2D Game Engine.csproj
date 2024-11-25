@@ -153,6 +153,12 @@
       <DependentUpon>ProjectSettingsMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuadRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuadRendererProperties.Designer.cs">
+      <DependentUpon>QuadRendererProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="RendererComponent_Properties.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -227,6 +233,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="QuadRendererProperties.resx">
+      <DependentUpon>QuadRendererProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RendererComponent_Properties.resx">
       <DependentUpon>RendererComponent_Properties.cs</DependentUpon>
     </EmbeddedResource>
