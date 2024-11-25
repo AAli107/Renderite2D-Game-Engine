@@ -1,10 +1,8 @@
-﻿using Renderite2D_Game_Engine.Scripts.Data;
+﻿using Renderite2D_Game_Engine.Scripts;
+using Renderite2D_Game_Engine.Scripts.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Renderite2D_Game_Engine
@@ -25,6 +23,15 @@ namespace Renderite2D_Game_Engine
         protected override void UpdateComponent_(LevelComponent component)
         {
             base.UpdateComponent_(component);
+
+            texture_combobox.Items.Clear();
+            foreach (string file in
+                Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
+            {
+                if (LevelEditor.IsImageFile(file))
+                    texture_combobox.Items.Add(file.Replace('/', '\\').Replace(
+                        (ProjectManager.AssetsPath.Replace('/', '\\')) + "\\", ""));
+            }
 
             isStatic_checkBox.Checked = (bool)component.values["isStatic"];
             isCentered_checkBox.Checked = (bool)component.values["isCentered"];

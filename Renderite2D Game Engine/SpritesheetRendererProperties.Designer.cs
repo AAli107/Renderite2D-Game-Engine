@@ -198,7 +198,7 @@
             this.scaleY_num.TabIndex = 17;
             this.scaleY_num.ThousandsSeparator = true;
             this.scaleY_num.Value = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});
@@ -225,7 +225,7 @@
             this.scaleX_num.TabIndex = 16;
             this.scaleX_num.ThousandsSeparator = true;
             this.scaleX_num.Value = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});
