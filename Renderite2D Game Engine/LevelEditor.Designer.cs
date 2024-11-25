@@ -493,6 +493,7 @@
             this.rectRendererToolStripMenuItem.Name = "rectRendererToolStripMenuItem";
             this.rectRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.rectRendererToolStripMenuItem.Text = "Rect Renderer";
+            this.rectRendererToolStripMenuItem.Click += new System.EventHandler(this.rectRendererToolStripMenuItem_Click);
             // 
             // spritesheetRendererToolStripMenuItem
             // 
