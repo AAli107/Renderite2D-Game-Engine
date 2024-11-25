@@ -479,6 +479,7 @@
             this.quadRendererToolStripMenuItem.Name = "quadRendererToolStripMenuItem";
             this.quadRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.quadRendererToolStripMenuItem.Text = "Quad Renderer";
+            this.quadRendererToolStripMenuItem.Click += new System.EventHandler(this.quadRendererToolStripMenuItem_Click);
             // 
             // quadSpritesheetRendererToolStripMenuItem
             // 
