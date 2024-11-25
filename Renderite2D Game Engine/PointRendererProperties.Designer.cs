@@ -154,11 +154,6 @@
             this.posY_num.Size = new System.Drawing.Size(51, 23);
             this.posY_num.TabIndex = 44;
             this.posY_num.ThousandsSeparator = true;
-            this.posY_num.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
             this.posY_num.ValueChanged += new System.EventHandler(this.posY_num_ValueChanged);
             // 
             // posX_num
@@ -181,11 +176,6 @@
             this.posX_num.Size = new System.Drawing.Size(51, 23);
             this.posX_num.TabIndex = 40;
             this.posX_num.ThousandsSeparator = true;
-            this.posX_num.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
             this.posX_num.ValueChanged += new System.EventHandler(this.posX_num_ValueChanged);
             // 
             // label8

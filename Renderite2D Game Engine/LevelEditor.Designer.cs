@@ -472,6 +472,7 @@
             this.pointRendererToolStripMenuItem.Name = "pointRendererToolStripMenuItem";
             this.pointRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.pointRendererToolStripMenuItem.Text = "Point Renderer";
+            this.pointRendererToolStripMenuItem.Click += new System.EventHandler(this.pointRendererToolStripMenuItem_Click);
             // 
             // quadRendererToolStripMenuItem
             // 

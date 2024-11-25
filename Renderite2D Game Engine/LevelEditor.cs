@@ -404,7 +404,7 @@ namespace Renderite2D_Game_Engine
                     objectName = string.Empty;
                     userInteraction = UserInteraction.None;
                 }
-                UpdatePropertiesPanel();
+                UpdatePropertiesPanel(false);
                 UpdateViewport();
             }
         }
@@ -502,7 +502,7 @@ namespace Renderite2D_Game_Engine
             UpdateViewport();
         }
 
-        public void UpdatePropertiesPanel()
+        public void UpdatePropertiesPanel(bool updateComponents = true)
         {
             bool validSelection = IsValidSelection();
             properties_panel.Visible = validSelection;
@@ -516,47 +516,53 @@ namespace Renderite2D_Game_Engine
                 scaleX_num.Value = (decimal)selectedObj.scaleX;
                 scaleY_num.Value = (decimal)selectedObj.scaleY;
 
-                componentsPanel.Controls.Clear();
-
-                int index = 0;
-                int height = 0;
-                foreach (var item in selectedObj.components.ToArray())
+                if (updateComponents)
                 {
-                    Component_Properties componentPanel = null;
-                    
-                    Point loc = new(8, height);
+                    componentsPanel.Controls.Clear();
 
-                    switch (item.Value.componentType)
+                    int index = 0;
+                    int height = 0;
+                    foreach (var item in selectedObj.components.ToArray())
                     {
-                        case "ColliderComponent":
-                            componentPanel = new ColliderComponentProperties(this, item.Key) { Location = loc, };
-                            break;
-                        case "AudioComponent":
-                            componentPanel = new AudioComponentProperties(this, item.Key) { Location = loc, };
-                            break;
-                        case "PhysicsComponent":
-                            componentPanel = new PhysicsComponentProperties(this, item.Key) { Location = loc, };
-                            break;
-                        case "ScriptComponent":
-                            componentPanel = new ScriptComponentProperties(this, item.Key) { Location = loc, };
-                            break;
-                        case "SpritesheetRenderer":
-                            componentPanel = new SpritesheetRendererProperties(this, item.Key) { Location = loc, };
-                            break;
-                        case "AnimatedSpriteRenderer":
-                            componentPanel = new AnimatedSpriteRendererProperties(this, item.Key) { Location = loc, };
-                            break;
-                        case "LineRenderer":
-                            componentPanel = new LineRendererProperties(this, item.Key) { Location = loc, };
-                            break;
+                        Component_Properties componentPanel = null;
+
+                        Point loc = new(8, height);
+
+                        switch (item.Value.componentType)
+                        {
+                            case "ColliderComponent":
+                                componentPanel = new ColliderComponentProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "AudioComponent":
+                                componentPanel = new AudioComponentProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "PhysicsComponent":
+                                componentPanel = new PhysicsComponentProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "ScriptComponent":
+                                componentPanel = new ScriptComponentProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "SpritesheetRenderer":
+                                componentPanel = new SpritesheetRendererProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "AnimatedSpriteRenderer":
+                                componentPanel = new AnimatedSpriteRendererProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "LineRenderer":
+                                componentPanel = new LineRendererProperties(this, item.Key) { Location = loc, };
+                                break;
+                            case "PointRenderer":
+                                componentPanel = new PointRendererProperties(this, item.Key) { Location = loc, };
+                                break;
+                        }
+
+                        if (componentPanel == null) continue;
+
+                        height += componentPanel.GetHeight() + 16;
+
+                        componentsPanel.Controls.Add(componentPanel);
+                        index++;
                     }
-
-                    if (componentPanel == null) continue;
-
-                    height += componentPanel.GetHeight() + 16;
-
-                    componentsPanel.Controls.Add(componentPanel);
-                    index++;
                 }
             }
         }
@@ -894,6 +900,26 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("LineRenderer", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void pointRendererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "layer", (byte)0 },
+                    { "isStatic", false },
+                    { "position.X", 0.0 },
+                    { "position.Y", 0.0 },
+                    { "color", Color.White },
+                    { "size", 1.0 },
+                };
+
+                AddComponentToObject("PointRenderer", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }
