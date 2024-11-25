@@ -61,6 +61,7 @@ namespace Renderite2D_Game_Engine
         {
             return 316;
         }
+
         private void isStatic_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             SetComponentValue("isStatic", isStatic_checkBox.Checked);
