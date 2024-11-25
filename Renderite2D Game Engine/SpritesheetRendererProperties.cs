@@ -41,8 +41,17 @@ namespace Renderite2D_Game_Engine
             posY_num.Value = (decimal)Convert.ToDouble(component.values["position.Y"]);
             scaleX_num.Value = (decimal)Convert.ToDouble(component.values["dimension.X"]);
             scaleY_num.Value = (decimal)Convert.ToDouble(component.values["dimension.Y"]);
-            colorDialog1.Color = (Color)component.values["color"];
-            colorpicker_button.BackColor = (Color)component.values["color"];
+            if (component.values["color"] is string c)
+            {
+                var color = (Color)new ColorConverter().ConvertFromString(c);
+                colorDialog1.Color = color;
+                colorpicker_button.BackColor = color;
+            }
+            else
+            {
+                colorDialog1.Color = (Color)component.values["color"];
+                colorpicker_button.BackColor = (Color)component.values["color"];
+            }
             texture_combobox.SelectedItem = ((string)component.values["texture"]).Replace("Assets\\Game Assets\\", "");
         }
 
