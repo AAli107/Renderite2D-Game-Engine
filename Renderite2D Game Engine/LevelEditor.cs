@@ -543,6 +543,9 @@ namespace Renderite2D_Game_Engine
                         case "SpritesheetRenderer":
                             componentPanel = new SpritesheetRendererProperties(this, item.Key) { Location = loc, };
                             break;
+                        case "AnimatedSpriteRenderer":
+                            componentPanel = new AnimatedSpriteRendererProperties(this, item.Key) { Location = loc, };
+                            break;
                     }
 
                     if (componentPanel == null) continue;
@@ -837,6 +840,35 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("SpritesheetRenderer", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void animatedSpriteRendererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "layer", (byte)0 },
+                    { "isStatic", false },
+                    { "isCentered", true },
+                    { "index", 0 },
+                    { "divisions", 2 },
+                    { "position.X", 0.0 },
+                    { "position.Y", 0.0 },
+                    { "dimension.X", 100.0 },
+                    { "dimension.Y", 100.0 },
+                    { "color", Color.White },
+                    { "texture", "" },
+                    { "TimePerFrame", 1.0 / ProjectManager.ProjectData.fixedUpdateFrequency * 10.0 },
+                    { "EndFrameIndex", 0 },
+                    { "IsPlaying", true },
+                    { "PlayReverse", false },
+                };
+
+                AddComponentToObject("AnimatedSpriteRenderer", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }

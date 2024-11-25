@@ -458,6 +458,7 @@
             this.animatedSpriteRendererToolStripMenuItem.Name = "animatedSpriteRendererToolStripMenuItem";
             this.animatedSpriteRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.animatedSpriteRendererToolStripMenuItem.Text = "Animated Sprite Renderer";
+            this.animatedSpriteRendererToolStripMenuItem.Click += new System.EventHandler(this.animatedSpriteRendererToolStripMenuItem_Click);
             // 
             // lineRendererToolStripMenuItem
             // 
