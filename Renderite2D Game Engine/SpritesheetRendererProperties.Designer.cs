@@ -83,6 +83,8 @@
             // isCentered_checkBox
             // 
             this.isCentered_checkBox.AutoSize = true;
+            this.isCentered_checkBox.Checked = true;
+            this.isCentered_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.isCentered_checkBox.Location = new System.Drawing.Point(8, 42);
             this.isCentered_checkBox.Name = "isCentered_checkBox";
             this.isCentered_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -95,8 +97,6 @@
             // isStatic_checkBox
             // 
             this.isStatic_checkBox.AutoSize = true;
-            this.isStatic_checkBox.Checked = true;
-            this.isStatic_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.isStatic_checkBox.Location = new System.Drawing.Point(8, 13);
             this.isStatic_checkBox.Name = "isStatic_checkBox";
             this.isStatic_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

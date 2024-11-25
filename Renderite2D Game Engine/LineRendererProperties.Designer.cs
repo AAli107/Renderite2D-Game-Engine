@@ -299,8 +299,6 @@
             // isStatic_checkBox
             // 
             this.isStatic_checkBox.AutoSize = true;
-            this.isStatic_checkBox.Checked = true;
-            this.isStatic_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.isStatic_checkBox.Location = new System.Drawing.Point(2, 11);
             this.isStatic_checkBox.Name = "isStatic_checkBox";
             this.isStatic_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

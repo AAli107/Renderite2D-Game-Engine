@@ -133,6 +133,12 @@
     <Compile Include="PhysicsComponentProperties.Designer.cs">
       <DependentUpon>PhysicsComponentProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="PointRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PointRendererProperties.Designer.cs">
+      <DependentUpon>PointRendererProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressWindow.cs">
       <SubType>Form</SubType>
@@ -201,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PhysicsComponentProperties.resx">
       <DependentUpon>PhysicsComponentProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PointRendererProperties.resx">
+      <DependentUpon>PointRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressWindow.resx">
       <DependentUpon>ProgressWindow.cs</DependentUpon>
