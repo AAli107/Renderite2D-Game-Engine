@@ -465,6 +465,7 @@
             this.lineRendererToolStripMenuItem.Name = "lineRendererToolStripMenuItem";
             this.lineRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.lineRendererToolStripMenuItem.Text = "Line Renderer";
+            this.lineRendererToolStripMenuItem.Click += new System.EventHandler(this.lineRendererToolStripMenuItem_Click);
             // 
             // pointRendererToolStripMenuItem
             // 
