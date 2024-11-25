@@ -513,6 +513,7 @@
             this.triangleRendererToolStripMenuItem.Name = "triangleRendererToolStripMenuItem";
             this.triangleRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.triangleRendererToolStripMenuItem.Text = "Triangle Renderer";
+            this.triangleRendererToolStripMenuItem.Click += new System.EventHandler(this.triangleRendererToolStripMenuItem_Click);
             // 
             // componentsPanel
             // 

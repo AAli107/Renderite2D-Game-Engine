@@ -563,6 +563,9 @@ namespace Renderite2D_Game_Engine
                             case "TextRenderer":
                                 componentPanel = new TextRendererProperties(this, item.Key) { Location = loc, };
                                 break;
+                            case "TriangleRenderer":
+                                componentPanel = new TriangleRendererProperties(this, item.Key) { Location = loc, };
+                                break;
 
                         }
 
@@ -1005,6 +1008,30 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("TextRenderer", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void triangleRendererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "layer", (byte)0 },
+                    { "isStatic", false },
+                    { "pointA.X", -50.0 },
+                    { "pointA.Y", -50.0 },
+                    { "pointB.X", 50.0 },
+                    { "pointB.Y", -50.0 },
+                    { "pointC.X", -50.0 },
+                    { "pointC.Y", 50.0 },
+                    { "color", Color.White },
+                    { "texture", "" },
+                };
+
+                AddComponentToObject("TriangleRenderer", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }
