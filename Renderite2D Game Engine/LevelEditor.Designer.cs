@@ -486,6 +486,7 @@
             this.quadSpritesheetRendererToolStripMenuItem.Name = "quadSpritesheetRendererToolStripMenuItem";
             this.quadSpritesheetRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.quadSpritesheetRendererToolStripMenuItem.Text = "Quad Spritesheet Renderer";
+            this.quadSpritesheetRendererToolStripMenuItem.Click += new System.EventHandler(this.quadSpritesheetRendererToolStripMenuItem_Click);
             // 
             // rectRendererToolStripMenuItem
             // 

@@ -557,6 +557,10 @@ namespace Renderite2D_Game_Engine
                             case "QuadRenderer":
                                 componentPanel = new QuadRendererProperties(this, item.Key) { Location = loc, };
                                 break;
+                            case "QuadSpritesheetRenderer":
+                                componentPanel = new QuadSpritesheetRendererProperties(this, item.Key) { Location = loc, };
+                                break;
+
                         }
 
                         if (componentPanel == null) continue;
@@ -949,6 +953,34 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("QuadRenderer", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void quadSpritesheetRendererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "layer", (byte)0 },
+                    { "isStatic", false },
+                    { "index", 0 },
+                    { "divisions", 2 },
+                    { "pointA.X", -50.0 },
+                    { "pointA.Y", -50.0 },
+                    { "pointB.X", 50.0 },
+                    { "pointB.Y", -50.0 },
+                    { "pointC.X", -50.0 },
+                    { "pointC.Y", 50.0 },
+                    { "pointD.X", 50.0 },
+                    { "pointD.Y", 50.0 },
+                    { "color", Color.White },
+                    { "texture", "" },
+                };
+
+                AddComponentToObject("QuadSpritesheetRenderer", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }
