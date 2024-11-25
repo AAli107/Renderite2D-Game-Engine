@@ -16,7 +16,7 @@ namespace Renderite2D_Game_Engine.Scripts
         public static bool IsProjectOpen { get; private set; }
         public static bool IsOpeningProject { get; private set; }
         public static bool IsProjectChanged 
-        { get { return !CurrentLevelData.Equals(originalLevelData) || !ProjectData.Equals(originalProjectData); } }
+        { get { return !JsonConvert.DeserializeObject<Level>(JsonConvert.SerializeObject(CurrentLevelData)).Equals(originalLevelData) || !ProjectData.Equals(originalProjectData); } }
         public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
         public static string AssetsPath { get; private set; }
