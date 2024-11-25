@@ -160,6 +160,12 @@
     <Compile Include="Scripts\ProjectManager.cs" />
     <Compile Include="Scripts\RenderiteEngineScript.cs" />
     <Compile Include="Scripts\WinFormController.cs" />
+    <Compile Include="SpritesheetRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritesheetRendererProperties.Designer.cs">
+      <DependentUpon>SpritesheetRendererProperties.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AnimatedSpriteRendererProperties.resx">
       <DependentUpon>AnimatedSpriteRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScriptComponentProperties.resx">
       <DependentUpon>ScriptComponentProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritesheetRendererProperties.resx">
+      <DependentUpon>SpritesheetRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
