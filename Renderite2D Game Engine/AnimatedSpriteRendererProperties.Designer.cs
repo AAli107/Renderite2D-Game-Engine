@@ -55,6 +55,10 @@
             this.panel1.Controls.SetChildIndex(this.IsPlaying_checkBox, 0);
             this.panel1.Controls.SetChildIndex(this.PlayReverse_checkBox, 0);
             // 
+            // componentName_label
+            // 
+            this.componentName_label.Text = "Animated Sprite Renderer";
+            // 
             // PlayReverse_checkBox
             // 
             this.PlayReverse_checkBox.AutoSize = true;
