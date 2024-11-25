@@ -73,6 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatedSpriteRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnimatedSpriteRendererProperties.Designer.cs">
+      <DependentUpon>AnimatedSpriteRendererProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="AudioComponentProperties.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     <Compile Include="Scripts\ProjectManager.cs" />
     <Compile Include="Scripts\RenderiteEngineScript.cs" />
     <Compile Include="Scripts\WinFormController.cs" />
+    <EmbeddedResource Include="AnimatedSpriteRendererProperties.resx">
+      <DependentUpon>AnimatedSpriteRendererProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AudioComponentProperties.resx">
       <DependentUpon>AudioComponentProperties.cs</DependentUpon>
     </EmbeddedResource>
