@@ -121,6 +121,12 @@
     <Compile Include="LevelEditor.Designer.cs">
       <DependentUpon>LevelEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="LineRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LineRendererProperties.Designer.cs">
+      <DependentUpon>LineRendererProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="PhysicsComponentProperties.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LevelEditor.resx">
       <DependentUpon>LevelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LineRendererProperties.resx">
+      <DependentUpon>LineRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PhysicsComponentProperties.resx">
       <DependentUpon>PhysicsComponentProperties.cs</DependentUpon>
