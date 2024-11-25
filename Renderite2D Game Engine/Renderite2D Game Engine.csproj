@@ -159,6 +159,12 @@
     <Compile Include="QuadRendererProperties.Designer.cs">
       <DependentUpon>QuadRendererProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="QuadSpritesheetRendererProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuadSpritesheetRendererProperties.Designer.cs">
+      <DependentUpon>QuadSpritesheetRendererProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="RendererComponent_Properties.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </Compile>
     <EmbeddedResource Include="QuadRendererProperties.resx">
       <DependentUpon>QuadRendererProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuadSpritesheetRendererProperties.resx">
+      <DependentUpon>QuadSpritesheetRendererProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RendererComponent_Properties.resx">
       <DependentUpon>RendererComponent_Properties.cs</DependentUpon>
