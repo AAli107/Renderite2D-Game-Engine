@@ -52,7 +52,6 @@ namespace Renderite2D_Game_Engine
         private void colorpicker_button_Click(object sender, EventArgs e)
         {
             colorDialog1.AllowFullOpen = true;
-            colorDialog1.AnyColor = true;
             colorDialog1.SolidColorOnly = false;
 
             if (colorDialog1.ShowDialog() == DialogResult.OK)
