@@ -494,6 +494,7 @@
             this.spritesheetRendererToolStripMenuItem.Name = "spritesheetRendererToolStripMenuItem";
             this.spritesheetRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.spritesheetRendererToolStripMenuItem.Text = "Spritesheet Renderer";
+            this.spritesheetRendererToolStripMenuItem.Click += new System.EventHandler(this.spritesheetRendererToolStripMenuItem_Click);
             // 
             // textRendererToolStripMenuItem
             // 

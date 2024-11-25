@@ -540,6 +540,9 @@ namespace Renderite2D_Game_Engine
                         case "ScriptComponent":
                             componentPanel = new ScriptComponentProperties(this, item.Key) { Location = loc, };
                             break;
+                        case "SpritesheetRenderer":
+                            componentPanel = new SpritesheetRendererProperties(this, item.Key) { Location = loc, };
+                            break;
                     }
 
                     if (componentPanel == null) continue;
@@ -809,6 +812,31 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("ScriptComponent", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void spritesheetRendererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "layer", (byte)0 },
+                    { "isStatic", false },
+                    { "isCentered", true },
+                    { "index", 0 },
+                    { "divisions", 2 },
+                    { "position.X", 0.0 },
+                    { "position.Y", 0.0 },
+                    { "dimension.X", 100.0 },
+                    { "dimension.Y", 100.0 },
+                    { "color", Color.White },
+                    { "texture", "" },
+                };
+
+                AddComponentToObject("SpritesheetRenderer", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }
