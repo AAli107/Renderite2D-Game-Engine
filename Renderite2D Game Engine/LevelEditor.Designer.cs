@@ -506,6 +506,7 @@
             this.textRendererToolStripMenuItem.Name = "textRendererToolStripMenuItem";
             this.textRendererToolStripMenuItem.Size = new System.Drawing.Size(315, 30);
             this.textRendererToolStripMenuItem.Text = "Text Renderer";
+            this.textRendererToolStripMenuItem.Click += new System.EventHandler(this.textRendererToolStripMenuItem_Click);
             // 
             // triangleRendererToolStripMenuItem
             // 

@@ -560,6 +560,9 @@ namespace Renderite2D_Game_Engine
                             case "QuadSpritesheetRenderer":
                                 componentPanel = new QuadSpritesheetRendererProperties(this, item.Key) { Location = loc, };
                                 break;
+                            case "TextRenderer":
+                                componentPanel = new TextRendererProperties(this, item.Key) { Location = loc, };
+                                break;
 
                         }
 
@@ -981,6 +984,27 @@ namespace Renderite2D_Game_Engine
                 };
 
                 AddComponentToObject("QuadSpritesheetRenderer", selectedObjName, values);
+                UpdatePropertiesPanel();
+            }
+        }
+
+        private void textRendererToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string selectedObjName = (string)gameObject_listBox.SelectedItem;
+            if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(selectedObjName))
+            {
+                Dictionary<string, object> values = new()
+                {
+                    { "layer", (byte)0 },
+                    { "isStatic", true },
+                    { "position.X", 0.0 },
+                    { "position.Y", 0.0 },
+                    { "text", "Default Text" },
+                    { "color", Color.White },
+                    { "scale", 1.0 },
+                };
+
+                AddComponentToObject("TextRenderer", selectedObjName, values);
                 UpdatePropertiesPanel();
             }
         }
