@@ -4,6 +4,7 @@ using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -64,8 +65,24 @@ namespace Renderite2D_Game_Engine
             UpdateAssetDirectory();
             UpdateViewport();
             ClipboardObject = null;
+
+            ContextMenu assetsPanelCm = new(new MenuItem[] 
+            {
+                new("Paste")
+            });
+            assetsPanelCm.MenuItems[0].Click += Asset_Paste_Click;
+            assetsPanelCm.Popup += AssetsPanelCm_Popup;
+
+            assets_panel.ContextMenu = assetsPanelCm;
         }
 
+        private void AssetsPanelCm_Popup(object sender, EventArgs e)
+        {
+            if (sender is ContextMenu cm)
+            {
+                cm.MenuItems[0].Enabled = Clipboard.ContainsFileDropList();
+            }
+        }
 
         public void UpdateAssetDirectory()
         {
@@ -143,6 +160,14 @@ namespace Renderite2D_Game_Engine
                         {
                             Name = keys[cdc_index]
                         },
+                        new("Copy")
+                        {
+                            Name = keys[cdc_index]
+                        },
+                        new("Paste")
+                        {
+                            Name = keys[cdc_index],
+                        },
                         new("Delete")
                         {
                             Name = keys[cdc_index]
@@ -153,9 +178,12 @@ namespace Renderite2D_Game_Engine
                 entry_panel.MouseDown += Entry_panel_MouseDown;
                 entry_panel.MouseMove += Entry_panel_MouseMove;
                 entry_panel.MouseUp += Entry_panel_MouseUp;
+                entry_panel.ContextMenu.Popup += Asset_ContextMenu_Popup;
                 entry_panel.ContextMenu.MenuItems[0].Click += Asset_Open_Click;
                 entry_panel.ContextMenu.MenuItems[1].Click += Asset_SIE_Click;
-                entry_panel.ContextMenu.MenuItems[2].Click += Asset_Delete_Click;
+                entry_panel.ContextMenu.MenuItems[2].Click += Asset_Copy_Click;
+                entry_panel.ContextMenu.MenuItems[3].Click += Asset_Paste_Click;
+                entry_panel.ContextMenu.MenuItems[4].Click += Asset_Delete_Click;
 
                 assets_panel.Controls.Add(entry_panel);
                 assets_panel.Controls.Add(
@@ -182,6 +210,52 @@ namespace Renderite2D_Game_Engine
             assets_panel.VerticalScroll.Enabled = true;
             assets_panel.VerticalScroll.Visible = true;
             assets_panel.AutoScroll = true;
+        }
+
+        private void Asset_ContextMenu_Popup(object sender, EventArgs e)
+        {
+            if (sender is ContextMenu cm)
+            {
+                cm.MenuItems[3].Enabled = Clipboard.ContainsFileDropList();
+            }
+        }
+
+        private void Asset_Paste_Click(object sender, EventArgs e)
+        {
+            var f = Clipboard.GetFileDropList();
+            if (f != null && f.Count > 0)
+            {
+                string dir = ProjectManager.AssetsPath + '\\' + assetBrowserPath;
+
+                string sourcePath = f[0].Replace('/', '\\');
+                string targetPath = (dir + '\\' + Path.GetFileName(f[0])).Replace('/', '\\');
+
+                if (targetPath == sourcePath) return;
+
+                if (File.Exists(sourcePath) && !File.Exists(targetPath))
+                {
+                    File.WriteAllText(targetPath, File.ReadAllText(sourcePath));
+                } 
+                else if (Directory.Exists(sourcePath) && !Directory.Exists(targetPath))
+                {
+                    Directory.CreateDirectory(targetPath);
+
+                    foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", System.IO.SearchOption.AllDirectories))
+                        Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+
+                    foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", System.IO.SearchOption.AllDirectories))
+                        File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                }
+                UpdateAssetDirectory();
+            }
+        }
+
+        private void Asset_Copy_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                Clipboard.SetFileDropList(new StringCollection { menuItem.Name });
+            }
         }
 
         private void Entry_panel_MouseUp(object sender, MouseEventArgs e)
