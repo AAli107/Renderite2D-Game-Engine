@@ -1,4 +1,5 @@
-﻿using Renderite2D_Game_Engine.Scripts;
+﻿using Microsoft.VisualBasic.FileIO;
+using Renderite2D_Game_Engine.Scripts;
 using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
@@ -129,8 +130,28 @@ namespace Renderite2D_Game_Engine
                     IsAudioFile(name) ? Properties.Resources.icon_audio :
                     Properties.Resources.icon_file)))),
                     Name = keys[cdc_index],
+                    ContextMenu = new(new MenuItem[]
+                    {
+                        new("Open")
+                        {
+                            Name = keys[cdc_index]
+                        },
+                        new("Show in Explorer")
+                        {
+                            Name = keys[cdc_index]
+                        },
+                        new("Delete")
+                        {
+                            Name = keys[cdc_index]
+                        },
+                    }),
                 };
+                Console.WriteLine(entry_panel.Name);
                 entry_panel.DoubleClick += Entry_panel_DoubleClick;
+                entry_panel.ContextMenu.MenuItems[0].Click += Asset_Open_Click;
+                entry_panel.ContextMenu.MenuItems[1].Click += Asset_SIE_Click;
+                entry_panel.ContextMenu.MenuItems[2].Click += Asset_Delete_Click;
+
                 assets_panel.Controls.Add(entry_panel);
                 assets_panel.Controls.Add(
                     new Label() {
@@ -158,65 +179,105 @@ namespace Renderite2D_Game_Engine
             assets_panel.AutoScroll = true;
         }
 
+        private void Asset_Delete_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                if (!File.Exists(menuItem.Name) && !Directory.Exists(menuItem.Name)) return;
+
+                if (IsLevelFile(menuItem.Name) && menuItem.Name.Replace('/', '\\') == ProjectManager.CurrentLevelPath.Replace('/', '\\'))
+                {
+                    MessageBox.Show("You cannot delete a currently open Level!", "Failed Action", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+
+                if (MessageBox.Show("Are you sure you want to delete this Asset?", "Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    if (File.Exists(menuItem.Name))
+                        FileSystem.DeleteFile(menuItem.Name, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    else FileSystem.DeleteDirectory(menuItem.Name, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    UpdateAssetDirectory();
+                }
+            }
+        }
+
+        private void Asset_SIE_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+            {
+                string p = Path.GetDirectoryName(menuItem.Name);
+                if (Directory.Exists(p))
+                    Process.Start(p);
+            }
+        }
+
+        private void Asset_Open_Click(object sender, EventArgs e)
+        {
+            if (sender is MenuItem menuItem)
+                OpenAsset(menuItem.Name);
+        }
+
         private void Entry_panel_DoubleClick(object sender, EventArgs e)
         {
             if (sender is Panel p)
+                OpenAsset(p.Name);
+        }
+
+        public void OpenAsset(string path)
+        {
+            if (File.Exists(path))
             {
-                if (File.Exists(p.Name))
+                if (path.EndsWith(".rdlvl"))
                 {
-                    if (p.Name.EndsWith(".rdlvl"))
+                    bool allowLevelChange = true;
+                    if (ProjectManager.IsProjectChanged)
                     {
-                        bool allowLevelChange = true;
-                        if (ProjectManager.IsProjectChanged)
-                        {
-                            DialogResult result = MessageBox.Show("Do you want to save your project before Leaving?",
-                                ProjectManager.ProjectName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                        DialogResult result = MessageBox.Show("Do you want to save your project before Leaving?",
+                            ProjectManager.ProjectName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 
-                            switch (result)
-                            {
-                                case DialogResult.Yes:
-                                    allowLevelChange = true;
-                                    ProjectManager.SaveProjectFiles(this);
-                                    break;
-                                case DialogResult.No:
-                                    allowLevelChange = true;
-                                    break;
-                                case DialogResult.Cancel:
-                                    allowLevelChange = false;
-                                    break;
-                            }
-                        }
-                        if (allowLevelChange)
+                        switch (result)
                         {
-                            var (success, exception) = ProjectManager.LoadLevel(p.Name);
-                            if (success)
-                            {
-                                objectOffset = new(0, 0);
-                                objectName = string.Empty;
-                                userInteraction = UserInteraction.None;
-
-                                UpdateGameObjectList();
-                                UpdatePropertiesPanel();
-                                UpdateViewport();
-                            }
-                            else
-                            {
-                                MessageBox.Show(
-                                    "[Message] " + exception.Message + "\n\n" +
-                                    "[Source] " + exception.Source + "\n\n" +
-                                    "[Stack Trace]\n" + exception.StackTrace,
-                                    "Exception Caught!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            case DialogResult.Yes:
+                                allowLevelChange = true;
+                                ProjectManager.SaveProjectFiles(this);
+                                break;
+                            case DialogResult.No:
+                                allowLevelChange = true;
+                                break;
+                            case DialogResult.Cancel:
+                                allowLevelChange = false;
+                                break;
                         }
                     }
-                    else Process.Start(p.Name);
-                } 
-                else if (Directory.Exists(p.Name))
-                {
-                    assetBrowserPath = p.Name.Replace(ProjectManager.AssetsPath, "").Replace('/', '\\').Trim('\\');
-                    UpdateAssetDirectory();
-                }
+                    if (allowLevelChange)
+                    {
+                        var (success, exception) = ProjectManager.LoadLevel(path);
+                        if (success)
+                        {
+                            objectOffset = new(0, 0);
+                            objectName = string.Empty;
+                            userInteraction = UserInteraction.None;
 
+                            UpdateGameObjectList();
+                            UpdatePropertiesPanel();
+                            UpdateViewport();
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                "[Message] " + exception.Message + "\n\n" +
+                                "[Source] " + exception.Source + "\n\n" +
+                                "[Stack Trace]\n" + exception.StackTrace,
+                                "Exception Caught!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else Process.Start(path);
+            }
+            else if (Directory.Exists(path))
+            {
+                assetBrowserPath = path.Replace(ProjectManager.AssetsPath, "").Replace('/', '\\').Trim('\\');
+                UpdateAssetDirectory();
             }
         }
 
