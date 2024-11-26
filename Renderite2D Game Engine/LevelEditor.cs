@@ -146,7 +146,7 @@ namespace Renderite2D_Game_Engine
                         },
                     }),
                 };
-                Console.WriteLine(entry_panel.Name);
+
                 entry_panel.DoubleClick += Entry_panel_DoubleClick;
                 entry_panel.ContextMenu.MenuItems[0].Click += Asset_Open_Click;
                 entry_panel.ContextMenu.MenuItems[1].Click += Asset_SIE_Click;
