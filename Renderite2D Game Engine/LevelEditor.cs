@@ -1062,6 +1062,14 @@ namespace Renderite2D_Game_Engine
                 UpdatePropertiesPanel();
             }
         }
+
+        private void folderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (new CreateDialog(AssetType.Folder, ProjectManager.AssetsPath + '\\' + assetBrowserPath).ShowDialog() == DialogResult.OK)
+            {
+                UpdateAssetDirectory();
+            }
+        }
     }
 
     public enum UserInteraction
