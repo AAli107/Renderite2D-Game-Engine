@@ -36,27 +36,18 @@ namespace Renderite2D_Game_Engine
                 AssetType.EmptyClass => "Create Empty Class",
                 AssetType.CustomScript => "Create Script",
                 AssetType.GameObjectScript => "Create Game Object",
+                AssetType.TopDownCharacter => "Create Topdown Character",
+                AssetType.SideScrollerCharacter => "Create Side Scroller Character",
                 _ => "Create",
             };
 
+            string[] entries = assetType == AssetType.Folder ? Directory.GetDirectories(currentDirectory) : Directory.GetFiles(currentDirectory);
 
-            if (assetType == AssetType.Folder)
-            {
-                string[] dirs = Directory.GetDirectories(currentDirectory);
-                fileEntries = new string[dirs.Length];
+            fileEntries = new string[entries.Length];
+            for (int i = 0; i < entries.Length; i++)
+                fileEntries[i] = Path.GetFileNameWithoutExtension(entries[i]);
 
-                for (int i = 0; i < dirs.Length; i++)
-                    fileEntries[i] = Path.GetDirectoryName(dirs[i]);
-            }
-            else
-            {
-                string[] files = Directory.GetFiles(currentDirectory);
-                fileEntries = new string[files.Length];
-                for (int i = 0; i < files.Length; i++)
-                    fileEntries[i] = Path.GetFileNameWithoutExtension(files[i]);
-            }
-
-            string gameObjectBaseName = assetType switch
+            string baseName = assetType switch
             {
                 AssetType.Folder => "Folder",
                 AssetType.Level => "Level",
@@ -71,11 +62,11 @@ namespace Renderite2D_Game_Engine
             int index = 0;
             string inputFileName;
 
-            inputFileName = gameObjectBaseName;
-            while (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(inputFileName))
+            inputFileName = baseName;
+            while (DoesFileExist(inputFileName))
             {
                 index++;
-                inputFileName = gameObjectBaseName + "_" + index;
+                inputFileName = baseName + "_" + index;
             }
             nameInput_textbox.Text = inputFileName;
         }
@@ -96,8 +87,8 @@ namespace Renderite2D_Game_Engine
             string str = fileName;
             for (int i = 0; i < str.Length; i++)
             {
-                if ((assetType != AssetType.Folder && Path.GetInvalidFileNameChars().Contains(str[i])) ||
-                    (assetType == AssetType.Folder && Path.GetInvalidPathChars().Contains(str[i])))
+                if (Path.GetInvalidFileNameChars().Contains(str[i]) ||
+                    Path.GetInvalidPathChars().Contains(str[i]))
                     return true;
             }
             return false;
@@ -115,12 +106,20 @@ namespace Renderite2D_Game_Engine
 
         private bool IsValidName()
         {
-            return !IsNameEmpty() && !DoesInputNameExist() && !ContainsInvalidCharacters();
+            return !IsNameEmpty() && !DoesInputNameExist() && !ContainsInvalidCharacters() && !IsNameOnlyComposedOfDots();
+        }
+
+        bool IsNameOnlyComposedOfDots()
+        {
+            foreach (char chr in fileName.Replace(" ", "").ToCharArray())
+                if (chr != '.') return false;
+            return true;
         }
 
         private void nameInput_textbox_TextChanged(object sender, EventArgs e)
         {
             fileName = nameInput_textbox.Text.Trim();
+            nameInput_textbox.ForeColor = IsValidName() ? Color.Black : Color.Red;
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -175,7 +174,7 @@ namespace Renderite2D_Game_Engine
             else
             {
                 bool isFolder = assetType == AssetType.Folder;
-                string message = "Could not Create" + (isFolder ? "folder" : "file") + "...\n\nFail Reason(s):\n";
+                string message = "Could not Create " + (isFolder ? "folder" : "file") + "...\n\nFail Reason(s):\n";
 
                 if (IsNameEmpty())
                     message += "- Name is Empty.\n";
@@ -183,8 +182,10 @@ namespace Renderite2D_Game_Engine
                     message += "- " + (isFolder ? "Folder" : "File") + " with same name already exists.\n";
                 if (ContainsInvalidCharacters())
                     message += "- " + (isFolder ? "Folder" : "File") + " contains invalid characters.\n";
+                if (IsNameOnlyComposedOfDots())
+                    message += "- " + (isFolder ? "Folder" : "File") + " name only consists of dots.\n";
 
-                MessageBox.Show(message, "Failed To Create!");
+                MessageBox.Show(message, "Failed To Create!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -242,6 +243,12 @@ namespace Renderite2D_Game_Engine
                 name = "@" + name;
 
             return name;
+        }
+
+        private void nameInput_textbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                create_btn_Click(create_btn, new EventArgs());
         }
     }
 

@@ -55,6 +55,7 @@
             this.nameInput_textbox.TabIndex = 1;
             this.nameInput_textbox.Text = "file_name";
             this.nameInput_textbox.TextChanged += new System.EventHandler(this.nameInput_textbox_TextChanged);
+            this.nameInput_textbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameInput_textbox_KeyDown);
             // 
             // label1
             // 
@@ -107,6 +108,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CreateDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Renderite2D Game Engine - Create";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CreateDialog_FormClosed);
             this.ResumeLayout(false);
