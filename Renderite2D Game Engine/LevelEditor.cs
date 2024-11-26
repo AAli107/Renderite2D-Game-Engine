@@ -68,12 +68,19 @@ namespace Renderite2D_Game_Engine
 
             ContextMenu assetsPanelCm = new(new MenuItem[] 
             {
-                new("Paste")
+                new("Paste"),
+                new("Refresh"),
             });
             assetsPanelCm.MenuItems[0].Click += Asset_Paste_Click;
+            assetsPanelCm.MenuItems[1].Click += Asset_Refresh_Click;
             assetsPanelCm.Popup += AssetsPanelCm_Popup;
 
             assets_panel.ContextMenu = assetsPanelCm;
+        }
+
+        private void Asset_Refresh_Click(object sender, EventArgs e)
+        {
+            UpdateAssetDirectory();
         }
 
         private void AssetsPanelCm_Popup(object sender, EventArgs e)
@@ -168,6 +175,10 @@ namespace Renderite2D_Game_Engine
                         {
                             Name = keys[cdc_index],
                         },
+                        new("Refresh")
+                        {
+                            Name = keys[cdc_index],
+                        },
                         new("Delete")
                         {
                             Name = keys[cdc_index]
@@ -183,7 +194,8 @@ namespace Renderite2D_Game_Engine
                 entry_panel.ContextMenu.MenuItems[1].Click += Asset_SIE_Click;
                 entry_panel.ContextMenu.MenuItems[2].Click += Asset_Copy_Click;
                 entry_panel.ContextMenu.MenuItems[3].Click += Asset_Paste_Click;
-                entry_panel.ContextMenu.MenuItems[4].Click += Asset_Delete_Click;
+                entry_panel.ContextMenu.MenuItems[4].Click += Asset_Refresh_Click;
+                entry_panel.ContextMenu.MenuItems[5].Click += Asset_Delete_Click;
 
                 assets_panel.Controls.Add(entry_panel);
                 assets_panel.Controls.Add(
