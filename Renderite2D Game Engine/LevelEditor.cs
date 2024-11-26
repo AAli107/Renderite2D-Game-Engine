@@ -1063,12 +1063,47 @@ namespace Renderite2D_Game_Engine
             }
         }
 
-        private void folderToolStripMenuItem_Click(object sender, EventArgs e)
+        public void OpenCreateDialog(AssetType assetType)
         {
-            if (new CreateDialog(AssetType.Folder, ProjectManager.AssetsPath + '\\' + assetBrowserPath).ShowDialog() == DialogResult.OK)
+            if (new CreateDialog(assetType, ProjectManager.AssetsPath + '\\' + assetBrowserPath).ShowDialog() == DialogResult.OK)
             {
                 UpdateAssetDirectory();
             }
+        }
+
+        private void folderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.Folder);
+        }
+
+        private void levelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.Level);
+        }
+
+        private void emptyClassToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.EmptyClass);
+        }
+
+        private void customScriptToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.CustomScript);
+        }
+
+        private void gameObjectScriptToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.GameObjectScript);
+        }
+
+        private void topdownCharacterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.TopDownCharacter);
+        }
+
+        private void sideScrollerCharacterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCreateDialog(AssetType.SideScrollerCharacter);
         }
     }
 

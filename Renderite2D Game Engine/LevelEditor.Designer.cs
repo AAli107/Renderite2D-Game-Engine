@@ -46,6 +46,8 @@
             this.emptyClassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customScriptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.gameObjectScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topdownCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sideScrollerCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button8 = new System.Windows.Forms.Button();
             this.currentAssetPath_menuStrip = new System.Windows.Forms.MenuStrip();
             this.properties_panel = new System.Windows.Forms.Panel();
@@ -102,8 +104,6 @@
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.topdownCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sideScrollerCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelViewport_panel.SuspendLayout();
             this.viewportGUI_panel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -298,6 +298,7 @@
             this.levelToolStripMenuItem.Name = "levelToolStripMenuItem";
             this.levelToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
             this.levelToolStripMenuItem.Text = "Level";
+            this.levelToolStripMenuItem.Click += new System.EventHandler(this.levelToolStripMenuItem_Click);
             // 
             // emptyClassToolStripMenuItem
             // 
@@ -306,6 +307,7 @@
             this.emptyClassToolStripMenuItem.Name = "emptyClassToolStripMenuItem";
             this.emptyClassToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
             this.emptyClassToolStripMenuItem.Text = "Empty Class Script";
+            this.emptyClassToolStripMenuItem.Click += new System.EventHandler(this.emptyClassToolStripMenuItem_Click);
             // 
             // customScriptToolStripMenuItem1
             // 
@@ -314,6 +316,7 @@
             this.customScriptToolStripMenuItem1.Name = "customScriptToolStripMenuItem1";
             this.customScriptToolStripMenuItem1.Size = new System.Drawing.Size(331, 30);
             this.customScriptToolStripMenuItem1.Text = "Custom Script";
+            this.customScriptToolStripMenuItem1.Click += new System.EventHandler(this.customScriptToolStripMenuItem1_Click);
             // 
             // gameObjectScriptToolStripMenuItem
             // 
@@ -322,6 +325,25 @@
             this.gameObjectScriptToolStripMenuItem.Name = "gameObjectScriptToolStripMenuItem";
             this.gameObjectScriptToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
             this.gameObjectScriptToolStripMenuItem.Text = "Game Object Script";
+            this.gameObjectScriptToolStripMenuItem.Click += new System.EventHandler(this.gameObjectScriptToolStripMenuItem_Click);
+            // 
+            // topdownCharacterToolStripMenuItem
+            // 
+            this.topdownCharacterToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.topdownCharacterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.topdownCharacterToolStripMenuItem.Name = "topdownCharacterToolStripMenuItem";
+            this.topdownCharacterToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
+            this.topdownCharacterToolStripMenuItem.Text = "Topdown Character Script";
+            this.topdownCharacterToolStripMenuItem.Click += new System.EventHandler(this.topdownCharacterToolStripMenuItem_Click);
+            // 
+            // sideScrollerCharacterToolStripMenuItem
+            // 
+            this.sideScrollerCharacterToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.sideScrollerCharacterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.sideScrollerCharacterToolStripMenuItem.Name = "sideScrollerCharacterToolStripMenuItem";
+            this.sideScrollerCharacterToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
+            this.sideScrollerCharacterToolStripMenuItem.Text = "Side Scroller Character Script";
+            this.sideScrollerCharacterToolStripMenuItem.Click += new System.EventHandler(this.sideScrollerCharacterToolStripMenuItem_Click);
             // 
             // button8
             // 
@@ -939,22 +961,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip";
-            // 
-            // topdownCharacterToolStripMenuItem
-            // 
-            this.topdownCharacterToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.topdownCharacterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.topdownCharacterToolStripMenuItem.Name = "topdownCharacterToolStripMenuItem";
-            this.topdownCharacterToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
-            this.topdownCharacterToolStripMenuItem.Text = "Topdown Character Script";
-            // 
-            // sideScrollerCharacterToolStripMenuItem
-            // 
-            this.sideScrollerCharacterToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.sideScrollerCharacterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.sideScrollerCharacterToolStripMenuItem.Name = "sideScrollerCharacterToolStripMenuItem";
-            this.sideScrollerCharacterToolStripMenuItem.Size = new System.Drawing.Size(331, 30);
-            this.sideScrollerCharacterToolStripMenuItem.Text = "Side Scroller Character Script";
             // 
             // LevelEditor
             // 
