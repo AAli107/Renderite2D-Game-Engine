@@ -41,12 +41,15 @@ namespace Renderite2D_Game_Engine
         }
         public string assetBrowserPath = "";
 
-        (int x, int y) currentMousePos = new(0, 0); 
+        (int x, int y) currentMousePosViewport = new(0, 0); 
+        (int x, int y) currentMousePosAssets = new(0, 0); 
         (double x, double y) viewportPos = new(0, 0);
         (int x, int y) objectOffset = new(0, 0);
         string objectName = string.Empty;
         (string name, LevelObject obj)? clipboardObject = null;
         readonly Dictionary<string, (bool isDirectory, string name, Point location)> currentDirContents = new();
+        bool isDraggingAsset = false;
+        string draggedAssetPath = "";
 
         public LevelEditor()
         {
@@ -146,8 +149,10 @@ namespace Renderite2D_Game_Engine
                         },
                     }),
                 };
-
                 entry_panel.DoubleClick += Entry_panel_DoubleClick;
+                entry_panel.MouseDown += Entry_panel_MouseDown;
+                entry_panel.MouseMove += Entry_panel_MouseMove;
+                entry_panel.MouseUp += Entry_panel_MouseUp;
                 entry_panel.ContextMenu.MenuItems[0].Click += Asset_Open_Click;
                 entry_panel.ContextMenu.MenuItems[1].Click += Asset_SIE_Click;
                 entry_panel.ContextMenu.MenuItems[2].Click += Asset_Delete_Click;
@@ -177,6 +182,77 @@ namespace Renderite2D_Game_Engine
             assets_panel.VerticalScroll.Enabled = true;
             assets_panel.VerticalScroll.Visible = true;
             assets_panel.AutoScroll = true;
+        }
+
+        private void Entry_panel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel p)
+            {
+                if (e.Button == MouseButtons.Left && isDraggingAsset)
+                {
+                    float closestDist = float.MaxValue;
+                    string closestName = "";
+                    foreach (var item in currentDirContents)
+                    {
+                        if (item.Key == p.Name) continue;
+
+                        float dist = Vector2.Distance(new(p.Location.X, p.Location.Y), new(item.Value.location.X + 32, item.Value.location.Y + 32));
+                        if (dist < closestDist)
+                        {
+                            closestDist = dist;
+                            closestName = item.Key;
+                        }
+                    }
+
+                    var closestPoint = currentDirContents[closestName].location;
+
+                    (double xDistAbs, double yDistAbs) = (Math.Abs(p.Location.X - (closestPoint.X + 32)), Math.Abs(p.Location.Y - (closestPoint.Y + 32)));
+
+                    if (xDistAbs < 32 && yDistAbs < 32 && Directory.Exists(closestName))
+                    {
+                        if (Directory.Exists(p.Name) || File.Exists(p.Name))
+                        {
+                            Directory.Move(p.Name, closestName + '\\' + Path.GetFileName(p.Name));
+                        }
+                    }
+
+                    isDraggingAsset = false;
+                    draggedAssetPath = "";
+                    UpdateAssetDirectory();
+                }
+            }
+        }
+
+        private void Entry_panel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel p)
+            {
+                double deltaMag = Math.Sqrt(Math.Pow(currentMousePosAssets.x - e.Location.X, 2) + Math.Pow(currentMousePosAssets.y - e.Location.Y, 2));
+
+                if (e.Button == MouseButtons.Left && deltaMag > 1 && !isDraggingAsset)
+                {
+                    isDraggingAsset = true;
+                }
+                if (e.Button == MouseButtons.Left && isDraggingAsset)
+                {
+                    p.Location = new Point(e.X + p.Location.X, e.Y + p.Location.Y);
+                    p.BackColor = Color.FromArgb(50, Color.LightBlue);
+                }
+
+                currentMousePosAssets = new(e.Location.X, e.Location.Y);
+            }
+        }
+
+        private void Entry_panel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel p)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    draggedAssetPath = p.Name;
+                    p.BringToFront();
+                }
+            }
         }
 
         private void Asset_Delete_Click(object sender, EventArgs e)
@@ -532,13 +608,13 @@ namespace Renderite2D_Game_Engine
             if (userInteraction == UserInteraction.Moving)
             {
                 (double x, double y) deltaDir = new(
-                    currentMousePos.x - e.Location.X,
-                    currentMousePos.y - e.Location.Y
+                    currentMousePosViewport.x - e.Location.X,
+                    currentMousePosViewport.y - e.Location.Y
                 );
 
                 ViewportPos = new(ViewportPos.x + deltaDir.x, ViewportPos.y + deltaDir.y);
             }
-            currentMousePos = new(e.Location.X, e.Location.Y);
+            currentMousePosViewport = new(e.Location.X, e.Location.Y);
         }
 
         private void addObject_btn_Click(object sender, EventArgs e)
