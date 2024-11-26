@@ -109,6 +109,12 @@
     <Compile Include="Create New Project.Designer.cs">
       <DependentUpon>Create New Project.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDialog.Designer.cs">
+      <DependentUpon>CreateDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Create New Project.resx">
       <DependentUpon>Create New Project.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDialog.resx">
+      <DependentUpon>CreateDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
