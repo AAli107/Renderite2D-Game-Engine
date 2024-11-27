@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Renderite2D_Game_Engine.Scripts.Data
 {
@@ -77,6 +78,34 @@ namespace Renderite2D_Game_Engine.Scripts.Data
                     allowAltEnter == project.allowAltEnter;
             }
             return false;
+        }
+
+        public string ToGameConfigScript()
+        {
+            string configTemplateDir = "Engine Resources\\Script Templates\\GameConfigTemplate.cs";
+            if (File.Exists(configTemplateDir))
+            {
+                string script = File.ReadAllText(configTemplateDir);
+                script = script.Replace("__resolutionX__", resolutionX.ToString());
+                script = script.Replace("__resolutionY__", resolutionY.ToString());
+                script = script.Replace("__vSyncEnabled__", vSyncEnabled ? "VSyncMode.On" : "VSyncMode.Off");
+                script = script.Replace("__isWindowResizeable__", isWindowResizeable ? "WindowBorder.Resizable" : "WindowBorder.Fixed");
+                script = script.Replace("__windowTitle__", windowTitle);
+                script = script.Replace("__fixedUpdateFrequency__", fixedUpdateFrequency.ToString());
+                string winstate = windowState switch
+                {
+                    1 => "WindowState.Minimized",
+                    2 => "WindowState.Maximized",
+                    3 => "WindowState.Fullscreen",
+                    _ => "WindowState.Normal",
+                };
+                script = script.Replace("__windowState__", winstate);
+                script = script.Replace("__startingLevel__", "new " + CreateDialog.SanitizeClassName(Path.GetFileNameWithoutExtension(startingLevel)) + "()");
+                script = script.Replace("__drawColliders__", drawColliders.ToString().ToLower());
+                script = script.Replace("__allowAltEnter__", allowAltEnter.ToString().ToLower());
+                return script;
+            }
+            return null;
         }
     }
 }
