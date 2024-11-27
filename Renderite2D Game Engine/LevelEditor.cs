@@ -50,7 +50,6 @@ namespace Renderite2D_Game_Engine
         (string name, LevelObject obj)? clipboardObject = null;
         readonly Dictionary<string, (bool isDirectory, string name, Point location)> currentDirContents = new();
         bool isDraggingAsset = false;
-        string draggedAssetPath = "";
 
         public LevelEditor()
         {
@@ -303,7 +302,6 @@ namespace Renderite2D_Game_Engine
                     }
 
                     isDraggingAsset = false;
-                    draggedAssetPath = "";
                     UpdateAssetDirectory();
                 }
             }
@@ -335,7 +333,6 @@ namespace Renderite2D_Game_Engine
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    draggedAssetPath = p.Name;
                     p.BringToFront();
                 }
             }
