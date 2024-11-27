@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace Renderite2D_Project
 {
-    public class SampleLevel : Level
+    public class __level_name__ : Level
     {
         readonly Texture __background_texture__ = 
             new("__bg_texture_path_name__");
