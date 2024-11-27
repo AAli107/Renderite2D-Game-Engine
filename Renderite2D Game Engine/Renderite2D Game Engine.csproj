@@ -196,6 +196,7 @@
     <Compile Include="ScriptComponentProperties.Designer.cs">
       <DependentUpon>ScriptComponentProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\CodeBuilder.cs" />
     <Compile Include="Scripts\Data\Level.cs" />
     <Compile Include="Scripts\Data\LevelComponent.cs" />
     <Compile Include="Scripts\Data\LevelObject.cs" />

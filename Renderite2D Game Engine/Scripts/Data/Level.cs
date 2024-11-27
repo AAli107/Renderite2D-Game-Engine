@@ -68,26 +68,5 @@ namespace Renderite2D_Game_Engine.Scripts.Data
             }
             return false;
         }
-
-        public string ToLevelScript()
-        {
-            string configTemplateDir = "Engine Resources\\Script Templates\\LevelScriptTemplate.cs";
-            if (File.Exists(configTemplateDir))
-            {
-                string script = File.ReadAllText(configTemplateDir);
-
-                string beginScript = "";
-                beginScript += "BackgroundColor = Color.FromArgb(" + backgroundColor.A + ", " + backgroundColor.R + ", " + backgroundColor.G + ", " + backgroundColor.B + ");\r\n";
-                // TODO : Insert Game Object instantiation
-                script = script.Replace("// __begin_code__", beginScript);
-
-                script = script.Replace("Color.White; // __background_texture_color__", "Color.FromArgb(" + backgroundTextureTint.A + ", " + backgroundTextureTint.R + ", " + backgroundTextureTint.G + ", " + backgroundTextureTint.B + ");");
-
-                script = script.Replace("__bg_texture_path_name__", backgroundTexture);
-
-                return script;
-            }
-            return null;
-        }
     }
 }

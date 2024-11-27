@@ -94,11 +94,6 @@ namespace Renderite2D_Game_Engine
             return false;
         }
 
-        private static bool IsValidIdentifier(string str)
-        {
-            return new CSharpCodeProvider().IsValidIdentifier(str);
-        }
-
         private bool IsNameEmpty()
         {
             return fileName == "";
@@ -150,11 +145,11 @@ namespace Renderite2D_Game_Engine
                         string fileContents = assetType switch
                         {
                             AssetType.Level => JsonConvert.SerializeObject(new Level(), Formatting.Indented),
-                            AssetType.EmptyClass => InsertClassNameToScript(GetEmptyClassTemplate(), fileName),
-                            AssetType.CustomScript => InsertClassNameToScript(GetCustomScriptTemplate(), fileName),
-                            AssetType.GameObjectScript => InsertClassNameToScript(GetGameObjectTemplate(), fileName),
-                            AssetType.SideScrollerCharacter => InsertClassNameToScript(GetSideScrollerCharacterTemplate(), fileName),
-                            AssetType.TopDownCharacter => InsertClassNameToScript(GetTopDownCharacterTemplate(), fileName),
+                            AssetType.EmptyClass => CodeBuilder.InsertClassNameToScript(GetEmptyClassTemplate(), fileName),
+                            AssetType.CustomScript => CodeBuilder.InsertClassNameToScript(GetCustomScriptTemplate(), fileName),
+                            AssetType.GameObjectScript => CodeBuilder.InsertClassNameToScript(GetGameObjectTemplate(), fileName),
+                            AssetType.SideScrollerCharacter => CodeBuilder.InsertClassNameToScript(GetSideScrollerCharacterTemplate(), fileName),
+                            AssetType.TopDownCharacter => CodeBuilder.InsertClassNameToScript(GetTopDownCharacterTemplate(), fileName),
                             _ => "",
                         };
                         File.WriteAllText(currentDirectory + '\\' + fileName + fileformat, fileContents);
@@ -212,37 +207,6 @@ namespace Renderite2D_Game_Engine
         public static string GetSideScrollerCharacterTemplate()
         {
             return File.ReadAllText("Engine Resources\\Script Templates\\SideScrollerCharacterTemplate.cs");
-        }
-
-        public static string InsertClassNameToScript(string script, string __class_name__)
-        {
-            return script.Replace("__class_name__", SanitizeClassName(__class_name__));
-        }
-
-        public static string SanitizeClassName(string name)
-        {
-            if (IsValidIdentifier(name))
-                return name;
-
-            name = name.Trim().Replace(" ", "_");
-
-            if (name.Length > 0 && !char.IsLetter(name[0]) && name[0] != '_' && name[0] != '@')
-                name = '_' + (name.Length > 1 ? name.Substring(1) : "");
-
-            string name2 = "";
-            char[] disallowedChars = """ \|!#$%&/()=?»«@£§€{}.-:;"'<>,`~*[] """.Trim(' ').ToCharArray();
-            for (int i = 0; i < name.Length; i++)
-            {
-                if (i != 0 && disallowedChars.Contains(name[i]))
-                    name2 += '_';
-                else name2 += name[i];
-            }
-            name = name2;
-
-            if (!IsValidIdentifier(name))
-                name = "@" + name;
-
-            return name;
         }
 
         private void nameInput_textbox_KeyDown(object sender, KeyEventArgs e)
