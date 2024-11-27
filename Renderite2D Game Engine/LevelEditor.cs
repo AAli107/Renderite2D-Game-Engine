@@ -539,6 +539,7 @@ namespace Renderite2D_Game_Engine
         {
             string[] controlKeys = new string[levelObjectControls.Count];
             levelObjectControls.Keys.CopyTo(controlKeys, 0);
+            levelViewport_panel.BackColor = ProjectManager.CurrentLevelData.backgroundColor;
             foreach (var key in controlKeys)
             {
                 if (!ProjectManager.CurrentLevelData.gameObjects.ContainsKey(key) ||
