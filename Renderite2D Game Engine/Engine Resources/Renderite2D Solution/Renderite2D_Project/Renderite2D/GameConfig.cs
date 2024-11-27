@@ -5,7 +5,6 @@ namespace Renderite2D_Project.Renderite2D
 {
     public struct GameConfig
     {
-        // __game_config__
         public Vector2i clientResolution = new(1280, 720);
         public VSyncMode vSyncEnabled = VSyncMode.On;
         public WindowBorder windowBorder = WindowBorder.Resizable;
@@ -15,7 +14,6 @@ namespace Renderite2D_Project.Renderite2D
         public Level startingLevel = null;
         public bool drawColliders = false;
         public bool allowAltEnter = true;
-        // __game_config__
 
         public GameConfig() { }
 
