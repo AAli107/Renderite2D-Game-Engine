@@ -89,9 +89,29 @@ namespace Renderite2D_Game_Engine.Scripts
                 string beginScript = "";
                 beginScript += "BackgroundColor = Color.FromArgb(" +
                     levelData.backgroundColor.A + ", " + levelData.backgroundColor.R + ", " + levelData.backgroundColor.G + ", " + levelData.backgroundColor.B + ");\r\n";
-                foreach (var gameObject in levelData.gameObjects.Values)
+                string singleIndent = "    ";
+                string indent1 = singleIndent + singleIndent + singleIndent;
+                string indent2 = indent1 + singleIndent;
+                string indent3 = indent2 + singleIndent;
+                foreach (LevelObject gameObject in levelData.gameObjects.Values)
                 {
-                    // TODO : Insert Game Object instantiation code
+                    beginScript += indent1 + "{\r\n";
+                    beginScript += indent2 + "var gameObject = new " + gameObject.objectType + "((new Vector2d(" + gameObject.x + ", " + gameObject.y + "));\r\n";
+                    foreach (LevelComponent component in gameObject.components.Values)
+                    {
+                        if (component.componentType == "ScriptComponent" && (!component.values.ContainsKey("ScriptClass") || component.values["ScriptClass"].ToString() == "")) continue;
+
+                        string componentType = (component.componentType == "ScriptComponent" ? component.values["ScriptClass"].ToString() : component.componentType);
+                        beginScript += indent2 + "{\r\n";
+                        beginScript += indent3 + "var component = gameObject.AddComponent<" + componentType + ">();\r\n";
+                        foreach (var item in component.values)
+                        {
+                            // TODO : Insert code for component values
+                        }
+                        beginScript += indent2 + "}\r\n";
+                    }
+                    beginScript += indent2 + "Game.World.Instantiate(gameObject);\r\n";
+                    beginScript += indent1 + "}\r\n";
                 }
                 script = script.Replace("// __begin_code__", beginScript);
 
