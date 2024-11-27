@@ -28,6 +28,7 @@ namespace Renderite2D_Game_Engine
             base.UpdateComponent_(component);
 
             texture_combobox.Items.Clear();
+            texture_combobox.Items.Add("|None|");
             foreach (string file in
                 Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
             {
@@ -58,7 +59,8 @@ namespace Renderite2D_Game_Engine
                 colorDialog1.Color = (Color)component.values["color"];
                 colorpicker_button.BackColor = (Color)component.values["color"];
             }
-            texture_combobox.SelectedItem = ((string)component.values["texture"]).Replace("Assets\\Game Assets\\", "");
+            var foundTex = ((string)component.values["texture"]).Replace("Assets\\Game Assets\\", "");
+            texture_combobox.SelectedItem = texture_combobox.Items.Contains(foundTex) ? foundTex : "|None|";
         }
 
         public override int GetHeight()
@@ -135,7 +137,7 @@ namespace Renderite2D_Game_Engine
 
         private void texture_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetComponentValue("texture", texture_combobox.SelectedItem != null ? "Assets\\Game Assets\\" + ((string)texture_combobox.SelectedItem) : "");
+            SetComponentValue("texture", (texture_combobox.SelectedItem != null && (string)texture_combobox.SelectedItem != "|None|") ? "Assets\\Game Assets\\" + ((string)texture_combobox.SelectedItem) : "");
         }
     }
 }

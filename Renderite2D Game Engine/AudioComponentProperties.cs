@@ -27,6 +27,7 @@ namespace Renderite2D_Game_Engine
         protected override void UpdateComponent_(LevelComponent component)
         {
             comboBox1.Items.Clear();
+            comboBox1.Items.Add("|None|");
             foreach (string file in 
                 Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
             {
@@ -36,7 +37,9 @@ namespace Renderite2D_Game_Engine
             }
 
             trackBar1.Value = (int)(Convert.ToDouble(component.values["Volume"]) * 100);
-            comboBox1.SelectedItem = ((string)component.values["FilePath"]).Replace("Assets\\Game Assets\\", ""); 
+
+            var foundAudio = ((string)component.values["FilePath"]).Replace("Assets\\Game Assets\\", "");
+            comboBox1.SelectedItem = comboBox1.Items.Contains(foundAudio) ? foundAudio : "|None|";
             
             UpdateVolumeText();
         }
@@ -54,7 +57,7 @@ namespace Renderite2D_Game_Engine
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetComponentValue("FilePath", comboBox1.SelectedItem != null ? "Assets\\Game Assets\\" + ((string)comboBox1.SelectedItem) : "");
+            SetComponentValue("FilePath", (comboBox1.SelectedItem != null && (string)comboBox1.SelectedItem != "|None|") ? "Assets\\Game Assets\\" + ((string)comboBox1.SelectedItem) : "");
         }
 
         private void UpdateVolumeText()
