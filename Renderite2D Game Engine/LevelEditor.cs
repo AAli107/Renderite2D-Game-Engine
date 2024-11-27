@@ -1326,6 +1326,14 @@ namespace Renderite2D_Game_Engine
         {
             OpenCreateDialog(AssetType.SideScrollerCharacter);
         }
+
+        private void levelSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (new LevelSettings().ShowDialog() == DialogResult.OK)
+            {
+                UpdateViewport();
+            }
+        }
     }
 
     public enum UserInteraction

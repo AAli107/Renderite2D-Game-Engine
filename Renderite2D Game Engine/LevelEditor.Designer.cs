@@ -869,6 +869,7 @@
             this.levelSettingsToolStripMenuItem.Name = "levelSettingsToolStripMenuItem";
             this.levelSettingsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.levelSettingsToolStripMenuItem.Text = "Level Settings";
+            this.levelSettingsToolStripMenuItem.Click += new System.EventHandler(this.levelSettingsToolStripMenuItem_Click);
             // 
             // copyObjectToolStripMenuItem
             // 

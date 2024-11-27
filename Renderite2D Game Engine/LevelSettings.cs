@@ -22,6 +22,7 @@ namespace Renderite2D_Game_Engine
             InitializeComponent();
 
             texture_combobox.Items.Clear();
+            texture_combobox.Items.Add("|None|");
             foreach (string file in
                 Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
             {
@@ -34,7 +35,7 @@ namespace Renderite2D_Game_Engine
             {
                 levelData = new(ProjectManager.CurrentLevelData);
 
-                texture_combobox.SelectedItem = levelData.backgroundTexture.Replace("Assets\\Game Assets\\", "");
+                texture_combobox.SelectedItem = texture_combobox.Items.Contains(levelData.backgroundTexture.Replace("Assets\\Game Assets\\", "")) ? levelData.backgroundTexture.Replace("Assets\\Game Assets\\", "") : "|None|";
                 colorpicker_button.BackColor = levelData.backgroundColor;
                 colorpicker_button2.BackColor = levelData.backgroundTextureTint;
             }
@@ -70,7 +71,7 @@ namespace Renderite2D_Game_Engine
 
         private void texture_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            levelData.backgroundTexture = texture_combobox.SelectedItem != null ? "Assets\\Game Assets\\" + ((string)texture_combobox.SelectedItem) : "";
+            levelData.backgroundTexture = (texture_combobox.SelectedItem != null && (string)texture_combobox.SelectedItem != "|None|") ? "Assets\\Game Assets\\" + ((string)texture_combobox.SelectedItem) : "";
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
