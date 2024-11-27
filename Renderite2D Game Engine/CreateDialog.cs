@@ -191,7 +191,7 @@ namespace Renderite2D_Game_Engine
 
         public static string GetEmptyClassTemplate()
         {
-            return "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Renderite2D_Project.Renderite2D;\r\nusing Renderite2D_Project.Renderite2D.Components;\r\nusing Renderite2D_Project.Renderite2D.Components.RenderComponents;\r\nusing Renderite2D_Project.Renderite2D.Game_Features;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;\r\nusing Renderite2D_Project.Renderite2D.Graphics;\r\n\r\nnamespace Renderite2D_Project\r\n{\r\n    public class __class_name__\r\n    {\r\n\r\n    }\r\n}\r\n";
+            return File.ReadAllText("");
         }
 
         public static string GetCustomScriptTemplate()
