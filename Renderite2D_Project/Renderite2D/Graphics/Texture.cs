@@ -12,6 +12,7 @@ namespace Renderite2D_Project.Renderite2D.Graphics
         public static readonly Texture MissingTexture = new(string.Empty);
 
         public int TextureInt { get; private set; }
+        public bool IsMissingTexture { get; private set; }
 
         public Texture()
         {
@@ -54,6 +55,7 @@ namespace Renderite2D_Project.Renderite2D.Graphics
             // Will load texture into a bitmap
             if (File.Exists(texturePath))
                 bm = new Bitmap(texturePath);
+            else IsMissingTexture = true;
 
             // Generates the texture int
             TextureInt = GL.GenTexture();
