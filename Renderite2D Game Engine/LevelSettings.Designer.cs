@@ -66,7 +66,7 @@
             this.colorpicker_button.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
             this.colorpicker_button.FlatAppearance.BorderSize = 3;
             this.colorpicker_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.colorpicker_button.Location = new System.Drawing.Point(163, 30);
+            this.colorpicker_button.Location = new System.Drawing.Point(163, 36);
             this.colorpicker_button.Name = "colorpicker_button";
             this.colorpicker_button.Size = new System.Drawing.Size(74, 25);
             this.colorpicker_button.TabIndex = 66;
@@ -77,7 +77,7 @@
             // 
             this.label11.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label11.Location = new System.Drawing.Point(12, 30);
+            this.label11.Location = new System.Drawing.Point(12, 36);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(145, 25);
             this.label11.TabIndex = 65;
