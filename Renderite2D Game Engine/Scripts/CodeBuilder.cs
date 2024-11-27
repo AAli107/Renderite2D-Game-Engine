@@ -85,10 +85,10 @@ namespace Renderite2D_Game_Engine.Scripts
                 string beginScript = "";
                 beginScript += "BackgroundColor = Color.FromArgb(" +
                     levelData.backgroundColor.A + ", " + levelData.backgroundColor.R + ", " + levelData.backgroundColor.G + ", " + levelData.backgroundColor.B + ");\r\n";
-                // TODO : Insert Game Object instantiation
+                
                 foreach (var gameObject in levelData.gameObjects.Values)
                 {
-
+                    // TODO : Insert Game Object instantiation code
                 }
                 script = script.Replace("// __begin_code__", beginScript);
 
