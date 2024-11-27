@@ -191,27 +191,27 @@ namespace Renderite2D_Game_Engine
 
         public static string GetEmptyClassTemplate()
         {
-            return File.ReadAllText("");
+            return File.ReadAllText("Engine Resources\\Script Templates\\EmptyClassTemplate.cs");
         }
 
         public static string GetCustomScriptTemplate()
         {
-            return "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Renderite2D_Project.Renderite2D;\r\nusing Renderite2D_Project.Renderite2D.Components;\r\nusing Renderite2D_Project.Renderite2D.Components.RenderComponents;\r\nusing Renderite2D_Project.Renderite2D.Game_Features;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;\r\nusing Renderite2D_Project.Renderite2D.Graphics;\r\n\r\nnamespace Renderite2D_Project\r\n{\r\n    public class __class_name__ : ScriptComponent\r\n    {\r\n        public __class_name__(GameObject parent) : base(parent) { }\r\n        \r\n        public override void Start()\r\n        {\r\n            // Is called when script is first loaded (constructor)\r\n        }\r\n\r\n        public override void Update()\r\n        {\r\n            // Is called once per frame\r\n        }\r\n\r\n        public override void FixedUpdate()\r\n        {\r\n            // Is called fixed amount of times per second\r\n        }\r\n\r\n        public override void End()\r\n        {\r\n            // Is called when script is unloaded (destructor)\r\n        }\r\n    }\r\n}\r\n";
+            return File.ReadAllText("Engine Resources\\Script Templates\\CustomScriptTemplate.cs");
         }
 
         public static string GetGameObjectTemplate()
         {
-            return "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Renderite2D_Project.Renderite2D;\r\nusing Renderite2D_Project.Renderite2D.Components;\r\nusing Renderite2D_Project.Renderite2D.Components.RenderComponents;\r\nusing Renderite2D_Project.Renderite2D.Game_Features;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;\r\nusing Renderite2D_Project.Renderite2D.Graphics;\r\n\r\nnamespace Renderite2D_Project\r\n{\r\n    public class __class_name__ : GameObject\r\n    {\r\n\r\n    }\r\n}\r\n";
+            return File.ReadAllText("Engine Resources\\Script Templates\\GameObjectTemplate.cs");
         }
 
         public static string GetTopDownCharacterTemplate()
         {
-            return "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Renderite2D_Project.Renderite2D;\r\nusing Renderite2D_Project.Renderite2D.Components;\r\nusing Renderite2D_Project.Renderite2D.Components.RenderComponents;\r\nusing Renderite2D_Project.Renderite2D.Game_Features;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;\r\nusing Renderite2D_Project.Renderite2D.Graphics;\r\n\r\nnamespace Renderite2D_Project\r\n{\r\n    public class __class_name__ : TopDownCharacter\r\n    {\r\n\r\n    }\r\n}\r\n";
+            return File.ReadAllText("Engine Resources\\Script Templates\\TopDownCharacterTemplate.cs");
         }
 
         public static string GetSideScrollerCharacterTemplate()
         {
-            return "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Renderite2D_Project.Renderite2D;\r\nusing Renderite2D_Project.Renderite2D.Components;\r\nusing Renderite2D_Project.Renderite2D.Components.RenderComponents;\r\nusing Renderite2D_Project.Renderite2D.Game_Features;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects;\r\nusing Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;\r\nusing Renderite2D_Project.Renderite2D.Graphics;\r\n\r\nnamespace Renderite2D_Project\r\n{\r\n    public class __class_name__ : SideScrollerCharacter\r\n    {\r\n\r\n    }\r\n}\r\n";
+            return File.ReadAllText("Engine Resources\\Script Templates\\SideScrollerCharacterTemplate.cs");
         }
 
         public static string InsertClassNameToScript(string script, string __class_name__)
