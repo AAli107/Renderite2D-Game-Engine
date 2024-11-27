@@ -1,0 +1,9 @@
+public Vector2i clientResolution = new(__resolutionX__, __resolutionY__);
+public VSyncMode vSyncEnabled = __vSyncEnabled__;
+public WindowBorder windowBorder = __isWindowResizeable__;
+public string windowTitle = "__windowTitle__";
+public double fixedUpdateFrequency = __fixedUpdateFrequency__;
+public WindowState windowState = __windowState__;
+public Level startingLevel = __startingLevel__;
+public bool drawColliders = __drawColliders__;
+public bool allowAltEnter = __allowAltEnter__;
