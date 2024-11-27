@@ -75,7 +75,7 @@ namespace Renderite2D_Game_Engine.Scripts
             return null;
         }
 
-        public static string ToLevelScript(Level levelData)
+        public static string LevelDataToLevelScript(Level levelData)
         {
             string configTemplateDir = "Engine Resources\\Script Templates\\LevelScriptTemplate.cs";
             if (File.Exists(configTemplateDir))
