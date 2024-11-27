@@ -2,10 +2,12 @@
 using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Renderite2D_Game_Engine.Scripts
 {
@@ -86,6 +88,11 @@ namespace Renderite2D_Game_Engine.Scripts
 
                 script = script.Replace("__level_name__", SanitizeClassName(levelPreName + levelName));
 
+                script = script.Replace("Color.White; // __background_texture_color__", "Color.FromArgb(" +
+                    levelData.backgroundTextureTint.A + ", " + levelData.backgroundTextureTint.R + ", " + levelData.backgroundTextureTint.G + ", " + levelData.backgroundTextureTint.B + ");");
+
+                script = script.Replace("__bg_texture_path_name__", levelData.backgroundTexture.Replace("\'", "\\'").Replace("\"", "\\\"").Replace("\\", "\\\\"));
+
                 string beginScript = "";
                 beginScript += "BackgroundColor = Color.FromArgb(" +
                     levelData.backgroundColor.A + ", " + levelData.backgroundColor.R + ", " + levelData.backgroundColor.G + ", " + levelData.backgroundColor.B + ");\r\n";
@@ -96,7 +103,10 @@ namespace Renderite2D_Game_Engine.Scripts
                 foreach (LevelObject gameObject in levelData.gameObjects.Values)
                 {
                     beginScript += indent1 + "{\r\n";
-                    beginScript += indent2 + "var gameObject = new " + gameObject.objectType + "((new Vector2d(" + gameObject.x + ", " + gameObject.y + "));\r\n";
+                    beginScript += indent2 + "var gameObject = new " + gameObject.objectType + "(new Transform2D(new(" + gameObject.x + ", " + gameObject.y + "), new(" + gameObject.scaleX + ", " + gameObject.scaleY + ")))\r\n";
+                    beginScript += indent2 + "{\r\n";
+                    beginScript += indent3 + "IsEnabled = " + gameObject.isEnabled.ToString().ToLower() + ",\r\n";
+                    beginScript += indent2 + "};\r\n";
                     foreach (LevelComponent component in gameObject.components.Values)
                     {
                         if (component.componentType == "ScriptComponent" && (!component.values.ContainsKey("ScriptClass") || component.values["ScriptClass"].ToString() == "")) continue;
@@ -104,9 +114,60 @@ namespace Renderite2D_Game_Engine.Scripts
                         string componentType = (component.componentType == "ScriptComponent" ? component.values["ScriptClass"].ToString() : component.componentType);
                         beginScript += indent2 + "{\r\n";
                         beginScript += indent3 + "var component = gameObject.AddComponent<" + componentType + ">();\r\n";
+                        beginScript += indent3 + "component.IsEnabled = " + component.isEnabled.ToString().ToLower() + ";\r\n";
                         foreach (var item in component.values)
                         {
                             // TODO : Insert code for component values
+                            if (component.componentType == "ScriptComponent") break;
+
+                            string val = "";
+                            if (item.Key == "color")
+                            {
+                                Color c;
+                                if (item.Value is string cStr)
+                                    c = (Color)new ColorConverter().ConvertFromString(cStr);
+                                else c = (Color)item.Value;
+                                val = "Color.FromArgb(" + c.A + ", " + c.R + ", " + c.G + ", " + c.B + ")";
+                            }
+                            else if (item.Key == "texture")
+                            {
+
+                                string path = item.Value.ToString()
+                                        .Replace("\'", "\\'")
+                                        .Replace("\"", "\\\"")
+                                        .Replace("\\", "\\\\");
+                                if (path.Length > 0)
+                                    path = '\"' + path + '\"';
+                                val = "new Texture(" + path + ")";
+                            }
+                            else if (item.Value is float || 
+                                item.Key == "friction" || 
+                                item.Key == "mass" ||
+                                item.Key == "scale" ||
+                                item.Key == "width")
+                            {
+                                val = item.Value.ToString() + "f";
+                            }
+                            else if (item.Value is bool)
+                            {
+                                val = item.Value.ToString().ToLower();
+                            }
+                            else if (item.Value is string || item.Value is char)
+                            {
+                                string quoteSymbol = item.Value is string ? "\"" : "\'";
+                                val = quoteSymbol + 
+                                    item.Value.ToString()
+                                    .Replace("\'", "\\'")
+                                    .Replace("\"", "\\\"")
+                                    .Replace("\\", "\\\\")
+                                    + quoteSymbol;
+                            }
+                            else
+                            {
+                                val = item.Value.ToString();
+                            }
+
+                            beginScript += indent3 + "component." + item.Key + " = " + val + ";\r\n";
                         }
                         beginScript += indent2 + "}\r\n";
                     }
@@ -114,11 +175,6 @@ namespace Renderite2D_Game_Engine.Scripts
                     beginScript += indent1 + "}\r\n";
                 }
                 script = script.Replace("// __begin_code__", beginScript);
-
-                script = script.Replace("Color.White; // __background_texture_color__", "Color.FromArgb(" +
-                    levelData.backgroundTextureTint.A + ", " + levelData.backgroundTextureTint.R + ", " + levelData.backgroundTextureTint.G + ", " + levelData.backgroundTextureTint.B + ");");
-
-                script = script.Replace("__bg_texture_path_name__", levelData.backgroundTexture);
 
                 return script;
             }

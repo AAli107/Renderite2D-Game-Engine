@@ -75,6 +75,10 @@ namespace Renderite2D_Game_Engine
             assetsPanelCm.Popup += AssetsPanelCm_Popup;
 
             assets_panel.ContextMenu = assetsPanelCm;
+
+            string code = CodeBuilder.LevelDataToLevelScript(ProjectManager.CurrentLevelData, Path.GetFileNameWithoutExtension(ProjectManager.CurrentLevelPath));
+            Clipboard.SetText(code);
+            MessageBox.Show(code);
         }
 
         private void Asset_Refresh_Click(object sender, EventArgs e)
@@ -544,8 +548,8 @@ namespace Renderite2D_Game_Engine
             foreach (var key in controlKeys)
             {
                 if (!ProjectManager.CurrentLevelData.gameObjects.ContainsKey(key) ||
-                    Math.Abs(ProjectManager.CurrentLevelData.gameObjects[key].x - ViewportPos.x) > levelViewport_panel.Width / 2 ||
-                    Math.Abs(ProjectManager.CurrentLevelData.gameObjects[key].y - ViewportPos.y) > levelViewport_panel.Height / 2 ||
+                    Math.Abs((ProjectManager.CurrentLevelData.gameObjects[key].x / 2.5) - ViewportPos.x) > levelViewport_panel.Width / 2 ||
+                    Math.Abs((ProjectManager.CurrentLevelData.gameObjects[key].y / 2.5) - ViewportPos.y) > levelViewport_panel.Height / 2 ||
                     !ProjectManager.CurrentLevelData.gameObjects[key].isEnabled)
                 {
                     levelObjectControls[key].MouseDown -= P_MouseDown;
@@ -558,8 +562,8 @@ namespace Renderite2D_Game_Engine
             }
             foreach (var item in ProjectManager.CurrentLevelData.gameObjects)
             {
-                if (Math.Abs(item.Value.x - ViewportPos.x) < levelViewport_panel.Width / 2 &&
-                    Math.Abs(item.Value.y - ViewportPos.y) < levelViewport_panel.Height / 2)
+                if (Math.Abs((item.Value.x / 2.5) - ViewportPos.x) < levelViewport_panel.Width / 2 &&
+                    Math.Abs((item.Value.y / 2.5) - ViewportPos.y) < levelViewport_panel.Height / 2)
                 {
                     var scaleX = (int)(item.Value.scaleX * 50);
                     var scaleY = (int)(item.Value.scaleY * 50);
@@ -577,8 +581,8 @@ namespace Renderite2D_Game_Engine
                                     Color.FromArgb(128, 255, 128, 0) : Color.White,
                                 Location = new Point
                                 (
-                                    (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x - (scaleX / 2),
-                                    (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y - (scaleY / 2)
+                                    (int)(item.Value.x / 2.5) + (levelViewport_panel.Width / 2) - (int)ViewportPos.x - (scaleX / 2),
+                                    (int)(item.Value.y / 2.5) + (levelViewport_panel.Height / 2) - (int)ViewportPos.y - (scaleY / 2)
                                 ),
                                 BorderStyle = item.Key == (string)gameObject_listBox.SelectedItem ? BorderStyle.Fixed3D : BorderStyle.FixedSingle,
                             };
@@ -599,8 +603,8 @@ namespace Renderite2D_Game_Engine
                             Color.FromArgb(128, 255, 128, 0) : Color.White;
                         panel.Location = new Point
                         (
-                            (int)item.Value.x + (levelViewport_panel.Width / 2) - (int)ViewportPos.x - (scaleX / 2),
-                            (int)item.Value.y + (levelViewport_panel.Height / 2) - (int)ViewportPos.y - (scaleY / 2)
+                            (int)(item.Value.x / 2.5) + (levelViewport_panel.Width / 2) - (int)ViewportPos.x - (scaleX / 2),
+                            (int)(item.Value.y / 2.5) + (levelViewport_panel.Height / 2) - (int)ViewportPos.y - (scaleY / 2)
                         );
                         panel.BorderStyle = item.Key == (string)gameObject_listBox.SelectedItem ? BorderStyle.Fixed3D : BorderStyle.FixedSingle;
                     }
@@ -616,8 +620,8 @@ namespace Renderite2D_Game_Engine
                 if (ProjectManager.CurrentLevelData.gameObjects.ContainsKey(objectName))
                 {
                     var obj = ProjectManager.CurrentLevelData.gameObjects[objectName];
-                    obj.x = (e.X + levelObjectControls[objectName].Location.X) - (levelViewport_panel.Width / 2) + (int)ViewportPos.x - objectOffset.x + ((int)(obj.scaleX * 50) / 2);
-                    obj.y = (e.Y + levelObjectControls[objectName].Location.Y) - (levelViewport_panel.Height / 2) + (int)ViewportPos.y - objectOffset.y + ((int)(obj.scaleY * 50) / 2);
+                    obj.x = ((e.X * 2.5) + (levelObjectControls[objectName].Location.X * 2.5)) - ((levelViewport_panel.Width / 2)  * 2.5) + (int)(ViewportPos.x * 2.5) - (objectOffset.x * 2.5) + (((int)(obj.scaleX * 50) / 2) * 2.5);
+                    obj.y = ((e.Y * 2.5) + (levelObjectControls[objectName].Location.Y * 2.5)) - ((levelViewport_panel.Height / 2) * 2.5) + (int)(ViewportPos.y * 2.5) - (objectOffset.y * 2.5) + (((int)(obj.scaleY * 50) / 2) * 2.5);
                     ProjectManager.CurrentLevelData.gameObjects[objectName] = obj;
                 }
                 else
@@ -984,7 +988,6 @@ namespace Renderite2D_Game_Engine
             {
                 var obj = ProjectManager.CurrentLevelData.gameObjects[objectName];
                 string id = Guid.NewGuid().ToString();
-                values.Add("isEnabled", true);
                 obj.components.Add(id, new LevelComponent(componentType, values));
                 return id;
             }
