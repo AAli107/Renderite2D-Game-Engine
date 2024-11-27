@@ -416,6 +416,7 @@ namespace Renderite2D_Game_Engine
                             objectOffset = new(0, 0);
                             objectName = string.Empty;
                             userInteraction = UserInteraction.None;
+                            viewportPos = new(0, 0);
 
                             UpdateGameObjectList();
                             UpdatePropertiesPanel();
