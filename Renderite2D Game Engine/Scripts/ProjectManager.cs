@@ -124,6 +124,10 @@ namespace Renderite2D_Game_Engine.Scripts
         {
             ProjectData = new Project(projectData);
         }
+        public static void SetLevelData(Level levelData)
+        {
+            CurrentLevelData = new Level(levelData);
+        }
 
         public static void SaveProjectFiles(IWin32Window win = null)
         {
