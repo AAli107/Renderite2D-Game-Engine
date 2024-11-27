@@ -1,110 +1,521 @@
-﻿using OpenTK.Mathematics;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using Renderite2D_Project.Renderite2D;
 using Renderite2D_Project.Renderite2D.Components;
 using Renderite2D_Project.Renderite2D.Components.RenderComponents;
 using Renderite2D_Project.Renderite2D.Game_Features.Game_Objects.Characters;
 using Renderite2D_Project.Renderite2D.Graphics;
-using System;
-using System.Drawing;
+
 
 namespace Renderite2D_Project
 {
-    public class TestLevel : Level
+    public class _Lvl_Level1 : Level
     {
-        Texture nTex;
-        Texture spriteSheetTex;
-        SideScrollerCharacter player;
-        GameObject gameObjectTest2;
-        PhysicsComponent pc;
-        AudioComponent ac;
-        AnimatedSpriteRenderer asr;
+        readonly Texture __background_texture__ =
+            new("Assets\\Game Assets\\Apple.png");
+        readonly Color __background_texture_color__ =
+            Color.FromArgb(255, 0, 255, 0);
 
         public override void Begin()
         {
-            nTex = new("Assets/Game Assets/neutral.png");
-            spriteSheetTex = new("Assets/Game Assets/spritesheet.png");
-            player = new(new Vector2d(500, 0))
+            BackgroundColor = Color.FromArgb(255, 145, 197, 217);
             {
-                JumpCount = 2
-            };
-            pc = player.GetComponent<PhysicsComponent>();
-            ac = player.AddComponent<AudioComponent>();
-            ac.FilePath = "Assets/Game Assets/pick.wav";
-            asr = player.AddComponent<AnimatedSpriteRenderer>();
-            asr.texture = spriteSheetTex;
-            asr.divisions = 3;
-            asr.layer = 1;
-            asr.EndFrameIndex = 5;
-            gameObjectTest2 = new(new Vector2d(500, 600));
-            var cc2 = gameObjectTest2.AddComponent<ColliderComponent>();
-            cc2.transform.scale = new Vector2d(5, 1);
-            var tr2 = gameObjectTest2.AddComponent<TriangleRenderer>();
-            tr2.pointA = new Vector2d(-50, -100);
-            tr2.pointC = new Vector2d(-100, 50);
-            tr2.color = Color4.Gray;
-            var txr = gameObjectTest2.AddComponent<TextRenderer>();
-            txr.text = "Hello World!";
-            txr.isStatic = false;
-            Game.World.Instantiate(player);
-            Game.World.Instantiate(gameObjectTest2);
+                var gameObject = new GameObject(new Transform2D(new(215, 380), new(16, 0.7)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0.1f;
+                }
+                {
+                    var component = gameObject.AddComponent<RectRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 6;
+                    component.isStatic = true;
+                    component.isCentered = false;
+                    component.isOutline = true;
+                    component.position.X = 5;
+                    component.position.Y = -5;
+                    component.dimension.X = 10430.9;
+                    component.dimension.Y = 4004;
+                    component.color = Color.FromArgb(255, 0, 0, 255);
+                    component.texture = new Texture("Assets\\Game Assets\\Apple.png");
+                }
+                Game.World.Instantiate(gameObject);
+            }
+            {
+                var gameObject = new GameObject(new Transform2D(new(-57.5, -107.5), new(1, 2)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<LineRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 3;
+                    component.isStatic = true;
+                    component.pointA.X = -45;
+                    component.pointA.Y = -55;
+                    component.pointB.X = 40;
+                    component.pointB.Y = 60;
+                    component.color = Color.FromArgb(255, 255, 0, 0);
+                    component.width = 6.9f;
+                }
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0.1f;
+                }
+                Game.World.Instantiate(gameObject);
+            }
+            {
+                var gameObject = new GameObject(new Transform2D(new(677.5, 217.5), new(2, 2)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<TextRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = true;
+                    component.position.X = 10;
+                    component.position.Y = 13;
+                    component.text = "Hello World!";
+                    component.color = Color.FromArgb(255, 255, 0, 0);
+                    component.scale = 4f;
+                }
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0.1f;
+                }
+                Game.World.Instantiate(gameObject);
+            }
+            {
+                var gameObject = new GameObject(new Transform2D(new(422.5, -282.5), new(2, 2)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<AnimatedSpriteRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.isCentered = true;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.position.X = -6;
+                    component.position.Y = 0;
+                    component.dimension.X = 100;
+                    component.dimension.Y = 100;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture("Assets\\Game Assets\\Apple.png");
+                    component.TimePerFrame = 0.166666666666667;
+                    component.EndFrameIndex = 0;
+                    component.IsPlaying = true;
+                    component.PlayReverse = false;
+                }
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0.1f;
+                }
+                Game.World.Instantiate(gameObject);
+            }
+            {
+                var gameObject = new GameObject(new Transform2D(new(155, 232.5), new(1, 1.7)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<PhysicsComponent>();
+                    component.IsEnabled = true;
+                    component.mass = 10f;
+                    component.friction = 0.1f;
+                    component.isAirborne = true;
+                    component.gravityEnabled = true;
+                    component.gravityMultiplier = 1;
+                }
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0.1f;
+                }
+                {
+                    var component = gameObject.AddComponent<AudioComponent>();
+                    component.IsEnabled = true;
+                    component.FilePath = "";
+                    component.Volume = 1;
+                }
+                {
+                    var component = gameObject.AddComponent<AnimatedSpriteRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.isCentered = true;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.dimension.X = 100;
+                    component.dimension.Y = 100;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                    component.TimePerFrame = 0.166666666666667;
+                    component.EndFrameIndex = 0;
+                    component.IsPlaying = true;
+                    component.PlayReverse = false;
+                }
+                {
+                    var component = gameObject.AddComponent<LineRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 26;
+                    component.pointB.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.width = 1f;
+                }
+                {
+                    var component = gameObject.AddComponent<PointRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.size = 1;
+                }
+                {
+                    var component = gameObject.AddComponent<QuadRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = -50;
+                    component.pointC.X = -50;
+                    component.pointC.Y = 50;
+                    component.pointD.X = 50;
+                    component.pointD.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<QuadSpritesheetRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = -50;
+                    component.pointC.X = -50;
+                    component.pointC.Y = 50;
+                    component.pointD.X = 50;
+                    component.pointD.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<SpritesheetRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.isCentered = true;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.dimension.X = 100;
+                    component.dimension.Y = 100;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<TextRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = true;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.text = "Default Text";
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.scale = 1f;
+                }
+                {
+                    var component = gameObject.AddComponent<TriangleRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = -50;
+                    component.pointC.X = -50;
+                    component.pointC.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                Game.World.Instantiate(gameObject);
+            }
+            {
+                var gameObject = new GameObject(new Transform2D(new(-260, 237.5), new(1, 1.7)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<QuadSpritesheetRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 6;
+                    component.isStatic = true;
+                    component.index = 3;
+                    component.divisions = 6;
+                    component.pointA.X = -45;
+                    component.pointA.Y = -54;
+                    component.pointB.X = 46;
+                    component.pointB.Y = -48;
+                    component.pointC.X = -48;
+                    component.pointC.Y = 46;
+                    component.pointD.X = 53;
+                    component.pointD.Y = 46;
+                    component.color = Color.FromArgb(255, 128, 128, 0);
+                    component.texture = new Texture("Assets\\Game Assets\\Apple.png");
+                }
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0.1f;
+                }
+                Game.World.Instantiate(gameObject);
+            }
+            {
+                var gameObject = new GameObject(new Transform2D(new(-432.5, -317.5), new(1, 1)))
+                {
+                    IsEnabled = true,
+                };
+                {
+                    var component = gameObject.AddComponent<PhysicsComponent>();
+                    component.IsEnabled = true;
+                    component.mass = 0f;
+                    component.friction = 0f;
+                    component.isAirborne = true;
+                    component.gravityEnabled = true;
+                    component.gravityMultiplier = 0;
+                }
+                {
+                    var component = gameObject.AddComponent<ColliderComponent>();
+                    component.IsEnabled = true;
+                    component.transform.position.X = 0;
+                    component.transform.position.Y = 0;
+                    component.transform.scale.X = 1;
+                    component.transform.scale.Y = 1;
+                    component.isSolidCollision = true;
+                    component.friction = 0f;
+                }
+                {
+                    var component = gameObject.AddComponent<AudioComponent>();
+                    component.IsEnabled = true;
+                    component.FilePath = "Assets\\Game Assets\\8-bit explosion.wav";
+                    component.Volume = 0;
+                }
+                {
+                    var component = gameObject.AddComponent<AnimatedSpriteRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.isCentered = true;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.dimension.X = 100;
+                    component.dimension.Y = 100;
+                    component.color = Color.FromArgb(255, 128, 0, 64);
+                    component.texture = new Texture("Assets\\Game Assets\\Apple.png");
+                    component.TimePerFrame = 0.166666666666667;
+                    component.EndFrameIndex = 0;
+                    component.IsPlaying = true;
+                    component.PlayReverse = false;
+                }
+                {
+                    var component = gameObject.AddComponent<LineRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.width = 1f;
+                }
+                {
+                    var component = gameObject.AddComponent<PointRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.size = 1;
+                }
+                {
+                    var component = gameObject.AddComponent<QuadRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = -50;
+                    component.pointC.X = -50;
+                    component.pointC.Y = 50;
+                    component.pointD.X = 50;
+                    component.pointD.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<QuadSpritesheetRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = -50;
+                    component.pointC.X = -50;
+                    component.pointC.Y = 50;
+                    component.pointD.X = 50;
+                    component.pointD.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<RectRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.isCentered = true;
+                    component.isOutline = false;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.dimension.X = 100;
+                    component.dimension.Y = 100;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<SpritesheetRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.isCentered = true;
+                    component.index = 0;
+                    component.divisions = 2;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.dimension.X = 100;
+                    component.dimension.Y = 100;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                {
+                    var component = gameObject.AddComponent<TextRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = true;
+                    component.position.X = 0;
+                    component.position.Y = 0;
+                    component.text = "Default Text";
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.scale = 1f;
+                }
+                {
+                    var component = gameObject.AddComponent<TriangleRenderer>();
+                    component.IsEnabled = true;
+                    component.layer = 0;
+                    component.isStatic = false;
+                    component.pointA.X = -50;
+                    component.pointA.Y = -50;
+                    component.pointB.X = 50;
+                    component.pointB.Y = -50;
+                    component.pointC.X = -50;
+                    component.pointC.Y = 50;
+                    component.color = Color.FromArgb(255, 255, 255, 255);
+                    component.texture = new Texture();
+                }
+                Game.World.Instantiate(gameObject);
+            }
+
         }
 
         public override void Update()
         {
-            if (Input.IsKeyDown(Keys.Up)) { Game.Time.TimeScale += Game.Time.DeltaTime; }
-            if (Input.IsKeyDown(Keys.Down)) { Game.Time.TimeScale -= Game.Time.DeltaTime; }
-
-            if (Input.IsKeyPressed(Keys.P)) Game.LoadLevel(new SampleLevel());
-
-            if (Input.IsKeyPressed(Keys.Space))
-            {
-                if (player.CanJump)
-                    ac.Play();
-                player.Jump();
-            }
-
-            if (Input.IsKeyPressed(Keys.V))
-            {
-                player.Damage(1);
-            }
-            if (Input.IsKeyPressed(Keys.H))
-            {
-                player.Heal(1);
-            }
-
-            if (Input.IsKeyPressed(Keys.F3))
-                Game.Debug.DrawColliders = !Game.Debug.DrawColliders;
-
-            Game.MainCamera.Transform = player.transform;
+            // __update_code__
         }
 
         public override void FixedUpdate()
         {
-            BackgroundColor = Color.FromArgb((int)((Math.Sin(Game.Time.TimeSinceLevelStart) + 1) * 128) / 2, (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.67) + 1) * 128) / 2, (int)((Math.Sin(Game.Time.TimeSinceLevelStart * 0.33) + 1) * 128) / 2);
-
-            if (Input.IsKeyDown(Keys.W)) { pc.AddVelocity(-Vector2d.UnitX); }
-            if (Input.IsKeyDown(Keys.S)) { pc.AddVelocity(Vector2d.UnitX); }
-            if (Input.IsKeyDown(Keys.A)) { pc.AddVelocity(-Vector2d.UnitX); }
-            if (Input.IsKeyDown(Keys.D)) { pc.AddVelocity(Vector2d.UnitX); }
+            // __fixed_update_code__
         }
 
         public override void Draw(Game.Shapes gfx)
         {
-            var v = new Vector2d(player.transform.position.X, player.transform.position.Y);
-            
-            Game.DrawShape(Game.DrawType.Text, new object[] { v + new Vector2d(100, 200), "Layer 2", Color4.Orange, 4f, false}, 1);
-            Game.DrawShape(Game.DrawType.Text, new object[] { new Vector2d(200, 200), "Layered Drawing", Color4.Cyan, 4f, false}, 0);
+            if (__background_texture__ != null && !__background_texture__.IsMissingTexture)
+                gfx.DrawRectangle(new(0, 0), new(1920, 1080),
+                    __background_texture_color__, __background_texture__, true);
+            // __draw_code__
+        }
 
-            gfx.DrawQuad(new Vector2d(300, 300), new Vector2d(500, 300), new Vector2d(300, 500), new Vector2d(500, 500), Color4.White, spriteSheetTex);
-            gfx.DrawQuad(new Vector2d(100, 100), new Vector2d(200, 100), new Vector2d(100, 200), new Vector2d(200, 200), Color4.Yellow, nTex);
-            gfx.DrawLine(v, new Vector2d(150, 150), Color4.Violet, (float)Math.Sin(Game.Time.TimeSinceLevelStart) * 25f);
-            gfx.DrawText(Vector2d.Zero, Math.Round(Game.Time.FPS) + " FPS", Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 28, "Time Since Level start = " + Game.Time.TimeSinceLevelStart, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 56, "TimeScale = " + Game.Time.TimeScale, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 84, "MouseScreenPos = " + Input.MouseScreenPos, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 112, "MouseWorldPos = " + Input.MouseWorldPos, Color4.Red, 1);
-            gfx.DrawText(Vector2d.UnitY * 140, "Health = " + player.Health, Color4.Red, 1);
+        public override void End()
+        {
+            // __end_code__
         }
     }
 }

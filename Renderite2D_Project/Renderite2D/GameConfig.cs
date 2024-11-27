@@ -11,8 +11,8 @@ namespace Renderite2D_Project.Renderite2D
         public string windowTitle = "Renderite2D Game";
         public double fixedUpdateFrequency = 60;
         public WindowState windowState = WindowState.Normal;
-        public Level startingLevel = new SampleLevel();
-        public bool drawColliders = false;
+        public Level startingLevel = new _Lvl_Level1();
+        public bool drawColliders = true;
         public bool allowAltEnter = true;
 
         public GameConfig() { }
