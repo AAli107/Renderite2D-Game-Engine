@@ -11,6 +11,8 @@ namespace Renderite2D_Game_Engine.Scripts
 {
     public static class CodeBuilder
     {
+        public static readonly string levelPreName = "_Lvl_";
+
         private static bool IsValidIdentifier(string str)
         {
             return new CSharpCodeProvider().IsValidIdentifier(str);
@@ -67,7 +69,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     _ => "WindowState.Normal",
                 };
                 script = script.Replace("__windowState__", winstate);
-                script = script.Replace("__startingLevel__", "new " + SanitizeClassName(Path.GetFileNameWithoutExtension(projectData.startingLevel)) + "()");
+                script = script.Replace("__startingLevel__", "new " + SanitizeClassName(levelPreName + Path.GetFileNameWithoutExtension(projectData.startingLevel)) + "()");
                 script = script.Replace("__drawColliders__", projectData.drawColliders.ToString().ToLower());
                 script = script.Replace("__allowAltEnter__", projectData.allowAltEnter.ToString().ToLower());
                 return script;
@@ -75,17 +77,18 @@ namespace Renderite2D_Game_Engine.Scripts
             return null;
         }
 
-        public static string LevelDataToLevelScript(Level levelData)
+        public static string LevelDataToLevelScript(Level levelData, string levelName)
         {
             string configTemplateDir = "Engine Resources\\Script Templates\\LevelScriptTemplate.cs";
             if (File.Exists(configTemplateDir))
             {
                 string script = File.ReadAllText(configTemplateDir);
 
+                script = script.Replace("__level_name__", SanitizeClassName(levelPreName + levelName));
+
                 string beginScript = "";
                 beginScript += "BackgroundColor = Color.FromArgb(" +
                     levelData.backgroundColor.A + ", " + levelData.backgroundColor.R + ", " + levelData.backgroundColor.G + ", " + levelData.backgroundColor.B + ");\r\n";
-                
                 foreach (var gameObject in levelData.gameObjects.Values)
                 {
                     // TODO : Insert Game Object instantiation code
