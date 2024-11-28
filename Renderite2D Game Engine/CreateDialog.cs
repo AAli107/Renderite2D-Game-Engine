@@ -41,7 +41,7 @@ namespace Renderite2D_Game_Engine
                 _ => "Create",
             };
 
-            string[] entries = assetType == AssetType.Folder ? Directory.GetDirectories(currentDirectory) : Directory.GetFiles(currentDirectory);
+            string[] entries = assetType == AssetType.Folder ? Directory.GetDirectories(currentDirectory) : Directory.GetFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories);
 
             fileEntries = new string[entries.Length];
             for (int i = 0; i < entries.Length; i++)
@@ -49,13 +49,13 @@ namespace Renderite2D_Game_Engine
 
             string baseName = assetType switch
             {
-                AssetType.Folder => "Folder",
-                AssetType.Level => "Level",
-                AssetType.EmptyClass => "Class",
-                AssetType.CustomScript => "Script",
+                AssetType.Folder => "New Folder",
+                AssetType.Level => "New Level",
+                AssetType.EmptyClass => "Empty Class",
+                AssetType.CustomScript => "Custom Script",
                 AssetType.GameObjectScript => "Game Object Script",
-                AssetType.TopDownCharacter => "Topdown Character",
-                AssetType.SideScrollerCharacter => "Side Scroller Character",
+                AssetType.TopDownCharacter => "Topdown Character Script",
+                AssetType.SideScrollerCharacter => "Side Scroller Character Script",
                 _ => "",
             };
 
@@ -78,7 +78,10 @@ namespace Renderite2D_Game_Engine
 
         private bool DoesFileExist(string fileName)
         {
-
+            foreach (var item in fileEntries)
+            {
+                Console.WriteLine(item);
+            }
             return fileEntries.Contains(fileName.Trim());
         }
 
@@ -101,7 +104,11 @@ namespace Renderite2D_Game_Engine
 
         private bool IsValidName()
         {
-            return !IsNameEmpty() && !DoesInputNameExist() && !ContainsInvalidCharacters() && !IsNameOnlyComposedOfDots();
+            return !IsNameEmpty() && 
+                !DoesInputNameExist() && 
+                !ContainsInvalidCharacters() && 
+                !IsNameOnlyComposedOfDots() &&
+                !CodeBuilder.StartsWithLevelPreName(fileName);
         }
 
         bool IsNameOnlyComposedOfDots()
@@ -179,6 +186,8 @@ namespace Renderite2D_Game_Engine
                     message += "- " + (isFolder ? "Folder" : "File") + " contains invalid characters.\n";
                 if (IsNameOnlyComposedOfDots())
                     message += "- " + (isFolder ? "Folder" : "File") + " name only consists of dots.\n";
+                if (CodeBuilder.StartsWithLevelPreName(fileName))
+                    message += "- " + (isFolder ? "Folder" : "File") + " name must not start with '" + CodeBuilder.levelPreName + "'.\n";
 
                 MessageBox.Show(message, "Failed To Create!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
