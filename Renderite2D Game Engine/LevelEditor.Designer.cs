@@ -929,6 +929,7 @@
             | System.Windows.Forms.Keys.B)));
             this.buildGameToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.buildGameToolStripMenuItem.Text = "Build Game";
+            this.buildGameToolStripMenuItem.Click += new System.EventHandler(this.buildGameToolStripMenuItem_Click);
             // 
             // windowsToolStripMenuItem
             // 

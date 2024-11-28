@@ -75,10 +75,6 @@ namespace Renderite2D_Game_Engine
             assetsPanelCm.Popup += AssetsPanelCm_Popup;
 
             assets_panel.ContextMenu = assetsPanelCm;
-
-            string code = CodeBuilder.LevelDataToLevelScript(ProjectManager.CurrentLevelData, Path.GetFileNameWithoutExtension(ProjectManager.CurrentLevelPath));
-            Clipboard.SetText(code);
-            MessageBox.Show(code);
         }
 
         private void Asset_Refresh_Click(object sender, EventArgs e)
@@ -1337,6 +1333,11 @@ namespace Renderite2D_Game_Engine
             {
                 UpdateViewport();
             }
+        }
+
+        private void buildGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CodeBuilder.BuildSolution(true);
         }
     }
 
