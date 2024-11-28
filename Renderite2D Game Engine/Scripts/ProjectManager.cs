@@ -20,6 +20,7 @@ namespace Renderite2D_Game_Engine.Scripts
         public static string ProjectName { get; private set; }
         public static string ProjectPath { get; private set; }
         public static string AssetsPath { get; private set; }
+        public static string BuildPath { get; private set; }
         public static string ProjectParentFolder { get; private set; }
         public static string CurrentLevelPath { get; private set; }
         public static Project ProjectData { get; private set; }
@@ -67,6 +68,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 originalProjectData = JsonConvert.DeserializeObject<Project>(File.ReadAllText(projectPath), settings);
                 ProjectPath = projectPath;
                 AssetsPath = Path.GetDirectoryName(projectPath) + "/Assets";
+                BuildPath = Path.GetDirectoryName(projectPath) + "/Build";
                 ProjectName = Path.GetFileNameWithoutExtension(projectPath);
                 ProjectParentFolder = Directory.GetParent(Path.GetDirectoryName(projectPath)).FullName;
                 IsProjectOpen = true;
@@ -107,6 +109,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     IsProjectOpen = false;
                     ProjectPath = null;
                     AssetsPath = null;
+                    BuildPath = null;
                     ProjectName = null;
                     ProjectParentFolder = null;
                     CurrentLevelPath = null;
