@@ -18,7 +18,12 @@ namespace Renderite2D_Game_Engine.Scripts
 
         public static readonly string levelPreName = "_Lvl_";
 
-        private static bool IsValidIdentifier(string str)
+        public static bool StartsWithLevelPreName(string str)
+        {
+            return str.StartsWith(levelPreName);
+        }
+
+        public static bool IsValidIdentifier(string str)
         {
             return new CSharpCodeProvider().IsValidIdentifier(str);
         }
