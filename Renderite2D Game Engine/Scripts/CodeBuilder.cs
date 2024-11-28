@@ -1,4 +1,5 @@
 ﻿using Microsoft.CSharp;
+using Newtonsoft.Json;
 using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace Renderite2D_Game_Engine.Scripts
 {
     public static class CodeBuilder
     {
+        public static bool IsBuilding { get; private set; }
+
         public static readonly string levelPreName = "_Lvl_";
 
         private static bool IsValidIdentifier(string str)
@@ -79,14 +82,15 @@ namespace Renderite2D_Game_Engine.Scripts
             return null;
         }
 
-        public static string LevelDataToLevelScript(Level levelData, string levelName)
+        public static (string code, string className) LevelDataToLevelScript(Level levelData, string levelName)
         {
             string configTemplateDir = "Engine Resources\\Script Templates\\LevelScriptTemplate.cs";
             if (File.Exists(configTemplateDir))
             {
                 string script = File.ReadAllText(configTemplateDir);
+                string className = SanitizeClassName(levelPreName + levelName);
 
-                script = script.Replace("__level_name__", SanitizeClassName(levelPreName + levelName));
+                script = script.Replace("__level_name__", className);
 
                 script = script.Replace("Color.White; // __background_texture_color__", "Color.FromArgb(" +
                     levelData.backgroundTextureTint.A + ", " + levelData.backgroundTextureTint.R + ", " + levelData.backgroundTextureTint.G + ", " + levelData.backgroundTextureTint.B + ");");
@@ -131,7 +135,6 @@ namespace Renderite2D_Game_Engine.Scripts
                             }
                             else if (item.Key == "texture")
                             {
-
                                 string path = item.Value.ToString()
                                         .Replace("\'", "\\'")
                                         .Replace("\"", "\\\"")
@@ -144,6 +147,7 @@ namespace Renderite2D_Game_Engine.Scripts
                                 item.Key == "friction" || 
                                 item.Key == "mass" ||
                                 item.Key == "scale" ||
+                                item.Key == "Volume" ||
                                 item.Key == "width")
                             {
                                 val = item.Value.ToString() + "f";
@@ -176,9 +180,146 @@ namespace Renderite2D_Game_Engine.Scripts
                 }
                 script = script.Replace("// __begin_code__", beginScript);
 
-                return script;
+                return (script, className);
             }
-            return null;
+            return (null, null);
+        }
+
+        public static (bool success, string buildMessages) BuildSolution(bool isDebug)
+        {
+            if (IsBuilding) return (false, "Project is already being built");
+
+            IsBuilding = true;
+
+            string sourcePath = "Engine Resources\\Renderite2D Solution";
+            string targetPath = ProjectManager.BuildPath + '\\' + (isDebug ? "Debug" : "Release");
+            string projectDirPath = targetPath + "\\Renderite2D_Project\\";
+            string csprojPath = projectDirPath + "Renderite2D_Project.csproj";
+            string gameConfigPath = projectDirPath + "Renderite2D\\GameConfig.cs";
+
+            if (!ProjectManager.IsProjectOpen) return (false, "Project is not open!");
+            if (!Directory.Exists(sourcePath)) return (false, "Solution Template does not exist!");
+
+            ProjectManager.SaveProjectFiles();
+
+            var pwBuild = new ProgressWindow();
+            pwBuild.Show();
+
+            try
+            {
+                if (Directory.Exists(targetPath))
+                    Directory.Delete(targetPath, true);
+
+                Directory.CreateDirectory(targetPath);
+
+                foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+                    Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+
+                foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+
+            } catch (Exception ex) 
+            {
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Failed to copy solution template!\n\n" + ex.Message);
+            }
+
+            try
+            {
+                if (isDebug && File.Exists(csprojPath))
+                    File.WriteAllText(csprojPath, File.ReadAllText(csprojPath).Replace("<OutputType>WinExe</OutputType>", "<OutputType>Exe</OutputType>"));
+            }
+            catch (Exception ex)
+            {
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Failed to setup '.csproj' configs!\n\n" + ex.Message);
+            }
+
+            try
+            {
+                if (File.Exists(gameConfigPath))
+                    File.WriteAllText(gameConfigPath, ProjectDataToGameConfigScript(ProjectManager.ProjectData));
+            }
+            catch (Exception ex)
+            {
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Failed to insert project configs!\n\n" + ex.Message);
+            }
+
+            try
+            {
+                string assetSource = ProjectManager.AssetsPath;
+                string destPath = projectDirPath + "Assets\\Game Assets";
+
+                if (Directory.Exists(destPath))
+                    Directory.Delete(destPath, true);
+
+                Directory.CreateDirectory(destPath);
+
+                foreach (string dirPath in Directory.GetDirectories(assetSource, "*", SearchOption.AllDirectories))
+                    Directory.CreateDirectory(dirPath.Replace(assetSource, destPath));
+
+                foreach (string newPath in Directory.GetFiles(assetSource, "*.*", SearchOption.AllDirectories))
+                    if (!LevelEditor.IsScriptFile(newPath))
+                        File.Copy(newPath, newPath.Replace(assetSource, destPath), true);
+
+            }
+            catch (Exception ex)
+            {
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Failed to copy Assets!\n\n" + ex.Message);
+            }
+
+
+            foreach (string file in
+                Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
+            {
+                if (LevelEditor.IsScriptFile(file))
+                {
+                    string fDest = (projectDirPath + file.Replace(ProjectManager.AssetsPath, "")).Replace('/', '\\');
+                    string fDir = Path.GetDirectoryName(fDest);
+                    if (!Directory.Exists(fDir))
+                        Directory.CreateDirectory(fDir);
+                    File.Copy(file, fDest, true);
+                }
+            }
+
+            var settings = new JsonSerializerSettings()
+            {
+                MissingMemberHandling = MissingMemberHandling.Error,
+            };
+
+            foreach (string file in
+                Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
+            {
+                if (LevelEditor.IsLevelFile(file))
+                {
+                    string levelName = Path.GetFileNameWithoutExtension(file.Replace('/', '\\'));
+                    try
+                    {
+                        Level l = JsonConvert.DeserializeObject<Level>(File.ReadAllText(file.Replace('/', '\\')), settings);
+
+                        var (code, className) = LevelDataToLevelScript(l, levelName);
+
+                        File.WriteAllText(projectDirPath + className + ".cs", code);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        pwBuild.Close();
+                        IsBuilding = false;
+                        return (false, "Failed to generate level code for level: '" + levelName + ".rdlvl'\n\n" + ex.Message);
+                    }
+                }
+            }
+
+            pwBuild.Close();
+            IsBuilding = false;
+            return (true, "Built Successfully");
         }
     }
 }
