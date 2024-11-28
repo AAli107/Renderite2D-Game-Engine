@@ -218,10 +218,16 @@ namespace Renderite2D_Game_Engine.Scripts
                 Directory.CreateDirectory(targetPath);
 
                 foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+                {
                     Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+                    pwBuild.Refresh();
+                }
 
                 foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+                { 
                     File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                    pwBuild.Refresh();
+                }
 
             } catch (Exception ex) 
             {
@@ -265,11 +271,18 @@ namespace Renderite2D_Game_Engine.Scripts
                 Directory.CreateDirectory(destPath);
 
                 foreach (string dirPath in Directory.GetDirectories(assetSource, "*", SearchOption.AllDirectories))
+                {
                     Directory.CreateDirectory(dirPath.Replace(assetSource, destPath));
-
+                    pwBuild.Refresh();
+                }
                 foreach (string newPath in Directory.GetFiles(assetSource, "*.*", SearchOption.AllDirectories))
+                {
                     if (!LevelEditor.IsScriptFile(newPath))
+                    {
                         File.Copy(newPath, newPath.Replace(assetSource, destPath), true);
+                        pwBuild.Refresh();
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -279,52 +292,70 @@ namespace Renderite2D_Game_Engine.Scripts
                 return (false, "Failed to copy Assets!\n\n" + ex.Message);
             }
 
-
-            foreach (string file in
-                Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
+            try 
             {
-                if (LevelEditor.IsScriptFile(file))
+                foreach (string file in
+                    Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
                 {
-                    string fDest = (projectDirPath + file.Replace(ProjectManager.AssetsPath, "")).Replace('/', '\\');
-                    string fDir = Path.GetDirectoryName(fDest);
-                    if (!Directory.Exists(fDir))
-                        Directory.CreateDirectory(fDir);
-                    File.Copy(file, fDest, true);
+                    if (LevelEditor.IsScriptFile(file))
+                    {
+                        string fDest = (projectDirPath + file.Replace(ProjectManager.AssetsPath, "")).Replace('/', '\\');
+                        string fDir = Path.GetDirectoryName(fDest);
+                        if (!Directory.Exists(fDir))
+                            Directory.CreateDirectory(fDir);
+                        File.Copy(file, fDest, true);
+                    }
+                    pwBuild.Refresh();
                 }
             }
-
-            var settings = new JsonSerializerSettings()
+            catch (Exception ex)
             {
-                MissingMemberHandling = MissingMemberHandling.Error,
-            };
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Failed to copy script files\n\n" + ex.Message);
+            }
 
-            foreach (string file in
-                Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
+            try 
             {
-                if (LevelEditor.IsLevelFile(file))
+                var settings = new JsonSerializerSettings()
                 {
-                    string levelName = Path.GetFileNameWithoutExtension(file.Replace('/', '\\'));
-                    try
+                    MissingMemberHandling = MissingMemberHandling.Error,
+                };
+                foreach (string file in
+                    Directory.EnumerateFiles(ProjectManager.AssetsPath, "*.*", SearchOption.AllDirectories))
+                {
+                    if (LevelEditor.IsLevelFile(file))
                     {
-                        Level l = JsonConvert.DeserializeObject<Level>(File.ReadAllText(file.Replace('/', '\\')), settings);
+                        string levelName = Path.GetFileNameWithoutExtension(file.Replace('/', '\\'));
+                        try
+                        {
+                            Level l = JsonConvert.DeserializeObject<Level>(File.ReadAllText(file.Replace('/', '\\')), settings);
 
-                        var (code, className) = LevelDataToLevelScript(l, levelName);
+                            var (code, className) = LevelDataToLevelScript(l, levelName);
 
-                        File.WriteAllText(projectDirPath + className + ".cs", code);
+                            File.WriteAllText(projectDirPath + className + ".cs", code);
 
-                    }
-                    catch (Exception ex)
-                    {
-                        pwBuild.Close();
-                        IsBuilding = false;
-                        return (false, "Failed to generate level code for level: '" + levelName + ".rdlvl'\n\n" + ex.Message);
+                            pwBuild.Refresh();
+                        }
+                        catch (Exception ex)
+                        {
+                            pwBuild.Close();
+                            IsBuilding = false;
+                            return (false, "Failed to generate level code for level: '" + levelName + ".rdlvl'\n\n" + ex.Message);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Failed to generate level codes!\n\n" + ex.Message);
             }
 
             pwBuild.Close();
             IsBuilding = false;
-            return (true, "Built Successfully");
+            return (true, "Build Successful!");
         }
     }
 }

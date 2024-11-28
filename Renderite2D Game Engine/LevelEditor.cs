@@ -1337,7 +1337,9 @@ namespace Renderite2D_Game_Engine
 
         private void buildGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CodeBuilder.BuildSolution(true);
+            var (success, buildMessages) = CodeBuilder.BuildSolution(true);
+            MessageBox.Show(buildMessages, success ? "Success!" : "Failed!", MessageBoxButtons.OK,
+                success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
 
