@@ -1350,11 +1350,15 @@ namespace Renderite2D_Game_Engine
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = exePath,
-                    WorkingDirectory = Path.GetDirectoryName(exePath),
-                });
+                if (!File.Exists(exePath)) 
+                    MessageBox.Show("Game executable file not found.", "Failed!", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        WorkingDirectory = Path.GetDirectoryName(exePath),
+                    });
             }
         }
     }
