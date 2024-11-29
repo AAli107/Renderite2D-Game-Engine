@@ -181,6 +181,48 @@ namespace Renderite2D_Project.Renderite2D
             private static readonly Game win = Program.GameWindow;
 
             public static bool DrawColliders { get { return win.drawColliders; } set => win.drawColliders = value; }
+
+            public static void Log(object message)
+            {
+                try
+                {
+                    Console.WriteLine(message.ToString());
+                }
+                catch { }
+            }
+
+            public static void Warning(object message)
+            {
+                try
+                {
+                    ConsoleColor c = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(message.ToString());
+                    Console.ForegroundColor = c;
+                }
+                catch { }
+            }
+
+            public static void Error(object message)
+            {
+                try
+                {
+                    ConsoleColor c = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(message.ToString());
+                    Console.ForegroundColor = c;
+                }
+                catch { }
+            }
+
+            public static void Clear()
+            {
+                try
+                {
+                    Console.Clear();
+                }
+                catch { }
+            }
         }
 
         public class DrawInstance
