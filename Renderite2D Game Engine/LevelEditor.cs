@@ -63,6 +63,7 @@ namespace Renderite2D_Game_Engine
             UpdatePropertiesPanel();
             UpdateAssetDirectory();
             UpdateViewport();
+            UpdateWinTitle();
             ClipboardObject = null;
 
             ContextMenu assetsPanelCm = new(new MenuItem[] 
@@ -420,7 +421,8 @@ namespace Renderite2D_Game_Engine
 
                             UpdateGameObjectList();
                             UpdatePropertiesPanel();
-                            UpdateViewport();
+                            UpdateViewport(); 
+                            UpdateWinTitle();
                         }
                         else
                         {
@@ -1427,6 +1429,11 @@ namespace Renderite2D_Game_Engine
                 else MessageBox.Show(buildMessages, "Failed!",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public void UpdateWinTitle()
+        {
+            Text = "Renderite2D Game Engine - " + ProjectManager.ProjectName + " - " + Path.GetFileName(ProjectManager.CurrentLevelPath);
         }
     }
 
