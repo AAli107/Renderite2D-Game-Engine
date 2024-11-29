@@ -919,6 +919,7 @@
             this.runGameToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.runGameToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.runGameToolStripMenuItem.Text = "Run Game";
+            this.runGameToolStripMenuItem.Click += new System.EventHandler(this.runGameToolStripMenuItem_Click);
             // 
             // buildGameToolStripMenuItem
             // 

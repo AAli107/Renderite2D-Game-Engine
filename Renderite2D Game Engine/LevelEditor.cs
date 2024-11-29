@@ -1337,9 +1337,25 @@ namespace Renderite2D_Game_Engine
 
         private void buildGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var (success, buildMessages) = CodeBuilder.BuildProject(true);
+            var (success, buildMessages, _) = CodeBuilder.BuildProject(true);
             MessageBox.Show(buildMessages, success ? "Success!" : "Failed!", MessageBoxButtons.OK,
                 success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+        }
+
+        private void runGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var (success, buildMessages, exePath) = CodeBuilder.BuildProject(true);
+
+            if (!success) MessageBox.Show(buildMessages, "Failed!",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = exePath,
+                    WorkingDirectory = Path.GetDirectoryName(exePath),
+                });
+            }
         }
     }
 
