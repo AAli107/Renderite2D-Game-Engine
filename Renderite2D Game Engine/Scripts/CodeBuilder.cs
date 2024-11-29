@@ -197,7 +197,7 @@ namespace Renderite2D_Game_Engine.Scripts
             return (null, null);
         }
 
-        public static (bool success, string buildMessages) BuildSolution(bool isDebug)
+        public static (bool success, string buildMessages) BuildProject(bool isDebug)
         {
             if (IsBuilding) return (false, "Project is already being built");
 
