@@ -90,7 +90,8 @@ namespace Renderite2D_Project.Renderite2D
             {
                 Debug.Error(
                     "[Message] " + ex.Message + "\n" +
-                    "[Source] " + ex.Source + "\n\n"
+                    "[Source] " + ex.Source + "\n" +
+                    "[Stack Trace]\n" + ex.StackTrace + "\n\n"
                     );
             }
         }
@@ -125,7 +126,8 @@ namespace Renderite2D_Project.Renderite2D
             {
                 Debug.Error(
                     "[Message] " + ex.Message + "\n" +
-                    "[Source] " + ex.Source + "\n\n"
+                    "[Source] " + ex.Source + "\n" +
+                    "[Stack Trace]\n" + ex.StackTrace + "\n\n"
                     );
             }
         }
@@ -173,7 +175,8 @@ namespace Renderite2D_Project.Renderite2D
             {
                 Debug.Error(
                     "[Message] " + ex.Message + "\n" +
-                    "[Source] " + ex.Source + "\n\n"
+                    "[Source] " + ex.Source + "\n" +
+                    "[Stack Trace]\n" + ex.StackTrace + "\n\n"
                     );
             }
         }
@@ -200,7 +203,8 @@ namespace Renderite2D_Project.Renderite2D
             {
                 Debug.Error(
                     "[Message] " + ex.Message + "\n" +
-                    "[Source] " + ex.Source + "\n\n"
+                    "[Source] " + ex.Source + "\n" +
+                    "[Stack Trace]\n" + ex.StackTrace + "\n\n"
                     );
             }
         }
