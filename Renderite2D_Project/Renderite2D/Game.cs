@@ -89,7 +89,7 @@ namespace Renderite2D_Project.Renderite2D
             catch (Exception ex)
             {
                 Debug.Error(
-                    "[Message] " + ex.Message + "\n\n" +
+                    "[Message] " + ex.Message + "\n" +
                     "[Source] " + ex.Source + "\n\n"
                     );
             }
@@ -124,7 +124,7 @@ namespace Renderite2D_Project.Renderite2D
             catch (Exception ex)
             {
                 Debug.Error(
-                    "[Message] " + ex.Message + "\n\n" +
+                    "[Message] " + ex.Message + "\n" +
                     "[Source] " + ex.Source + "\n\n"
                     );
             }
@@ -172,7 +172,7 @@ namespace Renderite2D_Project.Renderite2D
             catch (Exception ex)
             {
                 Debug.Error(
-                    "[Message] " + ex.Message + "\n\n" +
+                    "[Message] " + ex.Message + "\n" +
                     "[Source] " + ex.Source + "\n\n"
                     );
             }
@@ -199,7 +199,7 @@ namespace Renderite2D_Project.Renderite2D
             catch (Exception ex)
             {
                 Debug.Error(
-                    "[Message] " + ex.Message + "\n\n" +
+                    "[Message] " + ex.Message + "\n" +
                     "[Source] " + ex.Source + "\n\n"
                     );
             }
