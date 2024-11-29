@@ -1,14 +1,13 @@
-﻿using Microsoft.CSharp;
+﻿using Microsoft.Build.Locator;
+using Microsoft.CSharp;
 using Newtonsoft.Json;
 using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Renderite2D_Game_Engine.Scripts
 {
@@ -17,6 +16,14 @@ namespace Renderite2D_Game_Engine.Scripts
         public static bool IsBuilding { get; private set; }
 
         public static readonly string levelPreName = "_Lvl_";
+        public static readonly string msBuildPath;
+
+        static CodeBuilder()
+        {
+            MSBuildLocator.RegisterDefaults();
+
+            msBuildPath = MSBuildLocator.QueryVisualStudioInstances().First().MSBuildPath;
+        }
 
         public static bool StartsWithLevelPreName(string str)
         {
@@ -199,6 +206,7 @@ namespace Renderite2D_Game_Engine.Scripts
             string sourcePath = "Engine Resources\\Renderite2D Solution";
             string targetPath = ProjectManager.BuildPath + '\\' + (isDebug ? "Debug" : "Release");
             string projectDirPath = targetPath + "\\Renderite2D_Project\\";
+            string slnPath = targetPath + "\\Renderite2D_Project.sln";
             string csprojPath = projectDirPath + "Renderite2D_Project.csproj";
             string gameConfigPath = projectDirPath + "Renderite2D\\GameConfig.cs";
 
@@ -353,9 +361,52 @@ namespace Renderite2D_Game_Engine.Scripts
                 return (false, "Failed to generate level codes!\n\n" + ex.Message);
             }
 
+            string[] args = 
+            { 
+                "-t:restore \"" + csprojPath.Replace('/', '\\') + "\"",
+                "\"" + slnPath.Replace('/', '\\') + "\" /t:Renderite2D_Project /p:Configuration=\"" + (isDebug ? "Debug" : "Release") + "\" /p:Platform=\"Any CPU\" /p:BuildProjectReferences=false",
+            };
+
+
+            if (!File.Exists(msBuildPath + "\\MsBuild.exe"))
+            {
+                pwBuild.Close();
+                IsBuilding = false;
+                return (false, "Could not finish building: MSBuild not found.");
+            }
+
+            List<bool> successExecutionList = new();
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                Process process = new()
+                {
+                    StartInfo = new()
+                    {
+                        FileName = msBuildPath + "\\MsBuild.exe",
+                        CreateNoWindow = true,
+                        Arguments = args[i],
+                    }
+                };
+
+                process.Start();
+                pwBuild.Refresh();
+                process.WaitForExit();
+                successExecutionList.Add(process.ExitCode == 0);
+                pwBuild.Refresh();
+            }
+
+            bool isBuildSuccessful = true;
+            for (int i = 0; i < successExecutionList.Count; i++)
+            {
+                pwBuild.Refresh();
+                if (!successExecutionList[i])
+                    isBuildSuccessful = false;
+            }
+
             pwBuild.Close();
             IsBuilding = false;
-            return (true, "Build Successful!");
+            return (isBuildSuccessful, isBuildSuccessful ? "Build Complete!" : "Failed to build binaries!");
         }
     }
 }
