@@ -1364,7 +1364,7 @@ namespace Renderite2D_Game_Engine
 
         private void exportSolutionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new();
+            FolderBrowserDialog fbd = new() { Description = "Select folder to put your generated Solution Project..." };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 if (!Directory.Exists(fbd.SelectedPath)) return;
@@ -1397,7 +1397,7 @@ namespace Renderite2D_Game_Engine
 
         private void exportGameToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new();
+            FolderBrowserDialog fbd = new() { Description = "Select folder to put your game build..." };
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 if (!Directory.Exists(fbd.SelectedPath)) return;
