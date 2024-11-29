@@ -820,6 +820,7 @@
             this.exportGameToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.exportGameToolStripMenuItem1.Size = new System.Drawing.Size(241, 22);
             this.exportGameToolStripMenuItem1.Text = "Export Game";
+            this.exportGameToolStripMenuItem1.Click += new System.EventHandler(this.exportGameToolStripMenuItem1_Click);
             // 
             // exportSolutionToolStripMenuItem
             // 
