@@ -197,7 +197,7 @@ namespace Renderite2D_Game_Engine.Scripts
             return (null, null);
         }
 
-        public static (bool success, string buildMessages, string exePath) BuildProject(bool isDebug)
+        public static (bool success, string buildMessages, string exePath) BuildProject(bool isDebug, bool buildExe = true)
         {
             if (IsBuilding) return (false, "Project is already being built", null);
 
@@ -367,47 +367,52 @@ namespace Renderite2D_Game_Engine.Scripts
                 "\"" + slnPath.Replace('/', '\\') + "\" /t:Renderite2D_Project /p:Configuration=\"" + (isDebug ? "Debug" : "Release") + "\" /p:Platform=\"Any CPU\" /p:BuildProjectReferences=false",
             };
 
-
-            if (!File.Exists(msBuildPath + "\\MsBuild.exe"))
+            if (buildExe)
             {
+                if (!File.Exists(msBuildPath + "\\MsBuild.exe"))
+                {
+                    pwBuild.Close();
+                    IsBuilding = false;
+                    return (false, "Could not finish building: MSBuild not found.", null);
+                }
+
+                List<bool> successExecutionList = new();
+
+                for (int i = 0; i < args.Length; i++)
+                {
+                    Process process = new()
+                    {
+                        StartInfo = new()
+                        {
+                            FileName = msBuildPath + "\\MsBuild.exe",
+                            CreateNoWindow = true,
+                            Arguments = args[i],
+                        }
+                    };
+
+                    process.Start();
+                    pwBuild.Refresh();
+                    process.WaitForExit();
+                    successExecutionList.Add(process.ExitCode == 0);
+                    pwBuild.Refresh();
+                }
+
+                bool isBuildSuccessful = true;
+                for (int i = 0; i < successExecutionList.Count; i++)
+                {
+                    pwBuild.Refresh();
+                    if (!successExecutionList[i])
+                        isBuildSuccessful = false;
+                }
+
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Could not finish building: MSBuild not found.", null);
+                return (isBuildSuccessful, isBuildSuccessful ? "Build Complete!" : "Failed to build binaries!",
+                    isBuildSuccessful ? (projectDirPath + "bin\\" + (isDebug ? "Debug" : "Release") + "\\net6.0-windows10.0.22621.0\\Renderite2D_Project.exe") : null);
             }
-
-            List<bool> successExecutionList = new();
-
-            for (int i = 0; i < args.Length; i++)
-            {
-                Process process = new()
-                {
-                    StartInfo = new()
-                    {
-                        FileName = msBuildPath + "\\MsBuild.exe",
-                        CreateNoWindow = true,
-                        Arguments = args[i],
-                    }
-                };
-
-                process.Start();
-                pwBuild.Refresh();
-                process.WaitForExit();
-                successExecutionList.Add(process.ExitCode == 0);
-                pwBuild.Refresh();
-            }
-
-            bool isBuildSuccessful = true;
-            for (int i = 0; i < successExecutionList.Count; i++)
-            {
-                pwBuild.Refresh();
-                if (!successExecutionList[i])
-                    isBuildSuccessful = false;
-            }
-
             pwBuild.Close();
             IsBuilding = false;
-            return (isBuildSuccessful, isBuildSuccessful ? "Build Complete!" : "Failed to build binaries!", 
-                isBuildSuccessful ? (projectDirPath + "bin\\" + (isDebug ? "Debug" : "Release") + "\\net6.0-windows10.0.22621.0\\Renderite2D_Project.exe") : null);
+            return (true, "Build Complete!", null);
         }
     }
 }
