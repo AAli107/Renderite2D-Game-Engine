@@ -46,107 +46,136 @@ namespace Renderite2D_Project.Renderite2D
 
         protected override void OnLoad()
         {
-            var config = new GameConfig();
+            try
+            {
+                var config = new GameConfig();
 
-            targetFrametime = 1 / (config.fixedUpdateFrequency <= 0 ? double.Epsilon : config.fixedUpdateFrequency);
+                targetFrametime = 1 / (config.fixedUpdateFrequency <= 0 ? double.Epsilon : config.fixedUpdateFrequency);
 
-            base.OnLoad();
-            ClientSize = config.clientResolution;
-            AspectRatio = (16, 9);
-            CenterWindow();
-            WindowBorder = config.windowBorder;
-            WindowState = config.windowState;
-            Title = config.windowTitle;
-            VSync = config.vSyncEnabled;
-            drawColliders = config.drawColliders;
-            AllowAltEnter = config.allowAltEnter;
+                base.OnLoad();
+                ClientSize = config.clientResolution;
+                AspectRatio = (16, 9);
+                CenterWindow();
+                WindowBorder = config.windowBorder;
+                WindowState = config.windowState;
+                Title = config.windowTitle;
+                VSync = config.vSyncEnabled;
+                drawColliders = config.drawColliders;
+                AllowAltEnter = config.allowAltEnter;
 
-            for (int i = 0; i < drawLayers.Length; i++)
-                drawLayers[i] = new();
+                for (int i = 0; i < drawLayers.Length; i++)
+                    drawLayers[i] = new();
 
-            // Clears window before it starts
-            GL.ClearColor(Color.Black);
-            SwapBuffers();
+                // Clears window before it starts
+                GL.ClearColor(Color.Black);
+                SwapBuffers();
 
-            shader = new("Assets/Engine Assets/vertexShader.vert", "Assets/Engine Assets/fragmentShader.frag");
-            gfx = new();
+                shader = new("Assets/Engine Assets/vertexShader.vert", "Assets/Engine Assets/fragmentShader.frag");
+                gfx = new();
 
-            GL.UseProgram(shader.shaderHandle);
-            GL.BindVertexArray(shader.vertArrayObj);
-            GL.EnableVertexAttribArray(0);
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, 0);
-            GL.EnableVertexAttribArray(1);
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, sizeof(float) * 2);
+                GL.UseProgram(shader.shaderHandle);
+                GL.BindVertexArray(shader.vertArrayObj);
+                GL.EnableVertexAttribArray(0);
+                GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, 0);
+                GL.EnableVertexAttribArray(1);
+                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, sizeof(float) * 2);
 
-            // Adds support for transparency for textures
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+                // Adds support for transparency for textures
+                GL.Enable(EnableCap.Blend);
+                GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            LoadLevel(config.startingLevel);
+                LoadLevel(config.startingLevel);
+            }
+            catch (Exception ex)
+            {
+                Debug.Error(
+                    "[Message] " + ex.Message + "\n\n" +
+                    "[Source] " + ex.Source + "\n\n"
+                    );
+            }
         }
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
-
-            if (AllowAltEnter && Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
+            try 
             {
-                Program.GameWindow.WindowState = Program.GameWindow.WindowState == WindowState.Fullscreen ?
-                    WindowState.Normal : WindowState.Fullscreen;
-            }
-
-            if (timeScale > 0)
-            {
-                fixedUpdateAccumulatedTime += UpdateTime;
-                while (fixedUpdateAccumulatedTime >= targetFrametime / timeScale)
+                if (AllowAltEnter && Input.IsKeyDown(Keys.LeftAlt) && Input.IsKeyPressed(Keys.Enter))
                 {
-                    runningLevel.UpdateRunningLevel();
-                    currentLevel?.FixedUpdate();
-                    fixedUpdateAccumulatedTime -= targetFrametime / timeScale;
+                    Program.GameWindow.WindowState = Program.GameWindow.WindowState == WindowState.Fullscreen ?
+                        WindowState.Normal : WindowState.Fullscreen;
                 }
-            }
-            runningLevel.PerFrameUpdate();
-            currentLevel?.Update();
 
-            timeSinceStart += UpdateTime;
+                if (timeScale > 0)
+                {
+                    fixedUpdateAccumulatedTime += UpdateTime;
+                    while (fixedUpdateAccumulatedTime >= targetFrametime / timeScale)
+                    {
+                        runningLevel.UpdateRunningLevel();
+                        currentLevel?.FixedUpdate();
+                        fixedUpdateAccumulatedTime -= targetFrametime / timeScale;
+                    }
+                }
+                runningLevel.PerFrameUpdate();
+                currentLevel?.Update();
+
+                timeSinceStart += UpdateTime;
+            }
+            catch (Exception ex)
+            {
+                Debug.Error(
+                    "[Message] " + ex.Message + "\n\n" +
+                    "[Source] " + ex.Source + "\n\n"
+                    );
+            }
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
-            // Pre-rendering setup
-            base.OnRenderFrame(args);
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-
-            currentLevel?.Draw(gfx);
-
-            for (int i = 0; i < drawLayers.Length; i++)
+            try
             {
-                for (int j = 0; j < drawLayers[i].Count; j++)
-                    drawLayers[i][j].Draw();
-                drawLayers[i].Clear();
-            }
+                // Pre-rendering setup
+                base.OnRenderFrame(args);
+                GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            if (drawColliders)
-            {
-                GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
-                runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
-                foreach (GameObject obj in _gameObjects)
+                currentLevel?.Draw(gfx);
+
+                for (int i = 0; i < drawLayers.Length; i++)
                 {
-                    if (!obj.IsEnabled) continue;
+                    for (int j = 0; j < drawLayers[i].Count; j++)
+                        drawLayers[i][j].Draw();
+                    drawLayers[i].Clear();
+                }
 
-                    foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                if (drawColliders)
+                {
+                    GameObject[] _gameObjects = new GameObject[runningLevel.gameObjects.Count];
+                    runningLevel.gameObjects.Values.CopyTo(_gameObjects, 0);
+                    foreach (GameObject obj in _gameObjects)
                     {
-                        if (!cc.IsEnabled) continue;
+                        if (!obj.IsEnabled) continue;
 
-                        var hb = cc.GetHitbox();
-                        gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
+                        foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                        {
+                            if (!cc.IsEnabled) continue;
+
+                            var hb = cc.GetHitbox();
+                            gfx.DrawRectOutline(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue);
+                        }
                     }
                 }
-            }
 
-            // Post-Rendering Clear and swap buffer with background color
-            GL.ClearColor(currentLevel != null ? currentLevel.BackgroundColor : Color.Black);
-            SwapBuffers();
+                // Post-Rendering Clear and swap buffer with background color
+                GL.ClearColor(currentLevel != null ? currentLevel.BackgroundColor : Color.Black);
+                SwapBuffers();
+            }
+            catch (Exception ex)
+            {
+                Debug.Error(
+                    "[Message] " + ex.Message + "\n\n" +
+                    "[Source] " + ex.Source + "\n\n"
+                    );
+            }
         }
 
         protected override void OnUnload()
@@ -160,10 +189,20 @@ namespace Renderite2D_Project.Renderite2D
 
         protected override void OnResize(ResizeEventArgs e)
         {
-            base.OnResize(e);
+            try
+            {
+                base.OnResize(e);
 
-            // Will fix the game's viewport whenever the window resizes
-            GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+                // Will fix the game's viewport whenever the window resizes
+                GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+            }
+            catch (Exception ex)
+            {
+                Debug.Error(
+                    "[Message] " + ex.Message + "\n\n" +
+                    "[Source] " + ex.Source + "\n\n"
+                    );
+            }
         }
 
         private void DrawShape_(DrawType drawType, object[] parameters, byte layer = 0)
@@ -181,6 +220,48 @@ namespace Renderite2D_Project.Renderite2D
             private static readonly Game win = Program.GameWindow;
 
             public static bool DrawColliders { get { return win.drawColliders; } set => win.drawColliders = value; }
+
+            public static void Log(object message)
+            {
+                try
+                {
+                    Console.WriteLine(message.ToString());
+                }
+                catch { }
+            }
+
+            public static void Warning(object message)
+            {
+                try
+                {
+                    ConsoleColor c = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine(message.ToString());
+                    Console.ForegroundColor = c;
+                }
+                catch { }
+            }
+
+            public static void Error(object message)
+            {
+                try
+                {
+                    ConsoleColor c = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(message.ToString());
+                    Console.ForegroundColor = c;
+                }
+                catch { }
+            }
+
+            public static void Clear()
+            {
+                try
+                {
+                    Console.Clear();
+                }
+                catch { }
+            }
         }
 
         public class DrawInstance
