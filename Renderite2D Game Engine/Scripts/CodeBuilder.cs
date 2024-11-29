@@ -197,7 +197,7 @@ namespace Renderite2D_Game_Engine.Scripts
             return (null, null);
         }
 
-        public static (bool success, string buildMessages, string exePath) BuildProject(bool isDebug, bool buildExe = true)
+        public static (bool success, string buildMessages, string outPath) BuildProject(bool isDebug, bool buildExe = true)
         {
             if (IsBuilding) return (false, "Project is already being built", null);
 
@@ -412,7 +412,7 @@ namespace Renderite2D_Game_Engine.Scripts
             }
             pwBuild.Close();
             IsBuilding = false;
-            return (true, "Build Complete!", null);
+            return (true, "Build Complete!", targetPath);
         }
     }
 }
