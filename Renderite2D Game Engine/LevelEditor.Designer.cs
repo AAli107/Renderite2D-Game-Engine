@@ -818,7 +818,7 @@
             this.exportGameToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.exportGameToolStripMenuItem1.Name = "exportGameToolStripMenuItem1";
             this.exportGameToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exportGameToolStripMenuItem1.Size = new System.Drawing.Size(227, 22);
+            this.exportGameToolStripMenuItem1.Size = new System.Drawing.Size(241, 22);
             this.exportGameToolStripMenuItem1.Text = "Export Game";
             // 
             // exportSolutionToolStripMenuItem
@@ -828,8 +828,9 @@
             this.exportSolutionToolStripMenuItem.Name = "exportSolutionToolStripMenuItem";
             this.exportSolutionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.E)));
-            this.exportSolutionToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.exportSolutionToolStripMenuItem.Text = "Export Solution";
+            this.exportSolutionToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.exportSolutionToolStripMenuItem.Text = "Export as Solution";
+            this.exportSolutionToolStripMenuItem.Click += new System.EventHandler(this.exportSolutionToolStripMenuItem_Click);
             // 
             // closeProjectToolStripMenuItem
             // 

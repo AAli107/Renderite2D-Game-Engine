@@ -1361,6 +1361,39 @@ namespace Renderite2D_Game_Engine
                     });
             }
         }
+
+        private void exportSolutionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new();
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                if (!Directory.Exists(fbd.SelectedPath)) return;
+
+                string targetPath = Path.Combine(fbd.SelectedPath, "Solution Folder");
+
+                var (success, buildMessages, sourcePath) = CodeBuilder.BuildProject(false, false);
+                if (success)
+                {
+                    if (Directory.Exists(sourcePath))
+                    {
+                        if (Directory.Exists(targetPath))
+                            Directory.Delete(targetPath, true);
+
+                        Directory.CreateDirectory(targetPath);
+
+                        foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", System.IO.SearchOption.AllDirectories))
+                            Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+
+                        foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", System.IO.SearchOption.AllDirectories))
+                            File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                    }
+                    else MessageBox.Show("Failed to Export Solution", "Failed!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else MessageBox.Show(buildMessages, "Failed!",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
     public enum UserInteraction
