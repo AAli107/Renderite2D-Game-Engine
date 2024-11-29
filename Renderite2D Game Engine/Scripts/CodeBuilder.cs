@@ -197,9 +197,9 @@ namespace Renderite2D_Game_Engine.Scripts
             return (null, null);
         }
 
-        public static (bool success, string buildMessages) BuildProject(bool isDebug)
+        public static (bool success, string buildMessages, string exePath) BuildProject(bool isDebug)
         {
-            if (IsBuilding) return (false, "Project is already being built");
+            if (IsBuilding) return (false, "Project is already being built", null);
 
             IsBuilding = true;
 
@@ -210,8 +210,8 @@ namespace Renderite2D_Game_Engine.Scripts
             string csprojPath = projectDirPath + "Renderite2D_Project.csproj";
             string gameConfigPath = projectDirPath + "Renderite2D\\GameConfig.cs";
 
-            if (!ProjectManager.IsProjectOpen) return (false, "Project is not open!");
-            if (!Directory.Exists(sourcePath)) return (false, "Solution Template does not exist!");
+            if (!ProjectManager.IsProjectOpen) return (false, "Project is not open!", null);
+            if (!Directory.Exists(sourcePath)) return (false, "Solution Template does not exist!", null);
 
             ProjectManager.SaveProjectFiles();
 
@@ -241,7 +241,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Failed to copy solution template!\n\n" + ex.Message);
+                return (false, "Failed to copy solution template!\n\n" + ex.Message, null);
             }
 
             try
@@ -253,7 +253,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Failed to setup '.csproj' configs!\n\n" + ex.Message);
+                return (false, "Failed to setup '.csproj' configs!\n\n" + ex.Message, null);
             }
 
             try
@@ -265,7 +265,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Failed to insert project configs!\n\n" + ex.Message);
+                return (false, "Failed to insert project configs!\n\n" + ex.Message, null);
             }
 
             try
@@ -297,7 +297,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Failed to copy Assets!\n\n" + ex.Message);
+                return (false, "Failed to copy Assets!\n\n" + ex.Message, null);
             }
 
             try 
@@ -320,7 +320,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Failed to copy script files\n\n" + ex.Message);
+                return (false, "Failed to copy script files\n\n" + ex.Message, null);
             }
 
             try 
@@ -349,7 +349,7 @@ namespace Renderite2D_Game_Engine.Scripts
                         {
                             pwBuild.Close();
                             IsBuilding = false;
-                            return (false, "Failed to generate level code for level: '" + levelName + ".rdlvl'\n\n" + ex.Message);
+                            return (false, "Failed to generate level code for level: '" + levelName + ".rdlvl'\n\n" + ex.Message, null);
                         }
                     }
                 }
@@ -358,7 +358,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Failed to generate level codes!\n\n" + ex.Message);
+                return (false, "Failed to generate level codes!\n\n" + ex.Message, null);
             }
 
             string[] args = 
@@ -372,7 +372,7 @@ namespace Renderite2D_Game_Engine.Scripts
             {
                 pwBuild.Close();
                 IsBuilding = false;
-                return (false, "Could not finish building: MSBuild not found.");
+                return (false, "Could not finish building: MSBuild not found.", null);
             }
 
             List<bool> successExecutionList = new();
@@ -406,7 +406,8 @@ namespace Renderite2D_Game_Engine.Scripts
 
             pwBuild.Close();
             IsBuilding = false;
-            return (isBuildSuccessful, isBuildSuccessful ? "Build Complete!" : "Failed to build binaries!");
+            return (isBuildSuccessful, isBuildSuccessful ? "Build Complete!" : "Failed to build binaries!", 
+                isBuildSuccessful ? (projectDirPath + "bin\\" + (isDebug ? "Debug" : "Release") + "\\net6.0-windows10.0.22621.0\\Renderite2D_Project.exe") : null);
         }
     }
 }
