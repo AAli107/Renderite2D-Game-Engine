@@ -133,7 +133,7 @@ namespace Renderite2D_Game_Engine
         {
             if (CreateClickCondition())
             {
-                ProgressWindow pw = new ProgressWindow();
+                var pw = new ProgressWindow() { Text = "Creating Project..." };
                 pw.UpdateEvent += Pw_UpdateEvent;
                 DialogResult dr = pw.ShowDialog(this);
                 pw.UpdateEvent -= Pw_UpdateEvent;

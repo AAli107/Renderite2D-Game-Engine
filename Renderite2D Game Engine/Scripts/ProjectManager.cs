@@ -136,7 +136,7 @@ namespace Renderite2D_Game_Engine.Scripts
         {
             if (IsProjectOpen)
             {
-                ProgressWindow pwSave = new();
+                ProgressWindow pwSave = new() { Text = "Saving Project..." };
                 pwSave.Show(win);
                 pwSave.Refresh();
                 try {
@@ -204,7 +204,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 {
                     if (LoadProject(openFileDialog.FileName).success)
                     {
-                        ProgressWindow pwOpen = new();
+                        ProgressWindow pwOpen = new() { Text = "Opening Project..." };
                         pwOpen.UpdateEvent += PwOpen_UpdateEvent;
                         DialogResult dr = pwOpen.ShowDialog(parentWindow);
                         pwOpen.UpdateEvent -= PwOpen_UpdateEvent;

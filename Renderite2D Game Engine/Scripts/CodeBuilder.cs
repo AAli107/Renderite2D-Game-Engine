@@ -215,7 +215,7 @@ namespace Renderite2D_Game_Engine.Scripts
 
             ProjectManager.SaveProjectFiles();
 
-            var pwBuild = new ProgressWindow();
+            var pwBuild = new ProgressWindow() { Text = "Building..." };
             pwBuild.Show();
 
             try
