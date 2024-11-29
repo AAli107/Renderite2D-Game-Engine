@@ -675,10 +675,7 @@ namespace Renderite2D_Game_Engine
         private void levelViewport_panel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle)
-            {
                 userInteraction = UserInteraction.Moving;
-                Console.Beep(1500, 10);
-            } 
             else gameObject_listBox.SelectedIndex = -1;
         }
 
@@ -686,8 +683,6 @@ namespace Renderite2D_Game_Engine
         {
             if (userInteraction == UserInteraction.Moving)
                 userInteraction = UserInteraction.None;
-            if (e.Button == MouseButtons.Middle)
-                Console.Beep(1000, 10);
         }
 
         private void levelViewport_panel_MouseMove(object sender, MouseEventArgs e)
