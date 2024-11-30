@@ -1,4 +1,5 @@
-﻿using Renderite2D_Game_Engine.Scripts.Data;
+﻿using Renderite2D_Game_Engine.Scripts;
+using Renderite2D_Game_Engine.Scripts.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,14 @@ namespace Renderite2D_Game_Engine
 
         public override int GetHeight()
         {
-            return 185;
+            return 198;
+        }
+
+        bool IsValidName()
+        {
+            return
+                CodeBuilder.IsValidIdentifier(textBox1.Text.Trim()) &&
+                !CodeBuilder.StartsWithLevelPreName(textBox1.Text.Trim());
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -37,23 +45,15 @@ namespace Renderite2D_Game_Engine
             if (textBox1.Text.Contains(" "))
                 textBox1.Text = textBox1.Text.Replace(" ", "").Trim();
 
-            bool characterCheck = true;
-            if (textBox1.Text.Length > 1)
+            if (textBox1.Text.Length == 0 || (IsValidName() && textBox1.Text != "ScriptComponent" && textBox1.Text != "Component"))
             {
-                for (int i = 1; i < textBox1.Text.Length; i++)
-                {
-                    if (!char.IsLetterOrDigit(textBox1.Text[i]))
-                    {
-                        characterCheck = false;
-                        break;
-                    }
-                }
+                SetComponentValue("ScriptClass", textBox1.Text);
+                textBox1.ForeColor = Color.Black;
             }
-
-            if (textBox1.Text.Length == 0 || 
-                ((char.IsLetter(textBox1.Text[0]) || textBox1.Text[0] == '_' || textBox1.Text[0] == '@') && characterCheck && 
-                textBox1.Text != "ScriptComponent")) 
-                    SetComponentValue("ScriptClass", textBox1.Text);
+            else
+            {
+                textBox1.ForeColor = Color.Red;
+            }
         }
     }
 }

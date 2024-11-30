@@ -39,7 +39,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Size = new System.Drawing.Size(234, 126);
+            this.panel1.Size = new System.Drawing.Size(234, 139);
             // 
             // componentName_label
             // 
@@ -70,17 +70,17 @@
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Location = new System.Drawing.Point(3, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(228, 43);
+            this.label1.Size = new System.Drawing.Size(228, 65);
             this.label1.TabIndex = 9;
-            this.label1.Text = "Important Information :\r\n- Class must extend from ScriptComponent.\r\n- Be sure to " +
-    "check your spelling.\r\n";
+            this.label1.Text = "Important Information :\r\n- Must extend Component class.\r\n- Class must not be abst" +
+    "ract.\r\n- Be sure to check your spelling.\r\n";
             this.label1.UseCompatibleTextRendering = true;
             // 
             // ScriptComponentProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.Name = "ScriptComponentProperties";
-            this.Size = new System.Drawing.Size(238, 185);
+            this.Size = new System.Drawing.Size(238, 198);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
