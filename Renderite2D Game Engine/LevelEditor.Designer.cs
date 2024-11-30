@@ -51,6 +51,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.currentAssetPath_menuStrip = new System.Windows.Forms.MenuStrip();
             this.properties_panel = new System.Windows.Forms.Panel();
+            this.gameObjectType_comboBox = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.menuStrip3 = new System.Windows.Forms.MenuStrip();
             this.addComponent_toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -381,6 +382,7 @@
             this.properties_panel.AutoScroll = true;
             this.properties_panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.properties_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.properties_panel.Controls.Add(this.gameObjectType_comboBox);
             this.properties_panel.Controls.Add(this.panel3);
             this.properties_panel.Controls.Add(this.gameObjectIsEnabled_checkbox);
             this.properties_panel.Controls.Add(this.gameObjectName_label);
@@ -390,6 +392,22 @@
             this.properties_panel.Size = new System.Drawing.Size(270, 389);
             this.properties_panel.TabIndex = 2;
             this.properties_panel.Resize += new System.EventHandler(this.properties_panel_Resize);
+            // 
+            // gameObjectType_comboBox
+            // 
+            this.gameObjectType_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.gameObjectType_comboBox.DropDownWidth = 128;
+            this.gameObjectType_comboBox.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameObjectType_comboBox.FormattingEnabled = true;
+            this.gameObjectType_comboBox.Items.AddRange(new object[] {
+            "GameObject",
+            "TopDownCharacter",
+            "SideScrollerCharacter"});
+            this.gameObjectType_comboBox.Location = new System.Drawing.Point(125, 9);
+            this.gameObjectType_comboBox.Name = "gameObjectType_comboBox";
+            this.gameObjectType_comboBox.Size = new System.Drawing.Size(72, 22);
+            this.gameObjectType_comboBox.TabIndex = 4;
+            this.gameObjectType_comboBox.SelectedIndexChanged += new System.EventHandler(this.gameObjectType_comboBox_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -735,20 +753,21 @@
             this.gameObjectIsEnabled_checkbox.Checked = true;
             this.gameObjectIsEnabled_checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gameObjectIsEnabled_checkbox.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameObjectIsEnabled_checkbox.Location = new System.Drawing.Point(193, 11);
+            this.gameObjectIsEnabled_checkbox.Location = new System.Drawing.Point(200, 11);
+            this.gameObjectIsEnabled_checkbox.Margin = new System.Windows.Forms.Padding(0);
             this.gameObjectIsEnabled_checkbox.Name = "gameObjectIsEnabled_checkbox";
-            this.gameObjectIsEnabled_checkbox.Size = new System.Drawing.Size(74, 18);
+            this.gameObjectIsEnabled_checkbox.Size = new System.Drawing.Size(71, 18);
             this.gameObjectIsEnabled_checkbox.TabIndex = 2;
-            this.gameObjectIsEnabled_checkbox.Text = "IsEnabled";
+            this.gameObjectIsEnabled_checkbox.Text = "Enabled?";
             this.gameObjectIsEnabled_checkbox.UseVisualStyleBackColor = true;
             this.gameObjectIsEnabled_checkbox.CheckedChanged += new System.EventHandler(this.gameObjectIsEnabled_checkbox_CheckedChanged);
             // 
             // gameObjectName_label
             // 
-            this.gameObjectName_label.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameObjectName_label.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameObjectName_label.Location = new System.Drawing.Point(4, 9);
             this.gameObjectName_label.Name = "gameObjectName_label";
-            this.gameObjectName_label.Size = new System.Drawing.Size(183, 23);
+            this.gameObjectName_label.Size = new System.Drawing.Size(115, 20);
             this.gameObjectName_label.TabIndex = 0;
             this.gameObjectName_label.Text = "Game Object Name";
             this.gameObjectName_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1101,5 +1120,6 @@
         private System.Windows.Forms.ToolStripMenuItem topdownCharacterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sideScrollerCharacterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportAsBackupToolStripMenuItem;
+        private System.Windows.Forms.ComboBox gameObjectType_comboBox;
     }
 }

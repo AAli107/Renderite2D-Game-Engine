@@ -732,6 +732,7 @@ namespace Renderite2D_Game_Engine
             {
                 var selectedObj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
                 gameObjectName_label.Text = (string)gameObject_listBox.SelectedItem;
+                gameObjectType_comboBox.SelectedItem = selectedObj.objectType;
                 gameObjectIsEnabled_checkbox.CheckState = selectedObj.isEnabled ? CheckState.Checked : CheckState.Unchecked;
                 posX_num.Value = (decimal)selectedObj.x;
                 posY_num.Value = (decimal)selectedObj.y;
@@ -1441,6 +1442,16 @@ namespace Renderite2D_Game_Engine
             {
                 ProjectManager.SaveProjectFiles(this);
                 ZipFile.CreateFromDirectory(Path.GetDirectoryName(ProjectManager.ProjectPath), fd.FileName, CompressionLevel.Optimal, true);
+            }
+        }
+
+        private void gameObjectType_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IsValidSelection() && gameObjectType_comboBox.SelectedIndex != -1)
+            {
+                var selectedObj = ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem];
+                selectedObj.objectType = gameObjectType_comboBox.SelectedItem.ToString();
+                ProjectManager.CurrentLevelData.gameObjects[(string)gameObject_listBox.SelectedItem] = selectedObj;
             }
         }
     }
