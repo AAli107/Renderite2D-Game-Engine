@@ -104,6 +104,7 @@
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.exportAsBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelViewport_panel.SuspendLayout();
             this.viewportGUI_panel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -806,7 +807,8 @@
             this.exportGameToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
             this.exportGameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportGameToolStripMenuItem1,
-            this.exportSolutionToolStripMenuItem});
+            this.exportSolutionToolStripMenuItem,
+            this.exportAsBackupToolStripMenuItem});
             this.exportGameToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.exportGameToolStripMenuItem.Name = "exportGameToolStripMenuItem";
             this.exportGameToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
@@ -967,6 +969,17 @@
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip";
             // 
+            // exportAsBackupToolStripMenuItem
+            // 
+            this.exportAsBackupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.exportAsBackupToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.exportAsBackupToolStripMenuItem.Name = "exportAsBackupToolStripMenuItem";
+            this.exportAsBackupToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.E)));
+            this.exportAsBackupToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.exportAsBackupToolStripMenuItem.Text = "Export as Backup";
+            this.exportAsBackupToolStripMenuItem.Click += new System.EventHandler(this.exportAsBackupToolStripMenuItem_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
@@ -1087,5 +1100,6 @@
         private System.Windows.Forms.ToolStripMenuItem emptyClassToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem topdownCharacterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sideScrollerCharacterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportAsBackupToolStripMenuItem;
     }
 }

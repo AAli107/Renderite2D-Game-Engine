@@ -10,6 +10,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -1431,6 +1432,16 @@ namespace Renderite2D_Game_Engine
         public void UpdateWinTitle()
         {
             Text = "Renderite2D Game Engine - " + ProjectManager.ProjectName + " - " + Path.GetFileName(ProjectManager.CurrentLevelPath);
+        }
+
+        private void exportAsBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fd = new() { Filter = "Archives Files|*.zip", FileName = "Backup.zip", };
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                ProjectManager.SaveProjectFiles(this);
+                ZipFile.CreateFromDirectory(Path.GetDirectoryName(ProjectManager.ProjectPath), fd.FileName, CompressionLevel.Optimal, true);
+            }
         }
     }
 
