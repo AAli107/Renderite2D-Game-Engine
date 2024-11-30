@@ -91,6 +91,7 @@
             this.exportGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportSolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAsBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +105,6 @@
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.exportAsBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.levelViewport_panel.SuspendLayout();
             this.viewportGUI_panel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -734,10 +734,10 @@
             this.gameObjectIsEnabled_checkbox.AutoSize = true;
             this.gameObjectIsEnabled_checkbox.Checked = true;
             this.gameObjectIsEnabled_checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.gameObjectIsEnabled_checkbox.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameObjectIsEnabled_checkbox.Location = new System.Drawing.Point(174, 9);
+            this.gameObjectIsEnabled_checkbox.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameObjectIsEnabled_checkbox.Location = new System.Drawing.Point(193, 11);
             this.gameObjectIsEnabled_checkbox.Name = "gameObjectIsEnabled_checkbox";
-            this.gameObjectIsEnabled_checkbox.Size = new System.Drawing.Size(93, 23);
+            this.gameObjectIsEnabled_checkbox.Size = new System.Drawing.Size(74, 18);
             this.gameObjectIsEnabled_checkbox.TabIndex = 2;
             this.gameObjectIsEnabled_checkbox.Text = "IsEnabled";
             this.gameObjectIsEnabled_checkbox.UseVisualStyleBackColor = true;
@@ -748,7 +748,7 @@
             this.gameObjectName_label.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameObjectName_label.Location = new System.Drawing.Point(4, 9);
             this.gameObjectName_label.Name = "gameObjectName_label";
-            this.gameObjectName_label.Size = new System.Drawing.Size(164, 23);
+            this.gameObjectName_label.Size = new System.Drawing.Size(183, 23);
             this.gameObjectName_label.TabIndex = 0;
             this.gameObjectName_label.Text = "Game Object Name";
             this.gameObjectName_label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -834,6 +834,17 @@
             this.exportSolutionToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.exportSolutionToolStripMenuItem.Text = "Export as Solution";
             this.exportSolutionToolStripMenuItem.Click += new System.EventHandler(this.exportSolutionToolStripMenuItem_Click);
+            // 
+            // exportAsBackupToolStripMenuItem
+            // 
+            this.exportAsBackupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
+            this.exportAsBackupToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.exportAsBackupToolStripMenuItem.Name = "exportAsBackupToolStripMenuItem";
+            this.exportAsBackupToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.E)));
+            this.exportAsBackupToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.exportAsBackupToolStripMenuItem.Text = "Export as Backup";
+            this.exportAsBackupToolStripMenuItem.Click += new System.EventHandler(this.exportAsBackupToolStripMenuItem_Click);
             // 
             // closeProjectToolStripMenuItem
             // 
@@ -968,17 +979,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip";
-            // 
-            // exportAsBackupToolStripMenuItem
-            // 
-            this.exportAsBackupToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(60)))));
-            this.exportAsBackupToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.exportAsBackupToolStripMenuItem.Name = "exportAsBackupToolStripMenuItem";
-            this.exportAsBackupToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.E)));
-            this.exportAsBackupToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.exportAsBackupToolStripMenuItem.Text = "Export as Backup";
-            this.exportAsBackupToolStripMenuItem.Click += new System.EventHandler(this.exportAsBackupToolStripMenuItem_Click);
             // 
             // LevelEditor
             // 
