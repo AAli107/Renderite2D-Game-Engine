@@ -66,7 +66,7 @@ namespace Renderite2D_Game_Engine.Scripts
             return name;
         }
 
-        public static string ProjectDataToGameConfigScript(Project projectData)
+        public static string ProjectDataToGameConfigScript(Project projectData, string startLevelName = null)
         {
             string configTemplateDir = "Engine Resources\\Script Templates\\GameConfigTemplate.cs";
             if (File.Exists(configTemplateDir))
@@ -86,7 +86,7 @@ namespace Renderite2D_Game_Engine.Scripts
                     _ => "WindowState.Normal",
                 };
                 script = script.Replace("__windowState__", winstate);
-                script = script.Replace("__startingLevel__", "new " + SanitizeClassName(levelPreName + Path.GetFileNameWithoutExtension(projectData.startingLevel)) + "()");
+                script = script.Replace("__startingLevel__", "new " + SanitizeClassName(levelPreName + Path.GetFileNameWithoutExtension(startLevelName != null ? startLevelName : projectData.startingLevel)) + "()");
                 script = script.Replace("__drawColliders__", projectData.drawColliders.ToString().ToLower());
                 script = script.Replace("__allowAltEnter__", projectData.allowAltEnter.ToString().ToLower());
                 return script;
@@ -197,7 +197,7 @@ namespace Renderite2D_Game_Engine.Scripts
             return (null, null);
         }
 
-        public static (bool success, string buildMessages, string outPath) BuildProject(bool isDebug, bool buildExe = true)
+        public static (bool success, string buildMessages, string outPath) BuildProject(bool isDebug, bool buildExe = true, string startLevelName = null)
         {
             if (IsBuilding) return (false, "Project is already being built", null);
 
@@ -259,7 +259,7 @@ namespace Renderite2D_Game_Engine.Scripts
             try
             {
                 if (File.Exists(gameConfigPath))
-                    File.WriteAllText(gameConfigPath, ProjectDataToGameConfigScript(ProjectManager.ProjectData));
+                    File.WriteAllText(gameConfigPath, ProjectDataToGameConfigScript(ProjectManager.ProjectData, startLevelName));
             }
             catch (Exception ex)
             {

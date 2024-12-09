@@ -1346,7 +1346,7 @@ namespace Renderite2D_Game_Engine
 
         private void runGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var (success, buildMessages, exePath) = CodeBuilder.BuildProject(true);
+            var (success, buildMessages, exePath) = CodeBuilder.BuildProject(true, true, ProjectManager.CurrentLevelPath);
 
             if (!success) MessageBox.Show(buildMessages, "Failed!",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
