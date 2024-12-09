@@ -890,8 +890,8 @@ namespace Renderite2D_Game_Engine
                     gameObjectName = gameObjectBaseName + "_" + index;
                 }
                 LevelObject obj = ClipboardObject.Value.obj;
-                obj.x = viewportPos.x;
-                obj.y = viewportPos.y;
+                obj.x = viewportPos.x * scaleVal;
+                obj.y = viewportPos.y * scaleVal;
                 AddGameObject(gameObjectName, obj);
                 UpdateViewport();
                 gameObject_listBox.SelectedIndex = gameObject_listBox.Items.IndexOf(gameObjectName);
