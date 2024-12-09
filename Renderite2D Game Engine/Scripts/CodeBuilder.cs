@@ -285,7 +285,7 @@ namespace Renderite2D_Game_Engine.Scripts
                 }
                 foreach (string newPath in Directory.GetFiles(assetSource, "*.*", SearchOption.AllDirectories))
                 {
-                    if (!LevelEditor.IsScriptFile(newPath))
+                    if (!LevelEditor.IsScriptFile(newPath) && !LevelEditor.IsLevelFile(newPath))
                     {
                         File.Copy(newPath, newPath.Replace(assetSource, destPath), true);
                         pwBuild.Refresh();
