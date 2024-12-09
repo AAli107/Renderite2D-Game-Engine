@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json;
 using Renderite2D_Game_Engine.Scripts;
 using Renderite2D_Game_Engine.Scripts.Data;
 using System;
@@ -871,7 +872,7 @@ namespace Renderite2D_Game_Engine
             if (IsValidSelection())
             {
                 var name = (string)gameObject_listBox.SelectedItem;
-                ClipboardObject = new (name, ProjectManager.CurrentLevelData.gameObjects[name]);
+                ClipboardObject = new (name, JsonConvert.DeserializeObject<LevelObject>(JsonConvert.SerializeObject(ProjectManager.CurrentLevelData.gameObjects[name])));
             }
         }
 
