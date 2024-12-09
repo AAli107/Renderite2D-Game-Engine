@@ -714,7 +714,7 @@ namespace Renderite2D_Game_Engine
                 index++;
                 gameObjectName = gameObjectBaseName + "_" + index;
             }
-            AddGameObject(gameObjectName, new LevelObject("GameObject", ViewportPos.x, ViewportPos.y, 1, 1, new()));
+            AddGameObject(gameObjectName, new LevelObject("GameObject", ViewportPos.x * scaleVal, ViewportPos.y * scaleVal, 1, 1, new()));
             UpdateViewport();
         }
 
