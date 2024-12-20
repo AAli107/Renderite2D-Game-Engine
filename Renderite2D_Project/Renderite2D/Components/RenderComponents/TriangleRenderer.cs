@@ -21,9 +21,9 @@ namespace Renderite2D_Project.Renderite2D.Components.RenderComponents
         {
             parameters = new object[6] 
             {
-                pointA + Parent.transform.position, 
-                pointB + Parent.transform.position, 
-                pointC + Parent.transform.position,
+                (pointA * Parent.transform.scale) + Parent.transform.position, 
+                (pointB * Parent.transform.scale) + Parent.transform.position, 
+                (pointC * Parent.transform.scale) + Parent.transform.position,
                 color, 
                 texture, 
                 isStatic 

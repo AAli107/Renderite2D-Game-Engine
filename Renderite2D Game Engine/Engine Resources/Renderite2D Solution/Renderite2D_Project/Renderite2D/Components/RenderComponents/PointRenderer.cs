@@ -18,7 +18,7 @@ namespace Renderite2D_Project.Renderite2D.Components.RenderComponents
         {
             parameters = new object[4] 
             {
-                position + Parent.transform.position, 
+                (position * Parent.transform.position) + Parent.transform.position, 
                 color, 
                 size, 
                 isStatic 

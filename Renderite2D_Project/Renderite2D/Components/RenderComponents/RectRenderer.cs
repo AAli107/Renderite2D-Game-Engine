@@ -19,8 +19,8 @@ namespace Renderite2D_Project.Renderite2D.Components.RenderComponents
         {
             drawType = isOutline ? Game.DrawType.Rectangle_Outline : Game.DrawType.Rectangle;
             parameters = isOutline ?
-                new object[] { position + Parent.transform.position - (isCentered ? dimension * 0.5 : Vector2d.Zero), dimension, color, isStatic } :
-                new object[] { position + Parent.transform.position - (isCentered ? dimension * 0.5 : Vector2d.Zero), dimension, color, texture, isStatic };
+                new object[] { (position * Parent.transform.scale) + Parent.transform.position - (isCentered ? (dimension * Parent.transform.scale) * 0.5 : Vector2d.Zero), dimension * Parent.transform.scale, color, isStatic } :
+                new object[] { (position * Parent.transform.scale) + Parent.transform.position - (isCentered ? (dimension * Parent.transform.scale) * 0.5 : Vector2d.Zero), dimension * Parent.transform.scale, color, texture, isStatic };
             base.Update();
         }
     }

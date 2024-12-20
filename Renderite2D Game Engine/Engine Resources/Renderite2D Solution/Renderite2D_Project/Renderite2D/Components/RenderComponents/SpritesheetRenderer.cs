@@ -25,8 +25,8 @@ namespace Renderite2D_Project.Renderite2D.Components.RenderComponents
 
             parameters = new object[7] 
             { 
-                position + Parent.transform.position - (isCentered ? dimension * 0.5 : Vector2d.Zero),
-                dimension,
+                (position * Parent.transform.scale) + Parent.transform.position - (isCentered ? (dimension * Parent.transform.scale) * 0.5 : Vector2d.Zero),
+                dimension * Parent.transform.scale,
                 color,
                 texture,
                 index,
